@@ -52,7 +52,7 @@ def load_countdown_dataset(batch_size, max_length):
     <answer>(29 * 19) - 9</answer>
     """
 
-    train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train[:10]")
+    train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train[:100]")
     train_dataset = train_dataset.map(lambda example, idx: {
         "prompt": PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]),
         "idx": idx},

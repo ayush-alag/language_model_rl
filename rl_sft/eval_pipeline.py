@@ -30,12 +30,10 @@ def eval_wsd(model_path, batch_size, max_length):
 
     scores = []
     for example in test_dataloader:
-        print(example.keys())
         input_ids = torch.tensor(example["input_ids"]).to(model.device)
         mask = torch.tensor(example["attention_mask"]).to(model.device)
         generated = model.generate(input_ids=input_ids, attention_mask=mask, max_new_tokens=128)
         decoded = tokenizer.decode(generated[0], skip_special_tokens=True)
-        print(decoded)
         gt = {"target": example["target"], "numbers": example["numbers"]}
         scores.append(compute_score(decoded, gt))
     avg_score = sum(scores) / len(scores)
