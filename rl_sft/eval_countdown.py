@@ -7,6 +7,8 @@ import operator
 def extract_solution(solution_str):
     """Extract the equation from the solution string."""
     # Remove everything before the first "Assistant:"
+    print("Solution string: ", solution_str)
+    print("done")
     if "Assistant:" in solution_str:
         solution_str = solution_str.split("Assistant:", 1)[1]
     elif "<|im_start|>assistant" in solution_str:

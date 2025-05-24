@@ -41,21 +41,27 @@ def tokenize_text(text, tokenizer, max_length, task, query_column, completion_co
 def load_countdown_dataset(batch_size, max_length):
     # this is taken from WSD dataset
     PROMPT_FORMAT = """
-    A conversation between User and Assistant. The user asks a question,
-    and the Assistant solves it. The assistant first thinks about the reasoning process
-    in the mind and then provides the user with the answer.
     User: Using the numbers {numbers}, create an equation that equals {target}.
-    You can use basic arithmetic operations (+, -, *, /) and each number can only be used once.
-    Show your work in <think> </think> tags.
-    And return the final answer in <answer> </answer> tags,
-    for example <answer> (1 + 2) / 3 </answer>.
+    You may use only the basic operations +, -, *, /, and each number exactly once.
+    You must start your answer with "Assistant: "!
+    First, show your reasoning inside <think>…</think> tags.
+    Then, on its own final line, output ONLY the equation wrapped in <answer>…</answer> tags.
+    For example:
+    Assistant:
+    <think>74 - 45 = 29</think>
+    <answer>(29 * 19) - 9</answer>
     """
 
     train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train[:10]")
-    train_dataset = train_dataset.map(lambda x: {"prompt": PROMPT_FORMAT.format(target=x["target"], numbers=x["nums"])})
+    train_dataset = train_dataset.map(lambda example, idx: {
+        "prompt": PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]),
+        "idx": idx},
+        with_indices=True,
+        batched=False,
+    )
     tokenized_train_dataset = tokenize_dataset(train_dataset, max_length=max_length, task="countdown", query_column="prompt", completion_column=None)
-    tokenized_train_dataset.set_format("torch", columns=["input_ids", "attention_mask"])
-    return DataLoader(tokenized_train_dataset, batch_size=batch_size, shuffle=True), train_dataset
+    tokenized_train_dataset.set_format("torch", columns=["input_ids", "attention_mask", "idx"])
+    return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset
 
 def tokenize_dataset(dataset, max_length, task, query_column, completion_column):
     # we want to use Qwen 2.5 for all datasets
