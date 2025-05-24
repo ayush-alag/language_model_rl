@@ -7,7 +7,7 @@ from tqdm import tqdm
 from smoltalk_dataloader import load_dataset_and_tokenize, set_seed
 from torch.amp import autocast, GradScaler
 
-def get_batch_loss(model, batch, device, scaler):
+def get_batch_loss(model, batch, device):
     with autocast(device_type=device.type, dtype=torch.float16):
         input_ids = batch["input_ids"].to(device)
         attention_mask = batch["attention_mask"].to(device)
@@ -35,11 +35,13 @@ def train(args):
         "Qwen/Qwen2.5-0.5B",
         trust_remote_code=True).to(device)
 
+    model = torch.compile(model)
+
     # TODO: this reads the entire dataset; we could cache this
     train_dataloader, test_dataloader = load_dataset_and_tokenize(args.task, args.max_length, args.batch_size)
 
     optimizer = AdamW(model.parameters(), lr=args.learning_rate)
-    num_training_steps = len(train_dataloader) * args.num_epochs
+    num_training_steps = len(train_dataloader) * args.num_epochs // args.gradient_accumulation_steps
     warmup_steps = num_training_steps // 10
     scheduler = get_cosine_schedule_with_warmup(
         optimizer,
@@ -54,29 +56,33 @@ def train(args):
     for epoch in range(args.num_epochs):
         model.train()
         total_loss = 0
+        optimizer.zero_grad()
 
-        for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch + 1}")):
-            # so that we don't accumulate gradients
-            optimizer.zero_grad()
-
-            loss = get_batch_loss(model, batch, device, scaler)
+        progress_bar = tqdm(train_dataloader, desc=f"Epoch {epoch + 1}")
+        for step, batch in enumerate(progress_bar):
+            loss = get_batch_loss(model, batch, device)
+            loss = loss / args.gradient_accumulation_steps
             scaler.scale(loss).backward()
-            scaler.step(optimizer)
-            scaler.update()
-            scheduler.step()
-            global_step += 1
 
-            if global_step % args.eval_steps == 0:
-                eval_loss = evaluate(model, test_dataloader, device)
-                if eval_loss < min_test_loss:
-                    min_test_loss = eval_loss
-                    save_checkpoint(model, args.output_dir, f"best_model")
-                print(f"Step {global_step}, Eval Loss: {eval_loss:.4f}")
+            if (step + 1) % args.gradient_accumulation_steps == 0:
+                scaler.step(optimizer)
+                scaler.update()
+                scheduler.step()
+                optimizer.zero_grad()
+                global_step += 1
 
-            if global_step % args.save_steps == 0:
-                save_checkpoint(model, args.output_dir, f"checkpoint-{global_step}")
+                if global_step % args.eval_steps == 0:
+                    eval_loss = evaluate(model, test_dataloader, device)
+                    if eval_loss < min_test_loss:
+                        min_test_loss = eval_loss
+                        save_checkpoint(model, args.output_dir, f"best_model")
+                    print(f"Step {global_step}, Eval Loss: {eval_loss:.4f}")
 
-            total_loss += loss.item()
+                # if global_step % args.save_steps == 0:
+                #     save_checkpoint(model, args.output_dir, f"checkpoint-{global_step}")
+
+            total_loss += loss.item() * args.gradient_accumulation_steps
+            progress_bar.set_postfix(loss=loss.item())
 
         print(f"Epoch {epoch + 1} completed. Average loss: {total_loss / len(train_dataloader):.4f}")
 
@@ -102,10 +108,11 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--max_length", type=int, default=512)
     parser.add_argument("--learning_rate", type=float, default=2e-5)
-    parser.add_argument("--num_epochs", type=int, default=3)
+    parser.add_argument("--num_epochs", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--save_steps", type=int, default=500)
-    parser.add_argument("--eval_steps", type=int, default=500)
+    parser.add_argument("--save_steps", type=int, default=100)
+    parser.add_argument("--eval_steps", type=int, default=100)
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=5)
     args = parser.parse_args()
     set_seed(args.seed)
     train(args)
