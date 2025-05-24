@@ -19,3 +19,6 @@ build-backend = "setuptools.build_meta"
 
 [project.scripts]
 uv = "src.cli:cli"
+
+[tool.setuptools]
+py-modules = ["smoltalk_dataloader", "train_sft"]

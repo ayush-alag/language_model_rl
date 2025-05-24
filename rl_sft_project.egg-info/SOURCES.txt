@@ -1,6 +1,5 @@
 README.md
 pyproject.toml
-smoltalk_dataloader.py
 rl_sft_project.egg-info/PKG-INFO
 rl_sft_project.egg-info/SOURCES.txt
 rl_sft_project.egg-info/dependency_links.txt
