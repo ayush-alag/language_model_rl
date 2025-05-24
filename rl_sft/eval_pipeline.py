@@ -62,6 +62,7 @@ def eval_countdown(model_path, batch_size, max_length):
         mask = torch.tensor(example["attention_mask"]).to(model.device)
         generated = model.generate(input_ids=input_ids, attention_mask=mask, max_new_tokens=1028)
         idx = example["idx"]
+
         decoded = tokenizer.decode(generated[0], skip_special_tokens=True)
         gt = {"target": dataset[idx]["target"], "numbers": dataset[idx]["nums"]}
         # print(f"example {idx}: {decoded}")
