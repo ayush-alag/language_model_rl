@@ -37,9 +37,10 @@ def tokenize_text(text, tokenizer, max_length, task, query_column, completion_co
         return tokenizer(text, truncation=True, padding="max_length", max_length=max_length)
 
 # special because no test dataset
-def load_countdown_dataset():
+def load_countdown_dataset(batch_size, max_length):
     train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train")
-    return train_dataset
+    tokenized_train_dataset = tokenize_dataset(train_dataset, max_length=max_length, task="countdown", query_column=None, completion_column=None)
+    return DataLoader(tokenized_train_dataset, batch_size=batch_size, shuffle=True)
 
 def tokenize_dataset(dataset, max_length, task, query_column, completion_column):
     # we want to use Qwen 2.5 for all datasets

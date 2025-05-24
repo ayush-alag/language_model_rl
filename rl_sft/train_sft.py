@@ -4,8 +4,9 @@ import torch
 from torch.optim import AdamW
 from transformers import AutoModelForCausalLM, AutoTokenizer, get_cosine_schedule_with_warmup
 from tqdm import tqdm
-from smoltalk_dataloader import load_dataset_and_tokenize, set_seed
+from dataloader import load_dataset_and_tokenize, set_seed
 from torch.amp import autocast, GradScaler
+import wandb
 
 def get_batch_loss(model, batch, device):
     with autocast(device_type=device.type, dtype=torch.float16):
@@ -28,6 +29,17 @@ def get_device():
     return device
 
 def train(args):
+    wandb.init(
+        project="rl-sft",
+        name=args.task,
+        config={
+            "batch_size": args.batch_size,
+            "max_lr": args.learning_rate,
+            "epochs": args.num_epochs,
+            "max_length": args.max_length,
+        }
+    )
+
     device = get_device()
     print(f"Using device: {device}")
 
@@ -71,8 +83,14 @@ def train(args):
                 optimizer.zero_grad()
                 global_step += 1
 
+                wandb.log({
+                    "train/loss": loss.item(),
+                    "train/lr": scheduler.get_last_lr()[0],
+                    "train/step": global_step,
+                })
+
                 if global_step % args.eval_steps == 0:
-                    eval_loss = evaluate(model, test_dataloader, device)
+                    eval_loss = evaluate(model, test_dataloader, device, global_step)
                     if eval_loss < min_test_loss:
                         min_test_loss = eval_loss
                         save_checkpoint(model, args.output_dir, f"best_model")
@@ -86,7 +104,9 @@ def train(args):
 
         print(f"Epoch {epoch + 1} completed. Average loss: {total_loss / len(train_dataloader):.4f}")
 
-def evaluate(model, test_dataloader, device):
+    wandb.finish()
+
+def evaluate(model, test_dataloader, device, global_step):
     model.eval()
     total_loss = 0
 
@@ -94,6 +114,10 @@ def evaluate(model, test_dataloader, device):
         for batch in test_dataloader:
             loss = get_batch_loss(model, batch, device)
             total_loss += loss.item()
+            wandb.log({
+                "test/loss": loss.item(),
+                "test/step": global_step,
+            })
 
     return total_loss / len(test_dataloader)
 
