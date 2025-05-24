@@ -102,7 +102,7 @@ def train(args):
             total_loss += loss.item() * args.gradient_accumulation_steps
             progress_bar.set_postfix(loss=loss.item())
 
-        print(f"Epoch {epoch + 1} completed. Average loss: {total_loss / len(train_dataloader):.4f}")
+        print(f"Epoch {epoch + 1} completed. avg loss: {total_loss / len(train_dataloader):.4f}")
 
     wandb.finish()
 
@@ -114,10 +114,11 @@ def evaluate(model, test_dataloader, device, global_step):
         for batch in test_dataloader:
             loss = get_batch_loss(model, batch, device)
             total_loss += loss.item()
-            wandb.log({
-                "test/loss": loss.item(),
-                "test/step": global_step,
-            })
+
+    wandb.log({
+        "test/loss": total_loss / len(test_dataloader),
+        "test/step": global_step,
+    })
 
     return total_loss / len(test_dataloader)
 
@@ -132,11 +133,11 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--max_length", type=int, default=512)
     parser.add_argument("--learning_rate", type=float, default=2e-5)
-    parser.add_argument("--num_epochs", type=int, default=10)
+    parser.add_argument("--num_epochs", type=int, default=1)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--save_steps", type=int, default=100)
-    parser.add_argument("--eval_steps", type=int, default=100)
-    parser.add_argument("--gradient_accumulation_steps", type=int, default=5)
+    parser.add_argument("--save_steps", type=int, default=5)
+    parser.add_argument("--eval_steps", type=int, default=10)
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=1)
     args = parser.parse_args()
     set_seed(args.seed)
     train(args)

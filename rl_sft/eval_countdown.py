@@ -4,7 +4,6 @@ import ast
 import operator
 
 # taken from Gandhi as given in the FAQ
-
 def extract_solution(solution_str):
     """Extract the equation from the solution string."""
     # Remove everything before the first "Assistant:"
