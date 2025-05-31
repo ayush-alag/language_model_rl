@@ -114,8 +114,8 @@ def eval_countdown_vllm(model_path, batch_size, max_length, from_json=False):
 
     sampling_params = SamplingParams(
         max_tokens=max_length,
-        temperature=0.95,
-        top_p=0.95,
+        temperature=0.0,
+        top_p=1.0,
     )
 
     _, dataset = load_countdown_dataset(batch_size, max_length, from_json)
@@ -124,17 +124,26 @@ def eval_countdown_vllm(model_path, batch_size, max_length, from_json=False):
     print(prompts[0])
 
     outputs = model.generate(prompts, sampling_params=sampling_params)
-    with open("countdown_outputs.jsonl", "w") as f:
+    scores = []
+    with open("countdown_outputs.json", "w") as f:
         for i, output in enumerate(outputs):
             nums = dataset[i]["numbers"]
             target = dataset[i]["target"]
             response = extract_solution(output.outputs[0].text)
+            if not response:
+                response = ""
+
             print(f"target: {target}, nums: {nums}, response: {response}")
             f.write(json.dumps({
-                "target": target,
                 "num": nums,
                 "response": response,
-            }) + "\n")
+                "target": target,
+            }, separators=(",", ":")) + "\n")
+
+            score = compute_score(response, {"target": [target], "numbers": [nums]}, is_equation=True)
+            scores.append(score)
+    avg_score = sum(scores) / len(scores)
+    print(f"countdown average score: {avg_score:.3f}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

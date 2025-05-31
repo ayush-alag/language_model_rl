@@ -15,7 +15,7 @@
 {"num":[42,37,1],"response":"","target":79}
 {"num":[28,13,77,82],"response":"(82 - (77 - 28)) + 13","target":46}
 {"num":[8,74,65,10],"response":"","target":9}
-{"num":[92,32,4],"response":"(92 - 32) - 4","target":56}
+{"num":[92,32,4],"response":"","target":56}
 {"num":[82,52,35],"response":"","target":99}
 {"num":[97,61,17],"response":"(97 - 61) - 17 - 17","target":19}
 {"num":[34,10,42],"response":"","target":86}
@@ -32,10 +32,10 @@
 {"num":[4,29,31,21],"response":"(31 - 18) + 4","target":43}
 {"num":[49,57,9],"response":"","target":97}
 {"num":[68,24,36],"response":"(68 - 36) - 24","target":8}
-{"num":[65,9,8],"response":"","target":82}
+{"num":[65,9,8],"response":"(65 + 9) + 8","target":82}
 {"num":[60,93,0,91],"response":"","target":60}
 {"num":[27,36,56],"response":"","target":47}
-{"num":[82,82,98],"response":"","target":98}
+{"num":[82,82,98],"response":"(98 - (82 + 82))","target":98}
 {"num":[56,41,3],"response":"","target":12}
 {"num":[5,12,87,20],"response":"","target":60}
 {"num":[24,36,4],"response":"","target":33}
@@ -43,7 +43,7 @@
 {"num":[40,70,22],"response":"(70 + 40) - 22","target":88}
 {"num":[93,96,66],"response":"(96 - 93) * (66 - 3)","target":63}
 {"num":[9,4,74],"response":"","target":87}
-{"num":[64,13,2],"response":"","target":49}
+{"num":[64,13,2],"response":"(64/2 + 13) + 1","target":49}
 {"num":[50,40,73],"response":"(73 - 50) - 40 / 17","target":17}
 {"num":[56,14,10,60],"response":"","target":0}
 {"num":[8,6,8],"response":"","target":40}
@@ -69,13 +69,13 @@
 {"num":[48,85,10,55],"response":"","target":68}
 {"num":[30,19,40,15],"response":"","target":66}
 {"num":[42,42,46],"response":"(46/46) * (42 + 42)","target":38}
-{"num":[27,76,17],"response":"(76 - 17) + 27","target":86}
+{"num":[27,76,17],"response":"","target":86}
 {"num":[22,98,33,44],"response":"","target":1}
 {"num":[9,79,31,52],"response":"(79 - (52 - 31)) + 9","target":67}
 {"num":[70,95,93],"response":"","target":72}
-{"num":[45,31,1],"response":"(45 + 1) + 31 - 1","target":76}
+{"num":[45,31,1],"response":"","target":76}
 {"num":[79,14,27],"response":"(79 - 27) + 14","target":66}
-{"num":[57,71,6,42],"response":"","target":22}
+{"num":[57,71,6,42],"response":"(71 - 6) - (42 - 57)","target":22}
 {"num":[92,55,49,72],"response":"","target":14}
 {"num":[11,80,16,64],"response":"","target":70}
 {"num":[25,78,60],"response":"","target":7}
@@ -84,7 +84,7 @@
 {"num":[91,41,15],"response":"","target":65}
 {"num":[13,0,2,75],"response":"","target":0}
 {"num":[79,55,28],"response":"(79 - 55) + 28","target":52}
-{"num":[3,12,55],"response":"(55 - 3) + 12 - 19","target":46}
+{"num":[3,12,55],"response":"(55 - 12) + 3","target":46}
 {"num":[50,19,27,49],"response":"","target":53}
 {"num":[75,24,47],"response":"","target":52}
 {"num":[90,56,62],"response":"","target":84}
@@ -97,7 +97,7 @@
 {"num":[7,21,20,22],"response":"","target":26}
 {"num":[44,64,94],"response":"","target":14}
 {"num":[63,75,46],"response":"(75 + 63) - 46","target":92}
-{"num":[92,46,71],"response":"","target":67}
+{"num":[92,46,71],"response":"(92 - 71) + 46","target":67}
 {"num":[75,26,33,27],"response":"(75 + 5) + 33 + 26","target":95}
 {"num":[61,63,57],"response":"(63 - 57) * 10 - 6","target":55}
 {"num":[79,12,22],"response":"","target":69}
@@ -116,7 +116,7 @@
 {"num":[96,43,40,95],"response":"(43-(-1))-(95-96)","target":4}
 {"num":[60,56,98,13],"response":"","target":5}
 {"num":[42,17,34,66],"response":"(42 + 17) + (66 - 34)","target":91}
-{"num":[16,8,45],"response":"","target":47}
+{"num":[16,8,45],"response":"(45 - 16) - 45","target":47}
 {"num":[95,57,64,62],"response":"(95 - 57) - 62 + 64","target":36}
 {"num":[12,14,38],"response":"","target":64}
 {"num":[7,11,82,91],"response":"","target":27}
@@ -131,7 +131,7 @@
 {"num":[54,62,47],"response":"(62 - 47) + 54","target":69}
 {"num":[99,92,88],"response":"(99 - (92 - 88))","target":95}
 {"num":[26,13,7],"response":"","target":46}
-{"num":[96,99,40],"response":"(96 - 99) + 40","target":37}
+{"num":[96,99,40],"response":"(99 - 96) + (40 - 3)","target":37}
 {"num":[57,26,13],"response":"(57 - 26) + 13","target":44}
 {"num":[74,13,52],"response":"(74 - 52) - 13","target":9}
 {"num":[52,27,14],"response":"(52 + 27) - 14","target":65}
@@ -153,7 +153,7 @@
 {"num":[53,7,87,43],"response":"","target":90}
 {"num":[43,28,67],"response":"(67 + 43) - 28","target":82}
 {"num":[22,80,44],"response":"(80 - 44) + 22","target":58}
-{"num":[18,21,21],"response":"(21 - 21) - 18","target":18}
+{"num":[18,21,21],"response":"(18 - (21 - 21))","target":18}
 {"num":[42,40,60],"response":"(60 - 42) + 40 + 6","target":62}
 {"num":[20,32,41],"response":"","target":93}
 {"num":[64,43,9],"response":"(64 + 43) - 9","target":98}
