@@ -2,7 +2,7 @@ import os
 import json
 import random
 import argparse
-from datasets import load_dataset
+from datasets import load_dataset, Dataset
 from transformers import AutoTokenizer
 import torch
 from torch.utils.data import DataLoader
@@ -37,8 +37,19 @@ def tokenize_text(text, tokenizer, max_length, task, query_column, completion_co
     elif task == "countdown":
         return tokenizer(text[query_column], truncation=True, padding="max_length", max_length=max_length)
 
+def load_json_countdown(file_path):
+    data = []
+    with open(file_path, "r") as json_file:
+        for line in json_file:
+            line = line.strip()
+            if line:
+                json_data = json.loads(line)
+                data.append((json_data["target"], json_data["num"]))
+    print(data[0])
+    return data
+
 # special because no test dataset
-def load_countdown_dataset(batch_size, max_length):
+def load_countdown_dataset(batch_size, max_length, from_json=False):
     # this is taken from WSD dataset
     PROMPT_FORMAT = """
     User: Using the numbers {numbers}, create an equation that equals {target}.
@@ -52,13 +63,22 @@ def load_countdown_dataset(batch_size, max_length):
     <answer>(29 * 19) - 9</answer>
     """
 
-    train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train[:100]")
-    train_dataset = train_dataset.map(lambda example, idx: {
-        "prompt": PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]),
-        "idx": idx},
-        with_indices=True,
-        batched=False,
-    )
+    if from_json:
+        train_dataset = load_json_countdown("countdown.json")
+        prompts = [PROMPT_FORMAT.format(target=example[0], numbers=example[1]) for example in train_dataset]
+        idx = [i for i in range(len(train_dataset))]
+        train_dataset = {"prompt": prompts, "idx": idx, "target": [example[0] for example in train_dataset], "numbers": [example[1] for example in train_dataset]}
+        train_dataset = Dataset.from_dict(train_dataset)
+    else:
+        train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train[:100]")
+
+        train_dataset = train_dataset.map(lambda example, idx: {
+            "prompt": PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]),
+            "idx": idx},
+            with_indices=True,
+            batched=False,
+        )
+
     tokenized_train_dataset = tokenize_dataset(train_dataset, max_length=max_length, task="countdown", query_column="prompt", completion_column=None)
     tokenized_train_dataset.set_format("torch", columns=["input_ids", "attention_mask", "idx"])
     return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset

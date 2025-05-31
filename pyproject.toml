@@ -11,14 +11,15 @@ dependencies = [
   "evaluate>=0.4.0",
   "numpy",
   "tqdm",
+  "wandb>=0.19.11",
+  "vllm>=0.9.0.1",
 ]
 
 [build-system]
 requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[project.scripts]
-uv = "src.cli:cli"
+
 
 [tool.setuptools]
 py-modules = ["smoltalk_dataloader", "train_sft"]

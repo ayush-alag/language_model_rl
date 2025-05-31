@@ -1,9 +1,11 @@
-from eval_countdown import compute_score
+from eval_countdown import compute_score, extract_solution
 from dataloader import load_dataset_and_tokenize, load_countdown_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from train_sft import get_device
 import argparse
 import torch
+import json
+from vllm import LLM, SamplingParams
 
 """Args:
     solution_str: the solution text
@@ -39,20 +41,29 @@ def eval_wsd(model_path, batch_size, max_length):
     avg_score = sum(scores) / len(scores)
     print(f"wsd average score: {avg_score:.3f}")
 
-def eval_countdown(model_path, batch_size, max_length):
-    device = get_device()
-    model = AutoModelForCausalLM.from_pretrained(
-        model_path,
-        trust_remote_code=True)
-    model.to(device).eval()
-    tokenizer = AutoTokenizer.from_pretrained(
-        "Qwen/Qwen2.5-0.5B",
-        trust_remote_code=True,
-        use_fast=True,
-    )
+def write_output_json(model, tokenizer, dataloader, dataset):
+    with open("countdown_outputs.jsonl", "w") as f:
+        for example in dataloader:
+            input_ids = torch.tensor(example["input_ids"]).to(model.device)
+            mask = torch.tensor(example["attention_mask"]).to(model.device)
+            generated = model.generate(input_ids=input_ids, attention_mask=mask, max_new_tokens=1028)
+            idx = example["idx"]
+            decoded = tokenizer.decode(generated[0], skip_special_tokens=True)
+            solution = extract_solution(decoded)
 
-    dataloader, dataset = load_countdown_dataset(batch_size, max_length)
+            if not solution:
+                solution = ""
 
+            dict_item = {
+                "target": dataset[idx]["target"],
+                "numbers": dataset[idx]["numbers"][0],
+                "solution": solution,
+            }
+            print(dict_item)
+
+            f.write(json.dumps(dict_item) + "\n")
+
+def get_scores(model, tokenizer, dataloader, dataset):
     scores = []
     # batch size is 1
     for example in dataloader:
@@ -62,6 +73,7 @@ def eval_countdown(model_path, batch_size, max_length):
         idx = example["idx"]
 
         decoded = tokenizer.decode(generated[0], skip_special_tokens=True)
+        print(dataset[idx])
         gt = {"target": dataset[idx]["target"], "numbers": dataset[idx]["nums"]}
         # print(f"example {idx}: {decoded}")
         # print(gt)
@@ -72,11 +84,64 @@ def eval_countdown(model_path, batch_size, max_length):
     avg_score = sum(scores) / len(scores)
     print(f"countdown average score: {avg_score:.3f}")
 
+def eval_countdown(model_path, batch_size, max_length, from_json=False):
+    device = get_device()
+    print(device)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_path,
+        trust_remote_code=True)
+    model.to(device).eval()
+    tokenizer = AutoTokenizer.from_pretrained(
+        "Qwen/Qwen2.5-0.5B",
+        trust_remote_code=True,
+        use_fast=True,
+    )
+
+    dataloader, dataset = load_countdown_dataset(batch_size, max_length, from_json)
+
+    if not from_json:
+        get_scores(model, tokenizer, dataloader, dataset)
+    else:
+        write_output_json(model, tokenizer, dataloader, dataset)
+
+def eval_countdown_vllm(model_path, batch_size, max_length, from_json=False):
+    device = get_device()
+    model = LLM(
+        model=model_path,
+        tokenizer="Qwen/Qwen2.5-0.5B",
+        device=device,
+    )
+
+    sampling_params = SamplingParams(
+        max_tokens=max_length,
+        temperature=0.95,
+        top_p=0.95,
+    )
+
+    _, dataset = load_countdown_dataset(batch_size, max_length, from_json)
+    print(dataset[0])
+    prompts = [example["prompt"] for example in dataset]
+    print(prompts[0])
+
+    outputs = model.generate(prompts, sampling_params=sampling_params)
+    with open("countdown_outputs.jsonl", "w") as f:
+        for i, output in enumerate(outputs):
+            nums = dataset[i]["numbers"]
+            target = dataset[i]["target"]
+            response = extract_solution(output.outputs[0].text)
+            print(f"target: {target}, nums: {nums}, response: {response}")
+            f.write(json.dumps({
+                "target": target,
+                "num": nums,
+                "response": response,
+            }) + "\n")
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_path", type=str, default="checkpoints/best_model")
     parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--max_length", type=int, default=1024)
+    parser.add_argument("--from_json", action="store_true")
     args = parser.parse_args()
     # eval_wsd(args.model_path, args.batch_size, args.max_length)
-    eval_countdown(args.model_path, args.batch_size, args.max_length)
+    eval_countdown_vllm(args.model_path, args.batch_size, args.max_length, args.from_json)
