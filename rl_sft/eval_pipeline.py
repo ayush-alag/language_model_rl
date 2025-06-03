@@ -144,6 +144,7 @@ def eval_countdown_vllm(model_path, batch_size, max_length, from_json=False):
             scores.append(score)
     avg_score = sum(scores) / len(scores)
     print(f"countdown average score: {avg_score:.3f}")
+    return avg_score
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

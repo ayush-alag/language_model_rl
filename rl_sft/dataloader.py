@@ -70,7 +70,7 @@ def load_countdown_dataset(batch_size, max_length, from_json=False):
         train_dataset = {"prompt": prompts, "idx": idx, "target": [example[0] for example in train_dataset], "numbers": [example[1] for example in train_dataset]}
         train_dataset = Dataset.from_dict(train_dataset)
     else:
-        train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train[:100]")
+        train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train")
 
         train_dataset = train_dataset.map(lambda example, idx: {
             "prompt": PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]),
