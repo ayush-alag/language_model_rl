@@ -10,23 +10,50 @@ from train_sft import get_device, save_checkpoint, eval_countdown_vllm
 from tqdm import tqdm
 import torch.nn.functional as F
 import wandb
+from vllm import LLM, SamplingParams
 
-def log_probs(model, input_ids, attention_mask, gen_len):
-    out = model(input_ids=input_ids, attention_mask=attention_mask).logits[:, :-1]
+def log_probs(model, input_ids, num_generated_tokens):
+    out = model(input_ids=input_ids).logits[:, :-1]
     labels = input_ids[:, 1:]
-    logp = F.log_softmax(out, dim=-1)
-    log_probabilities = logp.gather(-1, labels.unsqueeze(-1)).squeeze(-1)
-    log_probabilities_gen = log_probabilities[:, -gen_len:]
-    return log_probabilities_gen.sum(dim=-1)
+    log_softmax = F.log_softmax(out, dim=-1)
+    log_probabilities_y = log_softmax.gather(-1, labels.unsqueeze(-1)).squeeze(-1)
+    log_probabilities_response = log_probabilities_y[:, -num_generated_tokens:]
+    return log_probabilities_response.sum(dim=-1)
 
-def sample_k(model, tokenizer, prompt_ids, prompt_mask, k, max_new):
-    batch = prompt_ids.repeat_interleave(k, 0)
-    mask = prompt_mask.repeat_interleave(k, 0)
-    gen = model.generate(input_ids=batch, attention_mask=mask, max_new_tokens=max_new, do_sample=True, temperature=0.7)
-    gen_len = gen.size(1) - prompt_ids.size(1)
-    logp = log_probs(model, gen, torch.ones_like(gen), gen_len)
-    texts = tokenizer.batch_decode(gen[:, prompt_ids.size(1):], skip_special_tokens=True)
-    return texts, logp
+def sample_k(model, vllm_model, tokenizer, prompt_ids, k, max_new):
+    prompt_texts = tokenizer.batch_decode(prompt_ids, skip_special_tokens=True)
+    sampling_params = SamplingParams(
+        n=k,
+        temperature=0.8,
+        top_p=0.95,
+        max_tokens=max_new,
+    )
+
+    outputs = vllm_model.generate(prompt_texts, sampling_params)
+    texts = []
+    log_probabilities = []
+    for p_idx, res in enumerate(outputs):
+        prompt_len = prompt_ids[p_idx].size(0)
+        for out in res.outputs:
+            output = out.text
+            full_ids = tokenizer.encode(prompts[p_idx] + output, return_tensors="pt").to(model.device)
+            gen_len = full_ids.size(1) - prompt_len
+            logp = log_probs(model, full_ids, gen_len)[0]
+            texts.append(output)
+            log_probabilities.append(logp)
+    return texts, torch.stack(log_probabilities)
+
+def get_batch_loss(model, batch, device, tokenizer, dataset):
+    idx = batch["idx"]
+    prompt_ids = batch["input_ids"].to(device)
+    texts, log_probabilities = sample_k(model, tokenizer, prompt_ids, args.k, args.gen_tokens)
+    rewards = []
+    for i, t in enumerate(texts):
+        nums = dataset[idx[i]]["nums"]
+        target = dataset[idx[i]]["target"]
+        rewards.append(compute_score(t, {"target": [target], "numbers": [nums]}))
+    rewards = torch.tensor(rewards, dtype=torch.float32, device=device)
+    return rloo_loss(rewards, log_probabilities)
 
 def rloo_loss(rewards, log_probabilities):
     baseline = (rewards.sum() - rewards) / (rewards.size(0) - 1)
@@ -35,20 +62,6 @@ def rloo_loss(rewards, log_probabilities):
     # we dont pass gradients to the rewards (they are fixed)
     loss = -(adv.detach() * log_probabilities).mean()
     return loss
-
-def get_batch_loss(model, batch, device, tokenizer, dataset):
-    idx = batch["idx"]
-    prompt_ids = batch["input_ids"].to(device)
-    prompt_mask = batch["attention_mask"].to(device)
-    texts, log_probabilities = sample_k(model, tokenizer, prompt_ids, prompt_mask, args.k, args.gen_tokens)
-    rewards = []
-    for i, t in enumerate(texts):
-        nums = dataset[idx[i]]["nums"]
-        target = dataset[idx[i]]["target"]
-        rewards.append(compute_score(t, {"target": [target], "numbers": [nums]}))
-    rewards = torch.tensor(rewards, dtype=torch.float32, device=device)
-    log_probabilities = log_probabilities.to(device)
-    return rloo_loss(rewards, log_probabilities)
 
 def train(args):
     wandb.init(
@@ -68,8 +81,16 @@ def train(args):
     model = AutoModelForCausalLM.from_pretrained(
         args.sft_checkpoint,
         trust_remote_code=True).to(device)
-
     tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-0.5B", trust_remote_code=True, use_fast=True)
+
+    # vllm is for quick rollouts
+    vllm_model = LLM(
+        model=args.sft_checkpoint,
+        tokenizer="Qwen/Qwen2.5-0.5B",
+        device=device,
+    )
+    vllm_model.reload_model_weights(model.state_dict())
+
     train_loader, dataset = load_countdown_dataset(1, args.max_length, False)
 
     optimizer = AdamW(model.parameters(), lr=args.lr)
@@ -86,8 +107,7 @@ def train(args):
         model.train()
         optimizer.zero_grad()
 
-        progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1}")
-        for batch in progress_bar:
+        for batch in tqdm(train_loader, desc=f"Epoch {epoch+1}"):
             loss = get_batch_loss(model, batch, device, tokenizer, dataset)
             loss = loss / args.gradient_accumulation_steps
             scaler.scale(loss).backward()
@@ -96,6 +116,8 @@ def train(args):
                 scaler.update()
                 scheduler.step()
                 optimizer.zero_grad()
+                # reload the model weights to vllm
+                vllm_model.reload_model_weights(model.state_dict())
 
             if (global_step + 1) % args.log_interval == 0:
                 wandb.log({"loss": loss.item() * args.gradient_accumulation_steps, "step": global_step + 1})
