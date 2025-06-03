@@ -6,7 +6,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, get_cosine_schedul
 from dataloader import load_countdown_dataset, set_seed
 from eval_countdown import compute_score
 from torch.amp import GradScaler
-from train_sft import get_device, save_checkpoint, eval_countdown_vllm
+from train_sft import get_device, save_checkpoint
+from eval_pipeline import eval_countdown_vllm
 from tqdm import tqdm
 import torch.nn.functional as F
 import wandb
@@ -68,7 +69,7 @@ def train(args):
         project="rl-sft",
         name="rloo",
         config={
-            "max_lr": args.learning_rate,
+            "max_lr": args.lr,
             "epochs": args.num_epochs,
             "max_length": args.max_length,
             "k": args.k,
@@ -89,7 +90,6 @@ def train(args):
         tokenizer="Qwen/Qwen2.5-0.5B",
         device=device,
     )
-    vllm_model.reload_model_weights(model.state_dict())
 
     train_loader, dataset = load_countdown_dataset(1, args.max_length, False)
 
@@ -117,13 +117,16 @@ def train(args):
                 scheduler.step()
                 optimizer.zero_grad()
                 # reload the model weights to vllm
-                vllm_model.reload_model_weights(model.state_dict())
+                llm_model = vllm_model.llm_engine.model_executor.driver_worker.model_runner.model
+                llm_model.load_weights(model.state_dict())
 
             if (global_step + 1) % args.log_interval == 0:
                 wandb.log({"loss": loss.item() * args.gradient_accumulation_steps, "step": global_step + 1})
 
             if (global_step + 1) % args.eval_steps == 0:
-                eval_score = eval_countdown_vllm(model, 16, args.max_length, from_json=True)
+                output_path = f"outputs/rloo_outputs_{global_step+1}.json"
+                save_checkpoint(model, args.out_dir, f"rloo_model_{global_step+1}")
+                eval_score = eval_countdown_vllm(output_path, 16, args.max_length, from_json=True)
                 if eval_score > max_score:
                     max_score = eval_score
                     save_checkpoint(model, args.out_dir, f"best_model")
