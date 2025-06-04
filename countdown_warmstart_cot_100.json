@@ -1,0 +1,902 @@
+[
+  {
+    "nums": [
+      27,
+      51
+    ],
+    "target": 78,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 27 + 51 = 78 (this is exactly what we need!)\n- 27 - 51 = -24 (too small)\n- 51 - 27 = 24 (too small)\n- 27 * 51 = 1377 (too big)\n- 27 / 51 = 0.5294117647058824 (too small)\n- 51 / 27 = 1.8888888888888888 (too small)\n\nThis works perfectly! Let's verify:\n1. 27 + 51 = 78\n\nThis gives us our target of 78.\n</think>",
+    "answer": "<answer>27 + 51</answer>"
+  },
+  {
+    "nums": [
+      89,
+      84
+    ],
+    "target": 173,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 89 + 84 = 173 (this is exactly what we need!)\n- 89 - 84 = 5 (too small)\n- 84 - 89 = -5 (too small)\n- 89 * 84 = 7476 (too big)\n- 89 / 84 = 1.0595238095238095 (too small)\n- 84 / 89 = 0.9438202247191011 (too small)\n\nThis works perfectly! Let's verify:\n1. 89 + 84 = 173\n\nThis gives us our target of 173.\n</think>",
+    "answer": "<answer>89 + 84</answer>"
+  },
+  {
+    "nums": [
+      32,
+      78
+    ],
+    "target": -46,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 32 + 78 = 110 (too big)\n- 32 - 78 = -46 (this is exactly what we need!)\n- 78 - 32 = 46 (too big)\n- 32 * 78 = 2496 (too big)\n- 32 / 78 = 0.41025641025641024 (too big)\n- 78 / 32 = 2.4375 (too big)\n\nThis works perfectly! Let's verify:\n1. 32 - 78 = -46\n\nThis gives us our target of -46.\n</think>",
+    "answer": "<answer>32 - 78</answer>"
+  },
+  {
+    "nums": [
+      77,
+      58
+    ],
+    "target": 19,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 77 + 58 = 135 (too big)\n- 77 - 58 = 19 (this is exactly what we need!)\n- 58 - 77 = -19 (too small)\n- 77 * 58 = 4466 (too big)\n- 77 / 58 = 1.3275862068965518 (too small)\n- 58 / 77 = 0.7532467532467533 (too small)\n\nThis works perfectly! Let's verify:\n1. 77 - 58 = 19\n\nThis gives us our target of 19.\n</think>",
+    "answer": "<answer>77 - 58</answer>"
+  },
+  {
+    "nums": [
+      5,
+      1
+    ],
+    "target": 5.0,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 5 + 1 = 6 (too big)\n- 5 - 1 = 4 (too small)\n- 1 - 5 = -4 (too small)\n- 5 * 1 = 5 (this is exactly what we need!)\n- 5 / 1 = 5.0 (this is exactly what we need!)\n- 1 / 5 = 0.2 (too small)\n\nThis works perfectly! Let's verify:\n1. 5 * 1 = 5\n\nThis gives us our target of 5.0.\n</think>",
+    "answer": "<answer>5 * 1</answer>"
+  },
+  {
+    "nums": [
+      14,
+      72
+    ],
+    "target": -58,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 14 + 72 = 86 (too big)\n- 14 - 72 = -58 (this is exactly what we need!)\n- 72 - 14 = 58 (too big)\n- 14 * 72 = 1008 (too big)\n- 14 / 72 = 0.19444444444444445 (too big)\n- 72 / 14 = 5.142857142857143 (too big)\n\nThis works perfectly! Let's verify:\n1. 14 - 72 = -58\n\nThis gives us our target of -58.\n</think>",
+    "answer": "<answer>14 - 72</answer>"
+  },
+  {
+    "nums": [
+      99,
+      45
+    ],
+    "target": 144,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 99 + 45 = 144 (this is exactly what we need!)\n- 99 - 45 = 54 (too small)\n- 45 - 99 = -54 (too small)\n- 99 * 45 = 4455 (too big)\n- 99 / 45 = 2.2 (too small)\n- 45 / 99 = 0.45454545454545453 (too small)\n\nThis works perfectly! Let's verify:\n1. 99 + 45 = 144\n\nThis gives us our target of 144.\n</think>",
+    "answer": "<answer>99 + 45</answer>"
+  },
+  {
+    "nums": [
+      14,
+      78
+    ],
+    "target": -64,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 14 + 78 = 92 (too big)\n- 14 - 78 = -64 (this is exactly what we need!)\n- 78 - 14 = 64 (too big)\n- 14 * 78 = 1092 (too big)\n- 14 / 78 = 0.1794871794871795 (too big)\n- 78 / 14 = 5.571428571428571 (too big)\n\nThis works perfectly! Let's verify:\n1. 14 - 78 = -64\n\nThis gives us our target of -64.\n</think>",
+    "answer": "<answer>14 - 78</answer>"
+  },
+  {
+    "nums": [
+      72,
+      95
+    ],
+    "target": -23,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 72 + 95 = 167 (too big)\n- 72 - 95 = -23 (this is exactly what we need!)\n- 95 - 72 = 23 (too big)\n- 72 * 95 = 6840 (too big)\n- 72 / 95 = 0.7578947368421053 (too big)\n- 95 / 72 = 1.3194444444444444 (too big)\n\nThis works perfectly! Let's verify:\n1. 72 - 95 = -23\n\nThis gives us our target of -23.\n</think>",
+    "answer": "<answer>72 - 95</answer>"
+  },
+  {
+    "nums": [
+      59,
+      12
+    ],
+    "target": 47,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 59 + 12 = 71 (too big)\n- 59 - 12 = 47 (this is exactly what we need!)\n- 12 - 59 = -47 (too small)\n- 59 * 12 = 708 (too big)\n- 59 / 12 = 4.916666666666667 (too small)\n- 12 / 59 = 0.2033898305084746 (too small)\n\nThis works perfectly! Let's verify:\n1. 59 - 12 = 47\n\nThis gives us our target of 47.\n</think>",
+    "answer": "<answer>59 - 12</answer>"
+  },
+  {
+    "nums": [
+      20,
+      18
+    ],
+    "target": 2,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 20 + 18 = 38 (too big)\n- 20 - 18 = 2 (this is exactly what we need!)\n- 18 - 20 = -2 (too small)\n- 20 * 18 = 360 (too big)\n- 20 / 18 = 1.1111111111111112 (too small)\n- 18 / 20 = 0.9 (too small)\n\nThis works perfectly! Let's verify:\n1. 20 - 18 = 2\n\nThis gives us our target of 2.\n</think>",
+    "answer": "<answer>20 - 18</answer>"
+  },
+  {
+    "nums": [
+      26,
+      35
+    ],
+    "target": 61,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 26 + 35 = 61 (this is exactly what we need!)\n- 26 - 35 = -9 (too small)\n- 35 - 26 = 9 (too small)\n- 26 * 35 = 910 (too big)\n- 26 / 35 = 0.7428571428571429 (too small)\n- 35 / 26 = 1.3461538461538463 (too small)\n\nThis works perfectly! Let's verify:\n1. 26 + 35 = 61\n\nThis gives us our target of 61.\n</think>",
+    "answer": "<answer>26 + 35</answer>"
+  },
+  {
+    "nums": [
+      95,
+      2
+    ],
+    "target": 97,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 95 + 2 = 97 (this is exactly what we need!)\n- 95 - 2 = 93 (too small)\n- 2 - 95 = -93 (too small)\n- 95 * 2 = 190 (too big)\n- 95 / 2 = 47.5 (too small)\n- 2 / 95 = 0.021052631578947368 (too small)\n\nThis works perfectly! Let's verify:\n1. 95 + 2 = 97\n\nThis gives us our target of 97.\n</think>",
+    "answer": "<answer>95 + 2</answer>"
+  },
+  {
+    "nums": [
+      35,
+      39
+    ],
+    "target": 74,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 35 + 39 = 74 (this is exactly what we need!)\n- 35 - 39 = -4 (too small)\n- 39 - 35 = 4 (too small)\n- 35 * 39 = 1365 (too big)\n- 35 / 39 = 0.8974358974358975 (too small)\n- 39 / 35 = 1.1142857142857143 (too small)\n\nThis works perfectly! Let's verify:\n1. 35 + 39 = 74\n\nThis gives us our target of 74.\n</think>",
+    "answer": "<answer>35 + 39</answer>"
+  },
+  {
+    "nums": [
+      11,
+      34
+    ],
+    "target": 45,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 11 + 34 = 45 (this is exactly what we need!)\n- 11 - 34 = -23 (too small)\n- 34 - 11 = 23 (too small)\n- 11 * 34 = 374 (too big)\n- 11 / 34 = 0.3235294117647059 (too small)\n- 34 / 11 = 3.090909090909091 (too small)\n\nThis works perfectly! Let's verify:\n1. 11 + 34 = 45\n\nThis gives us our target of 45.\n</think>",
+    "answer": "<answer>11 + 34</answer>"
+  },
+  {
+    "nums": [
+      17,
+      79
+    ],
+    "target": 96,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 17 + 79 = 96 (this is exactly what we need!)\n- 17 - 79 = -62 (too small)\n- 79 - 17 = 62 (too small)\n- 17 * 79 = 1343 (too big)\n- 17 / 79 = 0.21518987341772153 (too small)\n- 79 / 17 = 4.647058823529412 (too small)\n\nThis works perfectly! Let's verify:\n1. 17 + 79 = 96\n\nThis gives us our target of 96.\n</think>",
+    "answer": "<answer>17 + 79</answer>"
+  },
+  {
+    "nums": [
+      49,
+      1
+    ],
+    "target": 50,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 49 + 1 = 50 (this is exactly what we need!)\n- 49 - 1 = 48 (too small)\n- 1 - 49 = -48 (too small)\n- 49 * 1 = 49 (too small)\n- 49 / 1 = 49.0 (too small)\n- 1 / 49 = 0.02040816326530612 (too small)\n\nThis works perfectly! Let's verify:\n1. 49 + 1 = 50\n\nThis gives us our target of 50.\n</think>",
+    "answer": "<answer>49 + 1</answer>"
+  },
+  {
+    "nums": [
+      70,
+      89
+    ],
+    "target": 159,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 70 + 89 = 159 (this is exactly what we need!)\n- 70 - 89 = -19 (too small)\n- 89 - 70 = 19 (too small)\n- 70 * 89 = 6230 (too big)\n- 70 / 89 = 0.7865168539325843 (too small)\n- 89 / 70 = 1.2714285714285714 (too small)\n\nThis works perfectly! Let's verify:\n1. 70 + 89 = 159\n\nThis gives us our target of 159.\n</think>",
+    "answer": "<answer>70 + 89</answer>"
+  },
+  {
+    "nums": [
+      62,
+      26
+    ],
+    "target": 88,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 62 + 26 = 88 (this is exactly what we need!)\n- 62 - 26 = 36 (too small)\n- 26 - 62 = -36 (too small)\n- 62 * 26 = 1612 (too big)\n- 62 / 26 = 2.3846153846153846 (too small)\n- 26 / 62 = 0.41935483870967744 (too small)\n\nThis works perfectly! Let's verify:\n1. 62 + 26 = 88\n\nThis gives us our target of 88.\n</think>",
+    "answer": "<answer>62 + 26</answer>"
+  },
+  {
+    "nums": [
+      64,
+      63
+    ],
+    "target": 1,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 64 + 63 = 127 (too big)\n- 64 - 63 = 1 (this is exactly what we need!)\n- 63 - 64 = -1 (too small)\n- 64 * 63 = 4032 (too big)\n- 64 / 63 = 1.0158730158730158 (too big)\n- 63 / 64 = 0.984375 (too small)\n\nThis works perfectly! Let's verify:\n1. 64 - 63 = 1\n\nThis gives us our target of 1.\n</think>",
+    "answer": "<answer>64 - 63</answer>"
+  },
+  {
+    "nums": [
+      37,
+      69
+    ],
+    "target": -32,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 37 + 69 = 106 (too big)\n- 37 - 69 = -32 (this is exactly what we need!)\n- 69 - 37 = 32 (too big)\n- 37 * 69 = 2553 (too big)\n- 37 / 69 = 0.5362318840579711 (too big)\n- 69 / 37 = 1.864864864864865 (too big)\n\nThis works perfectly! Let's verify:\n1. 37 - 69 = -32\n\nThis gives us our target of -32.\n</think>",
+    "answer": "<answer>37 - 69</answer>"
+  },
+  {
+    "nums": [
+      44,
+      91
+    ],
+    "target": 135,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 44 + 91 = 135 (this is exactly what we need!)\n- 44 - 91 = -47 (too small)\n- 91 - 44 = 47 (too small)\n- 44 * 91 = 4004 (too big)\n- 44 / 91 = 0.4835164835164835 (too small)\n- 91 / 44 = 2.0681818181818183 (too small)\n\nThis works perfectly! Let's verify:\n1. 44 + 91 = 135\n\nThis gives us our target of 135.\n</think>",
+    "answer": "<answer>44 + 91</answer>"
+  },
+  {
+    "nums": [
+      98,
+      31
+    ],
+    "target": 129,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 98 + 31 = 129 (this is exactly what we need!)\n- 98 - 31 = 67 (too small)\n- 31 - 98 = -67 (too small)\n- 98 * 31 = 3038 (too big)\n- 98 / 31 = 3.161290322580645 (too small)\n- 31 / 98 = 0.3163265306122449 (too small)\n\nThis works perfectly! Let's verify:\n1. 98 + 31 = 129\n\nThis gives us our target of 129.\n</think>",
+    "answer": "<answer>98 + 31</answer>"
+  },
+  {
+    "nums": [
+      9,
+      42
+    ],
+    "target": 51,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 9 + 42 = 51 (this is exactly what we need!)\n- 9 - 42 = -33 (too small)\n- 42 - 9 = 33 (too small)\n- 9 * 42 = 378 (too big)\n- 9 / 42 = 0.21428571428571427 (too small)\n- 42 / 9 = 4.666666666666667 (too small)\n\nThis works perfectly! Let's verify:\n1. 9 + 42 = 51\n\nThis gives us our target of 51.\n</think>",
+    "answer": "<answer>9 + 42</answer>"
+  },
+  {
+    "nums": [
+      24,
+      48
+    ],
+    "target": 72,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 24 + 48 = 72 (this is exactly what we need!)\n- 24 - 48 = -24 (too small)\n- 48 - 24 = 24 (too small)\n- 24 * 48 = 1152 (too big)\n- 24 / 48 = 0.5 (too small)\n- 48 / 24 = 2.0 (too small)\n\nThis works perfectly! Let's verify:\n1. 24 + 48 = 72\n\nThis gives us our target of 72.\n</think>",
+    "answer": "<answer>24 + 48</answer>"
+  },
+  {
+    "nums": [
+      33,
+      51
+    ],
+    "target": -18,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 33 + 51 = 84 (too big)\n- 33 - 51 = -18 (this is exactly what we need!)\n- 51 - 33 = 18 (too big)\n- 33 * 51 = 1683 (too big)\n- 33 / 51 = 0.6470588235294118 (too big)\n- 51 / 33 = 1.5454545454545454 (too big)\n\nThis works perfectly! Let's verify:\n1. 33 - 51 = -18\n\nThis gives us our target of -18.\n</think>",
+    "answer": "<answer>33 - 51</answer>"
+  },
+  {
+    "nums": [
+      12,
+      25
+    ],
+    "target": -13,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 12 + 25 = 37 (too big)\n- 12 - 25 = -13 (this is exactly what we need!)\n- 25 - 12 = 13 (too big)\n- 12 * 25 = 300 (too big)\n- 12 / 25 = 0.48 (too big)\n- 25 / 12 = 2.0833333333333335 (too big)\n\nThis works perfectly! Let's verify:\n1. 12 - 25 = -13\n\nThis gives us our target of -13.\n</think>",
+    "answer": "<answer>12 - 25</answer>"
+  },
+  {
+    "nums": [
+      98,
+      5
+    ],
+    "target": 103,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 98 + 5 = 103 (this is exactly what we need!)\n- 98 - 5 = 93 (too small)\n- 5 - 98 = -93 (too small)\n- 98 * 5 = 490 (too big)\n- 98 / 5 = 19.6 (too small)\n- 5 / 98 = 0.05102040816326531 (too small)\n\nThis works perfectly! Let's verify:\n1. 98 + 5 = 103\n\nThis gives us our target of 103.\n</think>",
+    "answer": "<answer>98 + 5</answer>"
+  },
+  {
+    "nums": [
+      85,
+      20
+    ],
+    "target": 65,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 85 + 20 = 105 (too big)\n- 85 - 20 = 65 (this is exactly what we need!)\n- 20 - 85 = -65 (too small)\n- 85 * 20 = 1700 (too big)\n- 85 / 20 = 4.25 (too small)\n- 20 / 85 = 0.23529411764705882 (too small)\n\nThis works perfectly! Let's verify:\n1. 85 - 20 = 65\n\nThis gives us our target of 65.\n</think>",
+    "answer": "<answer>85 - 20</answer>"
+  },
+  {
+    "nums": [
+      11,
+      77
+    ],
+    "target": -66,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 11 + 77 = 88 (too big)\n- 11 - 77 = -66 (this is exactly what we need!)\n- 77 - 11 = 66 (too big)\n- 11 * 77 = 847 (too big)\n- 11 / 77 = 0.14285714285714285 (too big)\n- 77 / 11 = 7.0 (too big)\n\nThis works perfectly! Let's verify:\n1. 11 - 77 = -66\n\nThis gives us our target of -66.\n</think>",
+    "answer": "<answer>11 - 77</answer>"
+  },
+  {
+    "nums": [
+      6,
+      36
+    ],
+    "target": 42,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 6 + 36 = 42 (this is exactly what we need!)\n- 6 - 36 = -30 (too small)\n- 36 - 6 = 30 (too small)\n- 6 * 36 = 216 (too big)\n- 6 / 36 = 0.16666666666666666 (too small)\n- 36 / 6 = 6.0 (too small)\n\nThis works perfectly! Let's verify:\n1. 6 + 36 = 42\n\nThis gives us our target of 42.\n</think>",
+    "answer": "<answer>6 + 36</answer>"
+  },
+  {
+    "nums": [
+      48,
+      65
+    ],
+    "target": 113,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 48 + 65 = 113 (this is exactly what we need!)\n- 48 - 65 = -17 (too small)\n- 65 - 48 = 17 (too small)\n- 48 * 65 = 3120 (too big)\n- 48 / 65 = 0.7384615384615385 (too small)\n- 65 / 48 = 1.3541666666666667 (too small)\n\nThis works perfectly! Let's verify:\n1. 48 + 65 = 113\n\nThis gives us our target of 113.\n</think>",
+    "answer": "<answer>48 + 65</answer>"
+  },
+  {
+    "nums": [
+      23,
+      41
+    ],
+    "target": -18,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 23 + 41 = 64 (too big)\n- 23 - 41 = -18 (this is exactly what we need!)\n- 41 - 23 = 18 (too big)\n- 23 * 41 = 943 (too big)\n- 23 / 41 = 0.5609756097560976 (too big)\n- 41 / 23 = 1.7826086956521738 (too big)\n\nThis works perfectly! Let's verify:\n1. 23 - 41 = -18\n\nThis gives us our target of -18.\n</think>",
+    "answer": "<answer>23 - 41</answer>"
+  },
+  {
+    "nums": [
+      30,
+      9
+    ],
+    "target": 21,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 30 + 9 = 39 (too big)\n- 30 - 9 = 21 (this is exactly what we need!)\n- 9 - 30 = -21 (too small)\n- 30 * 9 = 270 (too big)\n- 30 / 9 = 3.3333333333333335 (too small)\n- 9 / 30 = 0.3 (too small)\n\nThis works perfectly! Let's verify:\n1. 30 - 9 = 21\n\nThis gives us our target of 21.\n</think>",
+    "answer": "<answer>30 - 9</answer>"
+  },
+  {
+    "nums": [
+      67,
+      2
+    ],
+    "target": 134,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 67 + 2 = 69 (too small)\n- 67 - 2 = 65 (too small)\n- 2 - 67 = -65 (too small)\n- 67 * 2 = 134 (this is exactly what we need!)\n- 67 / 2 = 33.5 (too small)\n- 2 / 67 = 0.029850746268656716 (too small)\n\nThis works perfectly! Let's verify:\n1. 67 * 2 = 134\n\nThis gives us our target of 134.\n</think>",
+    "answer": "<answer>67 * 2</answer>"
+  },
+  {
+    "nums": [
+      67,
+      73
+    ],
+    "target": -6,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 67 + 73 = 140 (too big)\n- 67 - 73 = -6 (this is exactly what we need!)\n- 73 - 67 = 6 (too big)\n- 67 * 73 = 4891 (too big)\n- 67 / 73 = 0.9178082191780822 (too big)\n- 73 / 67 = 1.0895522388059702 (too big)\n\nThis works perfectly! Let's verify:\n1. 67 - 73 = -6\n\nThis gives us our target of -6.\n</think>",
+    "answer": "<answer>67 - 73</answer>"
+  },
+  {
+    "nums": [
+      6,
+      87
+    ],
+    "target": 93,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 6 + 87 = 93 (this is exactly what we need!)\n- 6 - 87 = -81 (too small)\n- 87 - 6 = 81 (too small)\n- 6 * 87 = 522 (too big)\n- 6 / 87 = 0.06896551724137931 (too small)\n- 87 / 6 = 14.5 (too small)\n\nThis works perfectly! Let's verify:\n1. 6 + 87 = 93\n\nThis gives us our target of 93.\n</think>",
+    "answer": "<answer>6 + 87</answer>"
+  },
+  {
+    "nums": [
+      71,
+      18
+    ],
+    "target": 53,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 71 + 18 = 89 (too big)\n- 71 - 18 = 53 (this is exactly what we need!)\n- 18 - 71 = -53 (too small)\n- 71 * 18 = 1278 (too big)\n- 71 / 18 = 3.9444444444444446 (too small)\n- 18 / 71 = 0.2535211267605634 (too small)\n\nThis works perfectly! Let's verify:\n1. 71 - 18 = 53\n\nThis gives us our target of 53.\n</think>",
+    "answer": "<answer>71 - 18</answer>"
+  },
+  {
+    "nums": [
+      49,
+      14
+    ],
+    "target": 35,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 49 + 14 = 63 (too big)\n- 49 - 14 = 35 (this is exactly what we need!)\n- 14 - 49 = -35 (too small)\n- 49 * 14 = 686 (too big)\n- 49 / 14 = 3.5 (too small)\n- 14 / 49 = 0.2857142857142857 (too small)\n\nThis works perfectly! Let's verify:\n1. 49 - 14 = 35\n\nThis gives us our target of 35.\n</think>",
+    "answer": "<answer>49 - 14</answer>"
+  },
+  {
+    "nums": [
+      17,
+      91
+    ],
+    "target": 108,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 17 + 91 = 108 (this is exactly what we need!)\n- 17 - 91 = -74 (too small)\n- 91 - 17 = 74 (too small)\n- 17 * 91 = 1547 (too big)\n- 17 / 91 = 0.18681318681318682 (too small)\n- 91 / 17 = 5.352941176470588 (too small)\n\nThis works perfectly! Let's verify:\n1. 17 + 91 = 108\n\nThis gives us our target of 108.\n</think>",
+    "answer": "<answer>17 + 91</answer>"
+  },
+  {
+    "nums": [
+      84,
+      3
+    ],
+    "target": 28.0,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 84 + 3 = 87 (too big)\n- 84 - 3 = 81 (too big)\n- 3 - 84 = -81 (too small)\n- 84 * 3 = 252 (too big)\n- 84 / 3 = 28.0 (this is exactly what we need!)\n- 3 / 84 = 0.03571428571428571 (too small)\n\nThis works perfectly! Let's verify:\n1. 84 / 3 = 28.0\n\nThis gives us our target of 28.0.\n</think>",
+    "answer": "<answer>84 / 3</answer>"
+  },
+  {
+    "nums": [
+      64,
+      29
+    ],
+    "target": 93,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 64 + 29 = 93 (this is exactly what we need!)\n- 64 - 29 = 35 (too small)\n- 29 - 64 = -35 (too small)\n- 64 * 29 = 1856 (too big)\n- 64 / 29 = 2.206896551724138 (too small)\n- 29 / 64 = 0.453125 (too small)\n\nThis works perfectly! Let's verify:\n1. 64 + 29 = 93\n\nThis gives us our target of 93.\n</think>",
+    "answer": "<answer>64 + 29</answer>"
+  },
+  {
+    "nums": [
+      39,
+      30
+    ],
+    "target": 69,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 39 + 30 = 69 (this is exactly what we need!)\n- 39 - 30 = 9 (too small)\n- 30 - 39 = -9 (too small)\n- 39 * 30 = 1170 (too big)\n- 39 / 30 = 1.3 (too small)\n- 30 / 39 = 0.7692307692307693 (too small)\n\nThis works perfectly! Let's verify:\n1. 39 + 30 = 69\n\nThis gives us our target of 69.\n</think>",
+    "answer": "<answer>39 + 30</answer>"
+  },
+  {
+    "nums": [
+      24,
+      72
+    ],
+    "target": -48,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 24 + 72 = 96 (too big)\n- 24 - 72 = -48 (this is exactly what we need!)\n- 72 - 24 = 48 (too big)\n- 24 * 72 = 1728 (too big)\n- 24 / 72 = 0.3333333333333333 (too big)\n- 72 / 24 = 3.0 (too big)\n\nThis works perfectly! Let's verify:\n1. 24 - 72 = -48\n\nThis gives us our target of -48.\n</think>",
+    "answer": "<answer>24 - 72</answer>"
+  },
+  {
+    "nums": [
+      73,
+      16
+    ],
+    "target": 89,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 73 + 16 = 89 (this is exactly what we need!)\n- 73 - 16 = 57 (too small)\n- 16 - 73 = -57 (too small)\n- 73 * 16 = 1168 (too big)\n- 73 / 16 = 4.5625 (too small)\n- 16 / 73 = 0.2191780821917808 (too small)\n\nThis works perfectly! Let's verify:\n1. 73 + 16 = 89\n\nThis gives us our target of 89.\n</think>",
+    "answer": "<answer>73 + 16</answer>"
+  },
+  {
+    "nums": [
+      94,
+      67
+    ],
+    "target": 161,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 94 + 67 = 161 (this is exactly what we need!)\n- 94 - 67 = 27 (too small)\n- 67 - 94 = -27 (too small)\n- 94 * 67 = 6298 (too big)\n- 94 / 67 = 1.4029850746268657 (too small)\n- 67 / 94 = 0.7127659574468085 (too small)\n\nThis works perfectly! Let's verify:\n1. 94 + 67 = 161\n\nThis gives us our target of 161.\n</think>",
+    "answer": "<answer>94 + 67</answer>"
+  },
+  {
+    "nums": [
+      49,
+      30
+    ],
+    "target": 19,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 49 + 30 = 79 (too big)\n- 49 - 30 = 19 (this is exactly what we need!)\n- 30 - 49 = -19 (too small)\n- 49 * 30 = 1470 (too big)\n- 49 / 30 = 1.6333333333333333 (too small)\n- 30 / 49 = 0.6122448979591837 (too small)\n\nThis works perfectly! Let's verify:\n1. 49 - 30 = 19\n\nThis gives us our target of 19.\n</think>",
+    "answer": "<answer>49 - 30</answer>"
+  },
+  {
+    "nums": [
+      85,
+      93
+    ],
+    "target": -8,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 85 + 93 = 178 (too big)\n- 85 - 93 = -8 (this is exactly what we need!)\n- 93 - 85 = 8 (too big)\n- 85 * 93 = 7905 (too big)\n- 85 / 93 = 0.9139784946236559 (too big)\n- 93 / 85 = 1.0941176470588236 (too big)\n\nThis works perfectly! Let's verify:\n1. 85 - 93 = -8\n\nThis gives us our target of -8.\n</think>",
+    "answer": "<answer>85 - 93</answer>"
+  },
+  {
+    "nums": [
+      55,
+      33
+    ],
+    "target": 88,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 55 + 33 = 88 (this is exactly what we need!)\n- 55 - 33 = 22 (too small)\n- 33 - 55 = -22 (too small)\n- 55 * 33 = 1815 (too big)\n- 55 / 33 = 1.6666666666666667 (too small)\n- 33 / 55 = 0.6 (too small)\n\nThis works perfectly! Let's verify:\n1. 55 + 33 = 88\n\nThis gives us our target of 88.\n</think>",
+    "answer": "<answer>55 + 33</answer>"
+  },
+  {
+    "nums": [
+      74,
+      80
+    ],
+    "target": 154,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 74 + 80 = 154 (this is exactly what we need!)\n- 74 - 80 = -6 (too small)\n- 80 - 74 = 6 (too small)\n- 74 * 80 = 5920 (too big)\n- 74 / 80 = 0.925 (too small)\n- 80 / 74 = 1.0810810810810811 (too small)\n\nThis works perfectly! Let's verify:\n1. 74 + 80 = 154\n\nThis gives us our target of 154.\n</think>",
+    "answer": "<answer>74 + 80</answer>"
+  },
+  {
+    "nums": [
+      99,
+      99
+    ],
+    "target": 1.0,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 99 + 99 = 198 (too big)\n- 99 - 99 = 0 (too small)\n- 99 * 99 = 9801 (too big)\n- 99 / 99 = 1.0 (this is exactly what we need!)\n\nThis works perfectly! Let's verify:\n1. 99 / 99 = 1.0\n\nThis gives us our target of 1.0.\n</think>",
+    "answer": "<answer>99 / 99</answer>"
+  },
+  {
+    "nums": [
+      78,
+      85
+    ],
+    "target": 163,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 78 + 85 = 163 (this is exactly what we need!)\n- 78 - 85 = -7 (too small)\n- 85 - 78 = 7 (too small)\n- 78 * 85 = 6630 (too big)\n- 78 / 85 = 0.9176470588235294 (too small)\n- 85 / 78 = 1.0897435897435896 (too small)\n\nThis works perfectly! Let's verify:\n1. 78 + 85 = 163\n\nThis gives us our target of 163.\n</think>",
+    "answer": "<answer>78 + 85</answer>"
+  },
+  {
+    "nums": [
+      77,
+      29
+    ],
+    "target": 48,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 77 + 29 = 106 (too big)\n- 77 - 29 = 48 (this is exactly what we need!)\n- 29 - 77 = -48 (too small)\n- 77 * 29 = 2233 (too big)\n- 77 / 29 = 2.6551724137931036 (too small)\n- 29 / 77 = 0.37662337662337664 (too small)\n\nThis works perfectly! Let's verify:\n1. 77 - 29 = 48\n\nThis gives us our target of 48.\n</think>",
+    "answer": "<answer>77 - 29</answer>"
+  },
+  {
+    "nums": [
+      32,
+      55
+    ],
+    "target": -23,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 32 + 55 = 87 (too big)\n- 32 - 55 = -23 (this is exactly what we need!)\n- 55 - 32 = 23 (too big)\n- 32 * 55 = 1760 (too big)\n- 32 / 55 = 0.5818181818181818 (too big)\n- 55 / 32 = 1.71875 (too big)\n\nThis works perfectly! Let's verify:\n1. 32 - 55 = -23\n\nThis gives us our target of -23.\n</think>",
+    "answer": "<answer>32 - 55</answer>"
+  },
+  {
+    "nums": [
+      64,
+      72
+    ],
+    "target": -8,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 64 + 72 = 136 (too big)\n- 64 - 72 = -8 (this is exactly what we need!)\n- 72 - 64 = 8 (too big)\n- 64 * 72 = 4608 (too big)\n- 64 / 72 = 0.8888888888888888 (too big)\n- 72 / 64 = 1.125 (too big)\n\nThis works perfectly! Let's verify:\n1. 64 - 72 = -8\n\nThis gives us our target of -8.\n</think>",
+    "answer": "<answer>64 - 72</answer>"
+  },
+  {
+    "nums": [
+      43,
+      52
+    ],
+    "target": -9,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 43 + 52 = 95 (too big)\n- 43 - 52 = -9 (this is exactly what we need!)\n- 52 - 43 = 9 (too big)\n- 43 * 52 = 2236 (too big)\n- 43 / 52 = 0.8269230769230769 (too big)\n- 52 / 43 = 1.2093023255813953 (too big)\n\nThis works perfectly! Let's verify:\n1. 43 - 52 = -9\n\nThis gives us our target of -9.\n</think>",
+    "answer": "<answer>43 - 52</answer>"
+  },
+  {
+    "nums": [
+      90,
+      81
+    ],
+    "target": 171,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 90 + 81 = 171 (this is exactly what we need!)\n- 90 - 81 = 9 (too small)\n- 81 - 90 = -9 (too small)\n- 90 * 81 = 7290 (too big)\n- 90 / 81 = 1.1111111111111112 (too small)\n- 81 / 90 = 0.9 (too small)\n\nThis works perfectly! Let's verify:\n1. 90 + 81 = 171\n\nThis gives us our target of 171.\n</think>",
+    "answer": "<answer>90 + 81</answer>"
+  },
+  {
+    "nums": [
+      59,
+      64
+    ],
+    "target": -5,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 59 + 64 = 123 (too big)\n- 59 - 64 = -5 (this is exactly what we need!)\n- 64 - 59 = 5 (too big)\n- 59 * 64 = 3776 (too big)\n- 59 / 64 = 0.921875 (too big)\n- 64 / 59 = 1.0847457627118644 (too big)\n\nThis works perfectly! Let's verify:\n1. 59 - 64 = -5\n\nThis gives us our target of -5.\n</think>",
+    "answer": "<answer>59 - 64</answer>"
+  },
+  {
+    "nums": [
+      9,
+      52
+    ],
+    "target": -43,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 9 + 52 = 61 (too big)\n- 9 - 52 = -43 (this is exactly what we need!)\n- 52 - 9 = 43 (too big)\n- 9 * 52 = 468 (too big)\n- 9 / 52 = 0.17307692307692307 (too big)\n- 52 / 9 = 5.777777777777778 (too big)\n\nThis works perfectly! Let's verify:\n1. 9 - 52 = -43\n\nThis gives us our target of -43.\n</think>",
+    "answer": "<answer>9 - 52</answer>"
+  },
+  {
+    "nums": [
+      67,
+      31
+    ],
+    "target": 36,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 67 + 31 = 98 (too big)\n- 67 - 31 = 36 (this is exactly what we need!)\n- 31 - 67 = -36 (too small)\n- 67 * 31 = 2077 (too big)\n- 67 / 31 = 2.161290322580645 (too small)\n- 31 / 67 = 0.4626865671641791 (too small)\n\nThis works perfectly! Let's verify:\n1. 67 - 31 = 36\n\nThis gives us our target of 36.\n</think>",
+    "answer": "<answer>67 - 31</answer>"
+  },
+  {
+    "nums": [
+      5,
+      62
+    ],
+    "target": -57,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 5 + 62 = 67 (too big)\n- 5 - 62 = -57 (this is exactly what we need!)\n- 62 - 5 = 57 (too big)\n- 5 * 62 = 310 (too big)\n- 5 / 62 = 0.08064516129032258 (too big)\n- 62 / 5 = 12.4 (too big)\n\nThis works perfectly! Let's verify:\n1. 5 - 62 = -57\n\nThis gives us our target of -57.\n</think>",
+    "answer": "<answer>5 - 62</answer>"
+  },
+  {
+    "nums": [
+      17,
+      61
+    ],
+    "target": -44,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 17 + 61 = 78 (too big)\n- 17 - 61 = -44 (this is exactly what we need!)\n- 61 - 17 = 44 (too big)\n- 17 * 61 = 1037 (too big)\n- 17 / 61 = 0.2786885245901639 (too big)\n- 61 / 17 = 3.588235294117647 (too big)\n\nThis works perfectly! Let's verify:\n1. 17 - 61 = -44\n\nThis gives us our target of -44.\n</think>",
+    "answer": "<answer>17 - 61</answer>"
+  },
+  {
+    "nums": [
+      40,
+      55
+    ],
+    "target": 95,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 40 + 55 = 95 (this is exactly what we need!)\n- 40 - 55 = -15 (too small)\n- 55 - 40 = 15 (too small)\n- 40 * 55 = 2200 (too big)\n- 40 / 55 = 0.7272727272727273 (too small)\n- 55 / 40 = 1.375 (too small)\n\nThis works perfectly! Let's verify:\n1. 40 + 55 = 95\n\nThis gives us our target of 95.\n</think>",
+    "answer": "<answer>40 + 55</answer>"
+  },
+  {
+    "nums": [
+      34,
+      47
+    ],
+    "target": -13,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 34 + 47 = 81 (too big)\n- 34 - 47 = -13 (this is exactly what we need!)\n- 47 - 34 = 13 (too big)\n- 34 * 47 = 1598 (too big)\n- 34 / 47 = 0.723404255319149 (too big)\n- 47 / 34 = 1.3823529411764706 (too big)\n\nThis works perfectly! Let's verify:\n1. 34 - 47 = -13\n\nThis gives us our target of -13.\n</think>",
+    "answer": "<answer>34 - 47</answer>"
+  },
+  {
+    "nums": [
+      100,
+      86
+    ],
+    "target": 186,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 100 + 86 = 186 (this is exactly what we need!)\n- 100 - 86 = 14 (too small)\n- 86 - 100 = -14 (too small)\n- 100 * 86 = 8600 (too big)\n- 100 / 86 = 1.1627906976744187 (too small)\n- 86 / 100 = 0.86 (too small)\n\nThis works perfectly! Let's verify:\n1. 100 + 86 = 186\n\nThis gives us our target of 186.\n</think>",
+    "answer": "<answer>100 + 86</answer>"
+  },
+  {
+    "nums": [
+      56,
+      80
+    ],
+    "target": -24,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 56 + 80 = 136 (too big)\n- 56 - 80 = -24 (this is exactly what we need!)\n- 80 - 56 = 24 (too big)\n- 56 * 80 = 4480 (too big)\n- 56 / 80 = 0.7 (too big)\n- 80 / 56 = 1.4285714285714286 (too big)\n\nThis works perfectly! Let's verify:\n1. 56 - 80 = -24\n\nThis gives us our target of -24.\n</think>",
+    "answer": "<answer>56 - 80</answer>"
+  },
+  {
+    "nums": [
+      1,
+      91
+    ],
+    "target": 92,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 1 + 91 = 92 (this is exactly what we need!)\n- 1 - 91 = -90 (too small)\n- 91 - 1 = 90 (too small)\n- 1 * 91 = 91 (too small)\n- 1 / 91 = 0.01098901098901099 (too small)\n- 91 / 1 = 91.0 (too small)\n\nThis works perfectly! Let's verify:\n1. 1 + 91 = 92\n\nThis gives us our target of 92.\n</think>",
+    "answer": "<answer>1 + 91</answer>"
+  },
+  {
+    "nums": [
+      52,
+      50
+    ],
+    "target": 102,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 52 + 50 = 102 (this is exactly what we need!)\n- 52 - 50 = 2 (too small)\n- 50 - 52 = -2 (too small)\n- 52 * 50 = 2600 (too big)\n- 52 / 50 = 1.04 (too small)\n- 50 / 52 = 0.9615384615384616 (too small)\n\nThis works perfectly! Let's verify:\n1. 52 + 50 = 102\n\nThis gives us our target of 102.\n</think>",
+    "answer": "<answer>52 + 50</answer>"
+  },
+  {
+    "nums": [
+      86,
+      36
+    ],
+    "target": 122,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 86 + 36 = 122 (this is exactly what we need!)\n- 86 - 36 = 50 (too small)\n- 36 - 86 = -50 (too small)\n- 86 * 36 = 3096 (too big)\n- 86 / 36 = 2.388888888888889 (too small)\n- 36 / 86 = 0.4186046511627907 (too small)\n\nThis works perfectly! Let's verify:\n1. 86 + 36 = 122\n\nThis gives us our target of 122.\n</think>",
+    "answer": "<answer>86 + 36</answer>"
+  },
+  {
+    "nums": [
+      56,
+      98
+    ],
+    "target": -42,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 56 + 98 = 154 (too big)\n- 56 - 98 = -42 (this is exactly what we need!)\n- 98 - 56 = 42 (too big)\n- 56 * 98 = 5488 (too big)\n- 56 / 98 = 0.5714285714285714 (too big)\n- 98 / 56 = 1.75 (too big)\n\nThis works perfectly! Let's verify:\n1. 56 - 98 = -42\n\nThis gives us our target of -42.\n</think>",
+    "answer": "<answer>56 - 98</answer>"
+  },
+  {
+    "nums": [
+      14,
+      46
+    ],
+    "target": -32,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 14 + 46 = 60 (too big)\n- 14 - 46 = -32 (this is exactly what we need!)\n- 46 - 14 = 32 (too big)\n- 14 * 46 = 644 (too big)\n- 14 / 46 = 0.30434782608695654 (too big)\n- 46 / 14 = 3.2857142857142856 (too big)\n\nThis works perfectly! Let's verify:\n1. 14 - 46 = -32\n\nThis gives us our target of -32.\n</think>",
+    "answer": "<answer>14 - 46</answer>"
+  },
+  {
+    "nums": [
+      72,
+      22
+    ],
+    "target": 50,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 72 + 22 = 94 (too big)\n- 72 - 22 = 50 (this is exactly what we need!)\n- 22 - 72 = -50 (too small)\n- 72 * 22 = 1584 (too big)\n- 72 / 22 = 3.272727272727273 (too small)\n- 22 / 72 = 0.3055555555555556 (too small)\n\nThis works perfectly! Let's verify:\n1. 72 - 22 = 50\n\nThis gives us our target of 50.\n</think>",
+    "answer": "<answer>72 - 22</answer>"
+  },
+  {
+    "nums": [
+      66,
+      46
+    ],
+    "target": 20,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 66 + 46 = 112 (too big)\n- 66 - 46 = 20 (this is exactly what we need!)\n- 46 - 66 = -20 (too small)\n- 66 * 46 = 3036 (too big)\n- 66 / 46 = 1.434782608695652 (too small)\n- 46 / 66 = 0.696969696969697 (too small)\n\nThis works perfectly! Let's verify:\n1. 66 - 46 = 20\n\nThis gives us our target of 20.\n</think>",
+    "answer": "<answer>66 - 46</answer>"
+  },
+  {
+    "nums": [
+      44,
+      52
+    ],
+    "target": -8,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 44 + 52 = 96 (too big)\n- 44 - 52 = -8 (this is exactly what we need!)\n- 52 - 44 = 8 (too big)\n- 44 * 52 = 2288 (too big)\n- 44 / 52 = 0.8461538461538461 (too big)\n- 52 / 44 = 1.1818181818181819 (too big)\n\nThis works perfectly! Let's verify:\n1. 44 - 52 = -8\n\nThis gives us our target of -8.\n</think>",
+    "answer": "<answer>44 - 52</answer>"
+  },
+  {
+    "nums": [
+      30,
+      71
+    ],
+    "target": -41,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 30 + 71 = 101 (too big)\n- 30 - 71 = -41 (this is exactly what we need!)\n- 71 - 30 = 41 (too big)\n- 30 * 71 = 2130 (too big)\n- 30 / 71 = 0.4225352112676056 (too big)\n- 71 / 30 = 2.3666666666666667 (too big)\n\nThis works perfectly! Let's verify:\n1. 30 - 71 = -41\n\nThis gives us our target of -41.\n</think>",
+    "answer": "<answer>30 - 71</answer>"
+  },
+  {
+    "nums": [
+      74,
+      84
+    ],
+    "target": -10,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 74 + 84 = 158 (too big)\n- 74 - 84 = -10 (this is exactly what we need!)\n- 84 - 74 = 10 (too big)\n- 74 * 84 = 6216 (too big)\n- 74 / 84 = 0.8809523809523809 (too big)\n- 84 / 74 = 1.135135135135135 (too big)\n\nThis works perfectly! Let's verify:\n1. 74 - 84 = -10\n\nThis gives us our target of -10.\n</think>",
+    "answer": "<answer>74 - 84</answer>"
+  },
+  {
+    "nums": [
+      91,
+      7
+    ],
+    "target": 98,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 91 + 7 = 98 (this is exactly what we need!)\n- 91 - 7 = 84 (too small)\n- 7 - 91 = -84 (too small)\n- 91 * 7 = 637 (too big)\n- 91 / 7 = 13.0 (too small)\n- 7 / 91 = 0.07692307692307693 (too small)\n\nThis works perfectly! Let's verify:\n1. 91 + 7 = 98\n\nThis gives us our target of 98.\n</think>",
+    "answer": "<answer>91 + 7</answer>"
+  },
+  {
+    "nums": [
+      6,
+      83
+    ],
+    "target": 89,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 6 + 83 = 89 (this is exactly what we need!)\n- 6 - 83 = -77 (too small)\n- 83 - 6 = 77 (too small)\n- 6 * 83 = 498 (too big)\n- 6 / 83 = 0.07228915662650602 (too small)\n- 83 / 6 = 13.833333333333334 (too small)\n\nThis works perfectly! Let's verify:\n1. 6 + 83 = 89\n\nThis gives us our target of 89.\n</think>",
+    "answer": "<answer>6 + 83</answer>"
+  },
+  {
+    "nums": [
+      5,
+      94
+    ],
+    "target": -89,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 5 + 94 = 99 (too big)\n- 5 - 94 = -89 (this is exactly what we need!)\n- 94 - 5 = 89 (too big)\n- 5 * 94 = 470 (too big)\n- 5 / 94 = 0.05319148936170213 (too big)\n- 94 / 5 = 18.8 (too big)\n\nThis works perfectly! Let's verify:\n1. 5 - 94 = -89\n\nThis gives us our target of -89.\n</think>",
+    "answer": "<answer>5 - 94</answer>"
+  },
+  {
+    "nums": [
+      85,
+      36
+    ],
+    "target": 49,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 85 + 36 = 121 (too big)\n- 85 - 36 = 49 (this is exactly what we need!)\n- 36 - 85 = -49 (too small)\n- 85 * 36 = 3060 (too big)\n- 85 / 36 = 2.361111111111111 (too small)\n- 36 / 85 = 0.4235294117647059 (too small)\n\nThis works perfectly! Let's verify:\n1. 85 - 36 = 49\n\nThis gives us our target of 49.\n</think>",
+    "answer": "<answer>85 - 36</answer>"
+  },
+  {
+    "nums": [
+      66,
+      36
+    ],
+    "target": 30,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 66 + 36 = 102 (too big)\n- 66 - 36 = 30 (this is exactly what we need!)\n- 36 - 66 = -30 (too small)\n- 66 * 36 = 2376 (too big)\n- 66 / 36 = 1.8333333333333333 (too small)\n- 36 / 66 = 0.5454545454545454 (too small)\n\nThis works perfectly! Let's verify:\n1. 66 - 36 = 30\n\nThis gives us our target of 30.\n</think>",
+    "answer": "<answer>66 - 36</answer>"
+  },
+  {
+    "nums": [
+      33,
+      33
+    ],
+    "target": 0,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 33 + 33 = 66 (too big)\n- 33 - 33 = 0 (this is exactly what we need!)\n- 33 * 33 = 1089 (too big)\n- 33 / 33 = 1.0 (too big)\n\nThis works perfectly! Let's verify:\n1. 33 - 33 = 0\n\nThis gives us our target of 0.\n</think>",
+    "answer": "<answer>33 - 33</answer>"
+  },
+  {
+    "nums": [
+      37,
+      33
+    ],
+    "target": 4,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 37 + 33 = 70 (too big)\n- 37 - 33 = 4 (this is exactly what we need!)\n- 33 - 37 = -4 (too small)\n- 37 * 33 = 1221 (too big)\n- 37 / 33 = 1.121212121212121 (too small)\n- 33 / 37 = 0.8918918918918919 (too small)\n\nThis works perfectly! Let's verify:\n1. 37 - 33 = 4\n\nThis gives us our target of 4.\n</think>",
+    "answer": "<answer>37 - 33</answer>"
+  },
+  {
+    "nums": [
+      65,
+      25
+    ],
+    "target": 90,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 65 + 25 = 90 (this is exactly what we need!)\n- 65 - 25 = 40 (too small)\n- 25 - 65 = -40 (too small)\n- 65 * 25 = 1625 (too big)\n- 65 / 25 = 2.6 (too small)\n- 25 / 65 = 0.38461538461538464 (too small)\n\nThis works perfectly! Let's verify:\n1. 65 + 25 = 90\n\nThis gives us our target of 90.\n</think>",
+    "answer": "<answer>65 + 25</answer>"
+  },
+  {
+    "nums": [
+      26,
+      16
+    ],
+    "target": 10,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 26 + 16 = 42 (too big)\n- 26 - 16 = 10 (this is exactly what we need!)\n- 16 - 26 = -10 (too small)\n- 26 * 16 = 416 (too big)\n- 26 / 16 = 1.625 (too small)\n- 16 / 26 = 0.6153846153846154 (too small)\n\nThis works perfectly! Let's verify:\n1. 26 - 16 = 10\n\nThis gives us our target of 10.\n</think>",
+    "answer": "<answer>26 - 16</answer>"
+  },
+  {
+    "nums": [
+      93,
+      80
+    ],
+    "target": 173,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 93 + 80 = 173 (this is exactly what we need!)\n- 93 - 80 = 13 (too small)\n- 80 - 93 = -13 (too small)\n- 93 * 80 = 7440 (too big)\n- 93 / 80 = 1.1625 (too small)\n- 80 / 93 = 0.8602150537634409 (too small)\n\nThis works perfectly! Let's verify:\n1. 93 + 80 = 173\n\nThis gives us our target of 173.\n</think>",
+    "answer": "<answer>93 + 80</answer>"
+  },
+  {
+    "nums": [
+      57,
+      5
+    ],
+    "target": 52,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 57 + 5 = 62 (too big)\n- 57 - 5 = 52 (this is exactly what we need!)\n- 5 - 57 = -52 (too small)\n- 57 * 5 = 285 (too big)\n- 57 / 5 = 11.4 (too small)\n- 5 / 57 = 0.08771929824561403 (too small)\n\nThis works perfectly! Let's verify:\n1. 57 - 5 = 52\n\nThis gives us our target of 52.\n</think>",
+    "answer": "<answer>57 - 5</answer>"
+  },
+  {
+    "nums": [
+      58,
+      55
+    ],
+    "target": 113,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 58 + 55 = 113 (this is exactly what we need!)\n- 58 - 55 = 3 (too small)\n- 55 - 58 = -3 (too small)\n- 58 * 55 = 3190 (too big)\n- 58 / 55 = 1.0545454545454545 (too small)\n- 55 / 58 = 0.9482758620689655 (too small)\n\nThis works perfectly! Let's verify:\n1. 58 + 55 = 113\n\nThis gives us our target of 113.\n</think>",
+    "answer": "<answer>58 + 55</answer>"
+  },
+  {
+    "nums": [
+      31,
+      57
+    ],
+    "target": -26,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 31 + 57 = 88 (too big)\n- 31 - 57 = -26 (this is exactly what we need!)\n- 57 - 31 = 26 (too big)\n- 31 * 57 = 1767 (too big)\n- 31 / 57 = 0.543859649122807 (too big)\n- 57 / 31 = 1.8387096774193548 (too big)\n\nThis works perfectly! Let's verify:\n1. 31 - 57 = -26\n\nThis gives us our target of -26.\n</think>",
+    "answer": "<answer>31 - 57</answer>"
+  },
+  {
+    "nums": [
+      30,
+      56
+    ],
+    "target": 86,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 30 + 56 = 86 (this is exactly what we need!)\n- 30 - 56 = -26 (too small)\n- 56 - 30 = 26 (too small)\n- 30 * 56 = 1680 (too big)\n- 30 / 56 = 0.5357142857142857 (too small)\n- 56 / 30 = 1.8666666666666667 (too small)\n\nThis works perfectly! Let's verify:\n1. 30 + 56 = 86\n\nThis gives us our target of 86.\n</think>",
+    "answer": "<answer>30 + 56</answer>"
+  },
+  {
+    "nums": [
+      50,
+      40
+    ],
+    "target": 90,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 50 + 40 = 90 (this is exactly what we need!)\n- 50 - 40 = 10 (too small)\n- 40 - 50 = -10 (too small)\n- 50 * 40 = 2000 (too big)\n- 50 / 40 = 1.25 (too small)\n- 40 / 50 = 0.8 (too small)\n\nThis works perfectly! Let's verify:\n1. 50 + 40 = 90\n\nThis gives us our target of 90.\n</think>",
+    "answer": "<answer>50 + 40</answer>"
+  },
+  {
+    "nums": [
+      81,
+      74
+    ],
+    "target": 7,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 81 + 74 = 155 (too big)\n- 81 - 74 = 7 (this is exactly what we need!)\n- 74 - 81 = -7 (too small)\n- 81 * 74 = 5994 (too big)\n- 81 / 74 = 1.0945945945945945 (too small)\n- 74 / 81 = 0.9135802469135802 (too small)\n\nThis works perfectly! Let's verify:\n1. 81 - 74 = 7\n\nThis gives us our target of 7.\n</think>",
+    "answer": "<answer>81 - 74</answer>"
+  },
+  {
+    "nums": [
+      13,
+      59
+    ],
+    "target": -46,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 13 + 59 = 72 (too big)\n- 13 - 59 = -46 (this is exactly what we need!)\n- 59 - 13 = 46 (too big)\n- 13 * 59 = 767 (too big)\n- 13 / 59 = 0.22033898305084745 (too big)\n- 59 / 13 = 4.538461538461538 (too big)\n\nThis works perfectly! Let's verify:\n1. 13 - 59 = -46\n\nThis gives us our target of -46.\n</think>",
+    "answer": "<answer>13 - 59</answer>"
+  },
+  {
+    "nums": [
+      22,
+      89
+    ],
+    "target": -67,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 22 + 89 = 111 (too big)\n- 22 - 89 = -67 (this is exactly what we need!)\n- 89 - 22 = 67 (too big)\n- 22 * 89 = 1958 (too big)\n- 22 / 89 = 0.24719101123595505 (too big)\n- 89 / 22 = 4.045454545454546 (too big)\n\nThis works perfectly! Let's verify:\n1. 22 - 89 = -67\n\nThis gives us our target of -67.\n</think>",
+    "answer": "<answer>22 - 89</answer>"
+  },
+  {
+    "nums": [
+      44,
+      27
+    ],
+    "target": 71,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 44 + 27 = 71 (this is exactly what we need!)\n- 44 - 27 = 17 (too small)\n- 27 - 44 = -17 (too small)\n- 44 * 27 = 1188 (too big)\n- 44 / 27 = 1.6296296296296295 (too small)\n- 27 / 44 = 0.6136363636363636 (too small)\n\nThis works perfectly! Let's verify:\n1. 44 + 27 = 71\n\nThis gives us our target of 71.\n</think>",
+    "answer": "<answer>44 + 27</answer>"
+  },
+  {
+    "nums": [
+      59,
+      92
+    ],
+    "target": -33,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 59 + 92 = 151 (too big)\n- 59 - 92 = -33 (this is exactly what we need!)\n- 92 - 59 = 33 (too big)\n- 59 * 92 = 5428 (too big)\n- 59 / 92 = 0.6413043478260869 (too big)\n- 92 / 59 = 1.5593220338983051 (too big)\n\nThis works perfectly! Let's verify:\n1. 59 - 92 = -33\n\nThis gives us our target of -33.\n</think>",
+    "answer": "<answer>59 - 92</answer>"
+  },
+  {
+    "nums": [
+      77,
+      73
+    ],
+    "target": 150,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 77 + 73 = 150 (this is exactly what we need!)\n- 77 - 73 = 4 (too small)\n- 73 - 77 = -4 (too small)\n- 77 * 73 = 5621 (too big)\n- 77 / 73 = 1.0547945205479452 (too small)\n- 73 / 77 = 0.948051948051948 (too small)\n\nThis works perfectly! Let's verify:\n1. 77 + 73 = 150\n\nThis gives us our target of 150.\n</think>",
+    "answer": "<answer>77 + 73</answer>"
+  },
+  {
+    "nums": [
+      67,
+      3
+    ],
+    "target": 70,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 67 + 3 = 70 (this is exactly what we need!)\n- 67 - 3 = 64 (too small)\n- 3 - 67 = -64 (too small)\n- 67 * 3 = 201 (too big)\n- 67 / 3 = 22.333333333333332 (too small)\n- 3 / 67 = 0.04477611940298507 (too small)\n\nThis works perfectly! Let's verify:\n1. 67 + 3 = 70\n\nThis gives us our target of 70.\n</think>",
+    "answer": "<answer>67 + 3</answer>"
+  },
+  {
+    "nums": [
+      97,
+      3
+    ],
+    "target": 94,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 97 + 3 = 100 (too big)\n- 97 - 3 = 94 (this is exactly what we need!)\n- 3 - 97 = -94 (too small)\n- 97 * 3 = 291 (too big)\n- 97 / 3 = 32.333333333333336 (too small)\n- 3 / 97 = 0.030927835051546393 (too small)\n\nThis works perfectly! Let's verify:\n1. 97 - 3 = 94\n\nThis gives us our target of 94.\n</think>",
+    "answer": "<answer>97 - 3</answer>"
+  },
+  {
+    "nums": [
+      45,
+      2
+    ],
+    "target": 43,
+    "chain_of_thought": "<think>Let's analyze this step by step:\n\n1. Try all basic operations:\n- 45 + 2 = 47 (too big)\n- 45 - 2 = 43 (this is exactly what we need!)\n- 2 - 45 = -43 (too small)\n- 45 * 2 = 90 (too big)\n- 45 / 2 = 22.5 (too small)\n- 2 / 45 = 0.044444444444444446 (too small)\n\nThis works perfectly! Let's verify:\n1. 45 - 2 = 43\n\nThis gives us our target of 43.\n</think>",
+    "answer": "<answer>45 - 2</answer>"
+  }
+]
