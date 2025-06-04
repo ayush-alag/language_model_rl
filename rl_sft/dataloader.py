@@ -50,6 +50,9 @@ def load_json_countdown(file_path):
 
 # special because no test dataset
 def load_countdown_dataset(batch_size, max_length, from_json=False):
+    SERIALIZED_PATH = "/data/c-aalag/countdown_dataset.pt"
+    SERIALIZED_TOKENIZED_PATH = "/data/c-aalag/countdown_tokenized_dataset.pt"
+
     # this is taken from WSD dataset
     PROMPT_FORMAT = """
     User: Using the numbers {numbers}, create an equation that equals {target}.
@@ -69,18 +72,29 @@ def load_countdown_dataset(batch_size, max_length, from_json=False):
         idx = [i for i in range(len(train_dataset))]
         train_dataset = {"prompt": prompts, "idx": idx, "target": [example[0] for example in train_dataset], "numbers": [example[1] for example in train_dataset]}
         train_dataset = Dataset.from_dict(train_dataset)
+    elif os.path.exists(SERIALIZED_PATH) and os.path.exists(SERIALIZED_TOKENIZED_PATH):
+        train_dataset = torch.load(SERIALIZED_PATH, weights_only=False)
+        tokenized_train_dataset = torch.load(SERIALIZED_TOKENIZED_PATH, weights_only=False)
+        return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset
     else:
         train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train")
 
         train_dataset = train_dataset.map(lambda example, idx: {
             "prompt": PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]),
+            "target": example["target"],
+            "numbers": example["nums"],
             "idx": idx},
             with_indices=True,
             batched=False,
         )
 
+        torch.save(train_dataset, SERIALIZED_PATH)
+
     tokenized_train_dataset = tokenize_dataset(train_dataset, max_length=max_length, task="countdown", query_column="prompt", completion_column=None)
     tokenized_train_dataset.set_format("torch", columns=["input_ids", "attention_mask", "idx"])
+    if not from_json:
+        torch.save(train_dataset, SERIALIZED_TOKENIZED_PATH)
+
     return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset
 
 def tokenize_dataset(dataset, max_length, task, query_column, completion_column):

@@ -19,7 +19,7 @@ def log_probs(model, input_ids, num_generated_tokens):
     log_softmax = F.log_softmax(out, dim=-1)
     log_probabilities_y = log_softmax.gather(-1, labels.unsqueeze(-1)).squeeze(-1)
     log_probabilities_response = log_probabilities_y[:, -num_generated_tokens:]
-    return log_probabilities_response.sum(dim=-1)
+    return log_probabilities_response.mean(dim=-1)
 
 def sample_k(model, vllm_model, tokenizer, prompt_ids, k, max_new):
     prompt_texts = tokenizer.batch_decode(prompt_ids, skip_special_tokens=True)
@@ -31,27 +31,31 @@ def sample_k(model, vllm_model, tokenizer, prompt_ids, k, max_new):
     )
 
     outputs = vllm_model.generate(prompt_texts, sampling_params)
+    # vllm_model.llm_engine.reset()
     texts = []
     log_probabilities = []
     for p_idx, res in enumerate(outputs):
         prompt_len = prompt_ids[p_idx].size(0)
         for out in res.outputs:
             output = out.text
-            full_ids = tokenizer.encode(prompts[p_idx] + output, return_tensors="pt").to(model.device)
+            full_ids = tokenizer.encode(prompt_texts[p_idx] + output, return_tensors="pt").to(model.device)
             gen_len = full_ids.size(1) - prompt_len
             logp = log_probs(model, full_ids, gen_len)[0]
             texts.append(output)
             log_probabilities.append(logp)
     return texts, torch.stack(log_probabilities)
 
-def get_batch_loss(model, batch, device, tokenizer, dataset):
+def get_batch_loss(model, vllm_model, batch, device, tokenizer, dataset):
     idx = batch["idx"]
     prompt_ids = batch["input_ids"].to(device)
-    texts, log_probabilities = sample_k(model, tokenizer, prompt_ids, args.k, args.gen_tokens)
+    texts, log_probabilities = sample_k(model, vllm_model, tokenizer, prompt_ids, args.k, args.max_new)
+    torch.cuda.empty_cache()
+    repeated_idx = idx.repeat_interleave(args.k).tolist()
     rewards = []
     for i, t in enumerate(texts):
-        nums = dataset[idx[i]]["nums"]
-        target = dataset[idx[i]]["target"]
+        nums = dataset[repeated_idx[i]]["nums"]
+        target = dataset[repeated_idx[i]]["target"]
+        print(t, nums, target)
         rewards.append(compute_score(t, {"target": [target], "numbers": [nums]}))
     rewards = torch.tensor(rewards, dtype=torch.float32, device=device)
     return rloo_loss(rewards, log_probabilities)
@@ -89,6 +93,8 @@ def train(args):
         model=args.sft_checkpoint,
         tokenizer="Qwen/Qwen2.5-0.5B",
         device=device,
+        dtype="bfloat16",
+        gpu_memory_utilization=0.7,
     )
 
     train_loader, dataset = load_countdown_dataset(1, args.max_length, False)
@@ -108,7 +114,7 @@ def train(args):
         optimizer.zero_grad()
 
         for batch in tqdm(train_loader, desc=f"Epoch {epoch+1}"):
-            loss = get_batch_loss(model, batch, device, tokenizer, dataset)
+            loss = get_batch_loss(model, vllm_model, batch, device, tokenizer, dataset)
             loss = loss / args.gradient_accumulation_steps
             scaler.scale(loss).backward()
             if (global_step + 1) % args.gradient_accumulation_steps == 0:
@@ -124,9 +130,7 @@ def train(args):
                 wandb.log({"loss": loss.item() * args.gradient_accumulation_steps, "step": global_step + 1})
 
             if (global_step + 1) % args.eval_steps == 0:
-                output_path = f"outputs/rloo_outputs_{global_step+1}.json"
-                save_checkpoint(model, args.out_dir, f"rloo_model_{global_step+1}")
-                eval_score = eval_countdown_vllm(output_path, 16, args.max_length, from_json=True)
+                eval_score = eval_countdown_vllm(vllm_model, 16, args.max_length, from_json=True)
                 if eval_score > max_score:
                     max_score = eval_score
                     save_checkpoint(model, args.out_dir, f"best_model")
@@ -144,9 +148,10 @@ if __name__ == "__main__":
     p.add_argument("--out_dir", type=str, default="checkpoints/best_rloo_model")
     p.add_argument("--num_epochs", type=int, default=1)
     p.add_argument("--k", type=int, default=4)
-    p.add_argument("--gen_tokens", type=int, default=64)
+    p.add_argument("--max_new", type=int, default=1024)
     p.add_argument("--lr", type=float, default=1e-6)
     p.add_argument("--gradient_accumulation_steps", type=int, default=4)
+    p.add_argument("--eval_steps", type=int, default=100)
     p.add_argument("--log_interval", type=int, default=10)
     p.add_argument("--max_length", type=int, default=512)
     p.add_argument("--seed", type=int, default=42)

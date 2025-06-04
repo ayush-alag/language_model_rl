@@ -104,7 +104,7 @@ def eval_countdown(model_path, batch_size, max_length, from_json=False):
     else:
         write_output_json(model, tokenizer, dataloader, dataset)
 
-def eval_countdown_vllm(model_path, batch_size, max_length, from_json=False):
+def eval_countdown_model_path(model_path, batch_size, max_length, from_json=False):
     device = get_device()
     model = LLM(
         model=model_path,
@@ -112,6 +112,10 @@ def eval_countdown_vllm(model_path, batch_size, max_length, from_json=False):
         device=device,
     )
 
+    return eval_countdown_vllm(model, batch_size, max_length, from_json)
+
+def eval_countdown_vllm(vllm_model, batch_size, max_length, from_json=False):
+    device = get_device()
     sampling_params = SamplingParams(
         max_tokens=max_length,
         temperature=0.0,
@@ -123,7 +127,7 @@ def eval_countdown_vllm(model_path, batch_size, max_length, from_json=False):
     prompts = [example["prompt"] for example in dataset]
     print(prompts[0])
 
-    outputs = model.generate(prompts, sampling_params=sampling_params)
+    outputs = vllm_model.generate(prompts, sampling_params=sampling_params)
     scores = []
     with open("countdown_outputs.json", "w") as f:
         for i, output in enumerate(outputs):
@@ -154,4 +158,4 @@ if __name__ == "__main__":
     parser.add_argument("--from_json", action="store_true")
     args = parser.parse_args()
     # eval_wsd(args.model_path, args.batch_size, args.max_length)
-    eval_countdown_vllm(args.model_path, args.batch_size, args.max_length, args.from_json)
+    eval_countdown_model_path(args.model_path, args.batch_size, args.max_length, args.from_json)
