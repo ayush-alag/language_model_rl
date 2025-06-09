@@ -32,6 +32,7 @@ def tokenize_wsd_dataset(dataset, tokenizer, max_length):
 def get_wsd_dataset(tokenizer, max_length=1024, batch_size=128, synthetic_dataset=None):
     print("Loading WSD dataset")
     train_dataset, test_dataset = load_dataset("Asap7772/cog_behav_all_strategies", split=["train", "test"])
+    print(train_dataset[0])
 
     if synthetic_dataset:
         synthetic_dataset = load_synthetic_dataset(synthetic_dataset, max_length)
@@ -65,13 +66,14 @@ def load_json_countdown(file_path):
     return data
 
 # special because no test dataset
-def load_countdown_dataset(tokenizer, batch_size, max_length, from_json=False):
+def load_countdown_dataset(tokenizer, batch_size, max_length, json_path=None):
     SERIALIZED_PATH = "/data/c-aalag/countdown_dataset.pt"
     SERIALIZED_TOKENIZED_PATH = "/data/c-aalag/countdown_tokenized_dataset.pt"
 
     # this is taken from WSD dataset
-    if from_json:
-        train_dataset = load_json_countdown("countdown.json")
+    if json_path:
+        print("Loading json countdown dataset")
+        train_dataset = load_json_countdown(json_path)
         processed_train_dataset = []
         for i, example in enumerate(train_dataset):
             prompt = WSD_PROMPT_FORMAT.format(target=example[0], numbers=example[1])
@@ -83,10 +85,12 @@ def load_countdown_dataset(tokenizer, batch_size, max_length, from_json=False):
 
         train_dataset = Dataset.from_list(processed_train_dataset)
     elif os.path.exists(SERIALIZED_PATH) and os.path.exists(SERIALIZED_TOKENIZED_PATH):
+        print("Loading serialized countdown dataset")
         train_dataset = torch.load(SERIALIZED_PATH, weights_only=False)
         tokenized_train_dataset = torch.load(SERIALIZED_TOKENIZED_PATH, weights_only=False)
         return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset
     else:
+        print("Loading original countdown dataset")
         train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train")
 
         train_dataset = train_dataset.map(lambda example, idx: {
@@ -101,7 +105,7 @@ def load_countdown_dataset(tokenizer, batch_size, max_length, from_json=False):
         torch.save(train_dataset, SERIALIZED_PATH)
 
     tokenized_train_dataset = tokenize_countdown_dataset(train_dataset, tokenizer, max_length=max_length)
-    if not from_json:
+    if not json_path:
         torch.save(train_dataset, SERIALIZED_TOKENIZED_PATH)
 
     return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset

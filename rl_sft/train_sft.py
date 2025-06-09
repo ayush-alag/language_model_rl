@@ -49,7 +49,7 @@ def get_batch_loss(model, batch, device):
 
     return loss
 
-def train(args, device, train_dataloader, test_dataloader, eval_dataset, tokenizer, eval_vllm_model, eval_sampling_params):
+def train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, hard_eval_dataset, tokenizer, eval_vllm_model, eval_sampling_params):
     print("Initializing wandb")
     wandb.init(
         project="rl-sft",
@@ -102,10 +102,12 @@ def train(args, device, train_dataloader, test_dataloader, eval_dataset, tokeniz
                 if global_step % args.eval_steps == 0:
                     eval_loss = evaluate_test_loss(model, test_dataloader, device, global_step)
                     load_policy_into_vllm_instance(model, eval_vllm_model)
-                    countdown_score = eval_countdown_vllm(eval_vllm_model, eval_dataset, args.max_length, eval_sampling_params)
+                    countdown_score = eval_countdown_vllm(eval_vllm_model, easy_eval_dataset, args.max_length, eval_sampling_params, "countdown_outputs.json")
+                    countdown_score_hard = eval_countdown_vllm(eval_vllm_model, hard_eval_dataset, args.max_length, eval_sampling_params, "countdown_outputs_hard.json")
                     wandb.log({
                         "test/loss": eval_loss,
-                        "test/countdown_score": countdown_score,
+                        "test/countdown_score_easy": countdown_score,
+                        "test/countdown_score_hard": countdown_score_hard,
                         "test/step": global_step,
                     })
 
@@ -144,10 +146,10 @@ def save_checkpoint(model, output_dir, checkpoint_name):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--synthetic_dataset", action="store_true")
-    parser.add_argument("--output_dir", type=str, default="checkpoints_sft")
+    parser.add_argument("--output_dir", type=str, default="checkpoints_sft_large_lr")
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--max_length", type=int, default=512)
-    parser.add_argument("--learning_rate", type=float, default=1e-5)
+    parser.add_argument("--learning_rate", type=float, default=1e-4)
     parser.add_argument("--num_epochs", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--save_steps", type=int, default=5)
@@ -164,7 +166,10 @@ if __name__ == "__main__":
 
     args.synthetic_dataset = "countdown_warmstart_cot_100.json" if args.synthetic_dataset else None
 
-    _, eval_dataset = load_countdown_dataset(tokenizer, args.batch_size, args.max_length, from_json=True)
+    easy_json_path = "countdown.json"
+    hard_json_path = "countdown_heldout_prompts.json"
+    _, easy_eval_dataset = load_countdown_dataset(tokenizer, args.batch_size, args.max_length, json_path=easy_json_path)
+    _, hard_eval_dataset = load_countdown_dataset(tokenizer, args.batch_size, args.max_length, json_path=hard_json_path)
 
     device = get_device()
     print(f"Using device: {device}")
@@ -175,11 +180,10 @@ if __name__ == "__main__":
 
     eval_sampling_params = SamplingParams(
         max_tokens=args.max_length,
-        temperature=1.0,
-        top_p=1.0,
-        stop=["</answer>"],
-        include_stop_str_in_output=True
+        temperature=0.6,
+        top_p=0.95,
+        top_k=20
     )
 
     train_dataloader, test_dataloader = get_wsd_dataset(tokenizer, args.max_length, args.batch_size, args.synthetic_dataset)
-    train(args, device, train_dataloader, test_dataloader, eval_dataset, tokenizer, eval_vllm_model, eval_sampling_params)
+    train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, hard_eval_dataset, tokenizer, eval_vllm_model, eval_sampling_params)
