@@ -2,10 +2,11 @@ import os
 import json
 import random
 import argparse
-from datasets import load_dataset, Dataset
+from datasets import load_dataset, Dataset, concatenate_datasets
 from transformers import AutoTokenizer
 import torch
 from torch.utils.data import DataLoader
+from prompts import WSD_PROMPT_FORMAT
 
 # for repro
 def set_seed(seed):
@@ -13,16 +14,9 @@ def set_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
-def process_smoltalk_sft(text):
-    return text["messages"]
-
 IGNORE_TOKEN_ID = -100
 def tokenize_text(text, tokenizer, max_length, task, query_column, completion_column):
-    # TODO: fix smoltalk_sft
-    if task == "smoltalk_sft":
-        text = process_smoltalk_sft(text)[0]
-        return tokenizer(text, truncation=True, padding="max_length", max_length=max_length)
-    elif task == "warm_start_sft":
+    if task == "warm_start_sft":
         tokens = tokenizer(text[query_column], text[completion_column], truncation="only_second", padding="max_length", max_length=max_length)
 
         labels = []
@@ -35,6 +29,7 @@ def tokenize_text(text, tokenizer, max_length, task, query_column, completion_co
         tokens["labels"] = labels
         return tokens
     elif task == "countdown":
+        # no answer, just prompt
         return tokenizer(text[query_column], truncation=True, padding="max_length", max_length=max_length)
 
 def load_json_countdown(file_path):
@@ -54,21 +49,9 @@ def load_countdown_dataset(batch_size, max_length, from_json=False):
     SERIALIZED_TOKENIZED_PATH = "/data/c-aalag/countdown_tokenized_dataset.pt"
 
     # this is taken from WSD dataset
-    PROMPT_FORMAT = """
-    User: Using the numbers {numbers}, create an equation that equals {target}.
-    You may use only the basic operations +, -, *, /, and each number exactly once.
-    You must start your answer with "Assistant: "!
-    First, show your reasoning inside <think>…</think> tags.
-    Then, on its own final line, output ONLY the equation wrapped in <answer>…</answer> tags.
-    For example:
-    Assistant:
-    <think>74 - 45 = 29</think>
-    <answer>(29 * 19) - 9</answer>
-    """
-
     if from_json:
         train_dataset = load_json_countdown("countdown.json")
-        prompts = [PROMPT_FORMAT.format(target=example[0], numbers=example[1]) for example in train_dataset]
+        prompts = [WSD_PROMPT_FORMAT.format(target=example[0], numbers=example[1]) for example in train_dataset]
         idx = [i for i in range(len(train_dataset))]
         train_dataset = {"prompt": prompts, "idx": idx, "target": [example[0] for example in train_dataset], "numbers": [example[1] for example in train_dataset]}
         train_dataset = Dataset.from_dict(train_dataset)
@@ -80,7 +63,7 @@ def load_countdown_dataset(batch_size, max_length, from_json=False):
         train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train")
 
         train_dataset = train_dataset.map(lambda example, idx: {
-            "prompt": PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]),
+            "prompt": WSD_PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]),
             "target": example["target"],
             "numbers": example["nums"],
             "idx": idx},
@@ -107,19 +90,24 @@ def tokenize_dataset(dataset, max_length, task, query_column, completion_column)
 
     return dataset.map(lambda x: tokenize_text(x, tokenizer, max_length, task, query_column, completion_column), batched=True)
 
-def load_dataset_and_tokenize(task, max_length=1024, batch_size=128):
-    # support more datasets in the future
-    if task == "smoltalk_sft":
-        train_dataset, test_dataset = load_dataset("HuggingFaceTB/smol-smoltalk", split=["train", "test"])
-    elif task == "warm_start_sft":
-        train_dataset, test_dataset = load_dataset("Asap7772/cog_behav_all_strategies", split=["train", "test"])
-        query_column = "query"
-        completion_column = "completion"
-    else:
-        raise ValueError(f"Task {task} not supported")
+def load_synthetic_dataset(synthetic_dataset, max_length, task):
+    synthetic_dataset = json.load(open(synthetic_dataset))
+    prompts = [WSD_PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]) for example in synthetic_dataset]
+    synthetic_dataset = {"query": prompts, "completion": [example["chain_of_thought"] for example in synthetic_dataset]}
+    synthetic_dataset = Dataset.from_dict(synthetic_dataset)
+    return synthetic_dataset
 
-    tokenized_train_dataset = tokenize_dataset(train_dataset, max_length, task, query_column, completion_column)
-    tokenized_test_dataset = tokenize_dataset(test_dataset, max_length, task, query_column, completion_column)
+def get_wsd_dataset(max_length=1024, batch_size=128, synthetic_dataset=None):
+    train_dataset, test_dataset = load_dataset("Asap7772/cog_behav_all_strategies", split=["train", "test"])
+    query_column = "query"
+    completion_column = "completion"
+
+    if synthetic_dataset is not None:
+        synthetic_dataset = load_synthetic_dataset(synthetic_dataset, max_length, "countdown")
+        train_dataset = concatenate_datasets([train_dataset, synthetic_dataset])
+
+    tokenized_train_dataset = tokenize_dataset(train_dataset, max_length, "warm_start_sft", query_column, completion_column)
+    tokenized_test_dataset = tokenize_dataset(test_dataset, max_length, "warm_start_sft", query_column, completion_column)
 
     tokenized_train_dataset.set_format("torch", ["input_ids", "attention_mask", "labels"])
     tokenized_test_dataset.set_format("torch", ["input_ids", "attention_mask", "labels"])
@@ -128,11 +116,12 @@ def load_dataset_and_tokenize(task, max_length=1024, batch_size=128):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--task", type=str, default="warm_start_sft", choices=["smoltalk_sft", "warm_start_sft", "countdown"])
+    parser.add_argument("--task", type=str, default="warm_start_sft", choices=["warm_start_sft", "countdown"])
     parser.add_argument("--output_dir", type=str, default="data/smoltalk_processed")
     parser.add_argument("--batch_size", type=int, default=128)
     parser.add_argument("--max_length", type=int, default=1024)
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
     set_seed(args.seed)
-    train_dataloader, test_dataloader = load_dataset_and_tokenize(args.task, args.max_length, args.batch_size)
+
+    train_dataloader, test_dataloader = get_wsd_dataset(args.max_length, args.batch_size)

@@ -4,9 +4,10 @@ import torch
 from torch.optim import AdamW
 from transformers import AutoModelForCausalLM, AutoTokenizer, get_cosine_schedule_with_warmup
 from tqdm import tqdm
-from dataloader import load_dataset_and_tokenize, set_seed
+from dataloader import get_wsd_dataset, set_seed, load_synthetic_dataset, load_countdown_dataset
 from torch.amp import autocast, GradScaler
 import wandb
+from eval_pipeline import eval_countdown_vllm
 
 def get_batch_loss(model, batch, device):
     with autocast(device_type=device.type, dtype=torch.float16):
@@ -28,10 +29,10 @@ def get_device():
 
     return device
 
-def train(args):
+def train(args, eval_dataset):
     wandb.init(
         project="rl-sft",
-        name=args.task,
+        name="wsd",
         config={
             "batch_size": args.batch_size,
             "max_lr": args.learning_rate,
@@ -47,10 +48,7 @@ def train(args):
         "Qwen/Qwen2.5-0.5B",
         trust_remote_code=True).to(device)
 
-    model = torch.compile(model)
-
-    # TODO: this reads the entire dataset; we could cache this
-    train_dataloader, test_dataloader = load_dataset_and_tokenize(args.task, args.max_length, args.batch_size)
+    train_dataloader, test_dataloader = get_wsd_dataset(args.max_length, args.batch_size, args.synthetic_dataset)
 
     optimizer = AdamW(model.parameters(), lr=args.learning_rate)
     num_training_steps = len(train_dataloader) * args.num_epochs // args.gradient_accumulation_steps
@@ -90,7 +88,14 @@ def train(args):
                 })
 
                 if global_step % args.eval_steps == 0:
-                    eval_loss = evaluate(model, test_dataloader, device, global_step)
+                    eval_loss = evaluate_test_loss(model, test_dataloader, device, global_step)
+                    countdown_score = eval_countdown_vllm(model, eval_dataset, args.max_length)
+                    wandb.log({
+                        "eval/loss": eval_loss,
+                        "eval/countdown_score": countdown_score,
+                        "eval/step": global_step,
+                    })
+
                     if eval_loss < min_test_loss:
                         min_test_loss = eval_loss
                         save_checkpoint(model, args.output_dir, f"best_model")
@@ -106,21 +111,18 @@ def train(args):
 
     wandb.finish()
 
-def evaluate(model, test_dataloader, device, global_step):
+def evaluate_test_loss(model, test_dataloader, device, global_step):
     model.eval()
     total_loss = 0
+    num_batches = 0
 
     with torch.no_grad():
         for batch in test_dataloader:
             loss = get_batch_loss(model, batch, device)
             total_loss += loss.item()
+            num_batches += 1
 
-    wandb.log({
-        "test/loss": total_loss / len(test_dataloader),
-        "test/step": global_step,
-    })
-
-    return total_loss / len(test_dataloader)
+    return total_loss / num_batches
 
 def save_checkpoint(model, output_dir, checkpoint_name):
     os.makedirs(output_dir, exist_ok=True)
@@ -128,16 +130,22 @@ def save_checkpoint(model, output_dir, checkpoint_name):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--task", type=str, default="warm_start_sft", choices=["smoltalk_sft", "warm_start_sft"])
-    parser.add_argument("--output_dir", type=str, default="checkpoints")
+    parser.add_argument("--synthetic_dataset", action="store_true")
+    parser.add_argument("--output_dir", type=str, default="checkpoints_sft")
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--max_length", type=int, default=512)
     parser.add_argument("--learning_rate", type=float, default=2e-5)
-    parser.add_argument("--num_epochs", type=int, default=1)
+    parser.add_argument("--num_epochs", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--save_steps", type=int, default=5)
     parser.add_argument("--eval_steps", type=int, default=10)
-    parser.add_argument("--gradient_accumulation_steps", type=int, default=1)
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=4)
     args = parser.parse_args()
+
+    if args.synthetic_dataset:
+        args.synthetic_dataset = "countdown_warmstart_cot_100.json"
+
+    _, eval_dataset = load_countdown_dataset(args.batch_size, args.max_length, from_json=True)
+
     set_seed(args.seed)
-    train(args)
+    train(args, eval_dataset)
