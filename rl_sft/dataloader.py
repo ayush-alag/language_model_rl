@@ -84,11 +84,11 @@ def load_countdown_dataset(tokenizer, batch_size, max_length, json_path=None):
                 "numbers": example[1]})
 
         train_dataset = Dataset.from_list(processed_train_dataset)
-    elif os.path.exists(SERIALIZED_PATH) and os.path.exists(SERIALIZED_TOKENIZED_PATH):
-        print("Loading serialized countdown dataset")
-        train_dataset = torch.load(SERIALIZED_PATH, weights_only=False)
-        tokenized_train_dataset = torch.load(SERIALIZED_TOKENIZED_PATH, weights_only=False)
-        return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset
+    # elif os.path.exists(SERIALIZED_PATH) and os.path.exists(SERIALIZED_TOKENIZED_PATH):
+    #     print("Loading serialized countdown dataset")
+    #     train_dataset = torch.load(SERIALIZED_PATH, weights_only=False)
+    #     tokenized_train_dataset = torch.load(SERIALIZED_TOKENIZED_PATH, weights_only=False)
+    #     return DataLoader(tokenized_train_dataset, batch_size=batch_size, shuffle=False), train_dataset
     else:
         print("Loading original countdown dataset")
         train_dataset = load_dataset("Jiayi-Pan/Countdown-Tasks-3to4", split="train")
@@ -108,7 +108,7 @@ def load_countdown_dataset(tokenizer, batch_size, max_length, json_path=None):
     if not json_path:
         torch.save(train_dataset, SERIALIZED_TOKENIZED_PATH)
 
-    return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset
+    return DataLoader(tokenized_train_dataset, batch_size=batch_size, shuffle=False), train_dataset
 
 def load_synthetic_dataset(synthetic_dataset, max_length):
     synthetic_dataset = json.load(open(synthetic_dataset))

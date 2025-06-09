@@ -1,0 +1,95 @@
+{
+  "os": "Linux-5.15.0-139-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.11.12",
+  "startedAt": "2025-06-03T19:54:40.510704Z",
+  "program": "/home/c-aalag/language_model_rl/rl_sft/rloo.py",
+  "codePath": "rl_sft/rloo.py",
+  "git": {
+    "remote": "https://github.com/ayush-alag/language_model_rl.git",
+    "commit": "b7aa4e90eed3d768bf49760c88678ed9980893df"
+  },
+  "email": "aalag@stanford.edu",
+  "root": "/home/c-aalag/language_model_rl/rl_sft",
+  "host": "ad12a3ca-01.cloud.together.ai",
+  "executable": "/scratch/c-aalag/uv-envs/language_model_rl/bin/python3",
+  "codePathLocal": "rloo.py",
+  "cpu_count": 64,
+  "cpu_count_logical": 64,
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "943432929280",
+      "used": "358574620672"
+    }
+  },
+  "memory": {
+    "total": "2164201852928"
+  },
+  "cpu": {
+    "count": 64,
+    "countLogical": 64
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA H100 80GB HBM3",
+      "memoryTotal": "85520809984",
+      "cudaCores": 16896,
+      "architecture": "Hopper"
+    }
+  ],
+  "slurm": {
+    "cluster_name": "cs336",
+    "conf": "/etc/slurm/slurm.conf",
+    "cpu_bind": "quiet,mask_cpu:0x0000000200002000",
+    "cpu_bind_list": "0x0000000200002000",
+    "cpu_bind_type": "mask_cpu:",
+    "cpu_bind_verbose": "quiet",
+    "cpus_on_node": "2",
+    "gpus_on_node": "1",
+    "gtids": "0",
+    "job_account": "student",
+    "job_cpus_per_node": "2",
+    "job_gid": "243000806",
+    "job_id": "1407444",
+    "job_name": "bash",
+    "job_nodelist": "ad12a3ca-01",
+    "job_num_nodes": "1",
+    "job_partition": "interactive",
+    "job_qos": "interactive-qos",
+    "job_uid": "243000806",
+    "job_user": "c-aalag",
+    "jobid": "1407444",
+    "launch_node_ipaddr": "10.56.0.40",
+    "localid": "0",
+    "nnodes": "1",
+    "nodeid": "0",
+    "nodelist": "ad12a3ca-01",
+    "nprocs": "1",
+    "ntasks": "1",
+    "prio_process": "0",
+    "procid": "0",
+    "pty_port": "43767",
+    "pty_win_col": "156",
+    "pty_win_row": "41",
+    "srun_comm_host": "10.56.0.40",
+    "srun_comm_port": "38657",
+    "step_gpus": "5",
+    "step_id": "0",
+    "step_launcher_port": "38657",
+    "step_nodelist": "ad12a3ca-01",
+    "step_num_nodes": "1",
+    "step_num_tasks": "1",
+    "step_tasks_per_node": "1",
+    "stepid": "0",
+    "submit_dir": "/home/c-aalag",
+    "submit_host": "ad12a3ca-hn01.cloud.together.ai",
+    "task_pid": "1191308",
+    "tasks_per_node": "1",
+    "topology_addr": "ad12a3ca-01",
+    "topology_addr_pattern": "node",
+    "umask": "0002",
+    "working_cluster": "cs336:10.56.0.40:6817:9472:109"
+  },
+  "cudaVersion": "12.8"
+}

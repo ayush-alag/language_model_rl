@@ -12,33 +12,8 @@ import inspect
 import tempfile
 
 from eval_pipeline import eval_countdown_vllm
-from common import get_device, set_seed
-from vllm import LLM, SamplingParams
-from transformers import PreTrainedModel
-from unittest.mock import patch
-from vllm.model_executor import set_random_seed as vllm_set_random_seed
-
-def init_vllm(model_id: str, device: str, seed: int, gpu_memory_utilization: float = 0.25):
-    vllm_set_random_seed(seed)
-    world_size_patch = patch("torch.distributed.get_world_size", return_value=1)
-    profiling_patch = patch(
-        "vllm.worker.worker.Worker._assert_memory_footprint_increased_during_profiling",
-        return_value=None
-    )
-
-    with world_size_patch, profiling_patch:
-        return LLM(
-            model=model_id,
-            device=device,
-            dtype=torch.bfloat16,
-            enable_prefix_caching=True,
-            gpu_memory_utilization=gpu_memory_utilization,
-        )
-
-def load_policy_into_vllm_instance(policy: PreTrainedModel, llm: LLM):
-    state_dict = policy.state_dict()
-    llm_model = llm.llm_engine.model_executor.driver_worker.model_runner.model
-    llm_model.load_weights(state_dict.items())
+from common import get_device, set_seed, init_vllm, load_policy_into_vllm_instance
+from vllm import SamplingParams
 
 def get_batch_loss(model, batch, device):
     with autocast(device_type=device.type, dtype=torch.float16):
@@ -146,7 +121,7 @@ def save_checkpoint(model, output_dir, checkpoint_name):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--synthetic_dataset", action="store_true")
-    parser.add_argument("--output_dir", type=str, default="checkpoints_sft_large_lr")
+    parser.add_argument("--output_dir", type=str, default="/data/c-aalag/checkpoints_sft_large_lr")
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--max_length", type=int, default=512)
     parser.add_argument("--learning_rate", type=float, default=1e-4)

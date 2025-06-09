@@ -1,200 +1,200 @@
 {"num":[15,5,75,90],"response":"","target":21}
-{"num":[12,71,17,99],"response":"(71 + 12) - (99 / 17)","target":1}
+{"num":[12,71,17,99],"response":"","target":1}
 {"num":[51,50,5,14],"response":"","target":55}
-{"num":[83,48,18,49],"response":"(83 - 49) * 18 - 48","target":64}
-{"num":[85,84,45],"response":"","target":46}
+{"num":[83,48,18,49],"response":"","target":64}
+{"num":[85,84,45],"response":"(85 - 84) + 45","target":46}
 {"num":[0,97,23],"response":"","target":0}
-{"num":[39,7,18],"response":"(29 * 19) - 9","target":64}
+{"num":[39,7,18],"response":"(39/18 * 7) + 18","target":64}
 {"num":[61,20,48,89],"response":"","target":82}
-{"num":[7,13,68],"response":"(74 - 45) - 19","target":23}
-{"num":[28,3,29,71],"response":"(71 - 28) - 29) * 3","target":42}
-{"num":[77,15,19],"response":"(77 - 15) + 19","target":81}
+{"num":[7,13,68],"response":"","target":23}
+{"num":[28,3,29,71],"response":"(71 - 29) + (28 + 3)","target":42}
+{"num":[77,15,19],"response":"(77 + (19 - 15))","target":81}
 {"num":[12,2,68,69],"response":"","target":13}
-{"num":[54,33,2],"response":"(54 - 33 + 2) + 23","target":23}
+{"num":[54,33,2],"response":"(54/2 - 33) + 2","target":23}
 {"num":[54,7,91,73],"response":"","target":65}
-{"num":[42,37,1],"response":"(42 + 37) - 1 + 79","target":79}
-{"num":[28,13,77,82],"response":"(28 + 13) + (82 - 77)","target":46}
-{"num":[8,74,65,10],"response":"(74 - 65 + (10/10)) * (74 - 65)","target":9}
-{"num":[92,32,4],"response":"32 + 4 + (92 - 36)","target":56}
-{"num":[82,52,35],"response":"82 + 52 - 35","target":99}
+{"num":[42,37,1],"response":"(42 + 37) - (1 * 37)","target":79}
+{"num":[28,13,77,82],"response":"","target":46}
+{"num":[8,74,65,10],"response":"(74 - 65) * 10 - 10","target":9}
+{"num":[92,32,4],"response":"(92 - 32) - (4/2)","target":56}
+{"num":[82,52,35],"response":"(82 - 52) + 35","target":99}
 {"num":[97,61,17],"response":"(97 - 61) - 17","target":19}
-{"num":[34,10,42],"response":"(42 + 10) + 34","target":86}
-{"num":[74,46,90],"response":"(74/2 - 46) + 90","target":30}
-{"num":[32,26,45],"response":"(29 * 19) - 9","target":51}
-{"num":[88,88,44],"response":"(88/88 * 19) - 9","target":44}
-{"num":[74,22,44],"response":"74 - 44 - 22 - 1","target":8}
-{"num":[62,41,14],"response":"","target":35}
+{"num":[34,10,42],"response":"","target":86}
+{"num":[74,46,90],"response":"(90/45) + (74-46)","target":30}
+{"num":[32,26,45],"response":"(45 - 26) + 32","target":51}
+{"num":[88,88,44],"response":"(88/(44 + (88/44)))","target":44}
+{"num":[74,22,44],"response":"","target":8}
+{"num":[62,41,14],"response":"(41-14)-(62-27)","target":35}
 {"num":[15,31,43,29],"response":"","target":60}
 {"num":[69,37,21,63],"response":"","target":22}
-{"num":[18,89,41],"response":"","target":66}
+{"num":[18,89,41],"response":"(89 - 41) + 18","target":66}
 {"num":[14,14,77,44],"response":"","target":6}
-{"num":[31,12,16,1],"response":"(31 + 1) + (16 - 12)","target":36}
-{"num":[4,29,31,21],"response":"(29 - 21) * 4 + 31 - 1","target":43}
-{"num":[49,57,9],"response":"","target":97}
-{"num":[68,24,36],"response":"","target":8}
-{"num":[65,9,8],"response":"","target":82}
-{"num":[60,93,0,91],"response":"","target":60}
+{"num":[31,12,16,1],"response":"","target":36}
+{"num":[4,29,31,21],"response":"","target":43}
+{"num":[49,57,9],"response":"(49 + 57) - 9","target":97}
+{"num":[68,24,36],"response":"(68 - 24) - 36","target":8}
+{"num":[65,9,8],"response":"(65 + 9) + 8","target":82}
+{"num":[60,93,0,91],"response":"(91-60)+((93/3))","target":60}
 {"num":[27,36,56],"response":"","target":47}
-{"num":[82,82,98],"response":"98 - (82 + 16)","target":98}
-{"num":[56,41,3],"response":"(56 - 41) - 19) - 3","target":12}
-{"num":[5,12,87,20],"response":"(87 - 20) - (67 - 12)","target":60}
-{"num":[24,36,4],"response":"(36 - (24/4))","target":33}
-{"num":[10,72,13,6],"response":"","target":4}
-{"num":[40,70,22],"response":"(70 - 22) + 40","target":88}
-{"num":[93,96,66],"response":"(96 - 93) - 66)","target":63}
-{"num":[9,4,74],"response":"","target":87}
+{"num":[82,82,98],"response":"(98 - (82 - 82))","target":98}
+{"num":[56,41,3],"response":"","target":12}
+{"num":[5,12,87,20],"response":"(5 * 12) + (87 / 20)","target":60}
+{"num":[24,36,4],"response":"","target":33}
+{"num":[10,72,13,6],"response":"(72 - 13) - (13 - 6)","target":4}
+{"num":[40,70,22],"response":"","target":88}
+{"num":[93,96,66],"response":"(96 - 66) - 93","target":63}
+{"num":[9,4,74],"response":"(74 + 4) + 9","target":87}
 {"num":[64,13,2],"response":"","target":49}
-{"num":[50,40,73],"response":"(73 - 50) - (50 - 40)","target":17}
+{"num":[50,40,73],"response":"","target":17}
 {"num":[56,14,10,60],"response":"(29 * 19) - 9","target":0}
 {"num":[8,6,8],"response":"(8 * 6) - 8","target":40}
 {"num":[86,69,98],"response":"","target":57}
 {"num":[79,71,7],"response":"","target":15}
 {"num":[0,3,60,86],"response":"(86 - 60) - 3","target":23}
-{"num":[18,90,5],"response":"(90/5 + 18) + 18","target":36}
-{"num":[76,26,33,42],"response":"(76 - 42) - (26 - 33)","target":41}
-{"num":[72,16,8],"response":"(72 - 16) / 8","target":3}
-{"num":[55,90,98],"response":"(55 + (98 - 90))","target":63}
-{"num":[98,10,34],"response":"(98 - 10) - 34","target":54}
-{"num":[86,78,32],"response":"(78 - 32) - 86)","target":40}
-{"num":[55,33,2],"response":"","target":86}
+{"num":[18,90,5],"response":"","target":36}
+{"num":[76,26,33,42],"response":"","target":41}
+{"num":[72,16,8],"response":"","target":3}
+{"num":[55,90,98],"response":"(98 - 90) + 55","target":63}
+{"num":[98,10,34],"response":"(29 * 19) - 9","target":54}
+{"num":[86,78,32],"response":"(78 - 32) - (86 - 46)","target":40}
+{"num":[55,33,2],"response":"(55 + (33 - 2))","target":86}
 {"num":[4,35,4],"response":"","target":43}
-{"num":[99,86,36],"response":"(29 * 19) - 9","target":49}
-{"num":[58,41,38,15],"response":"(29 * 19) - 9","target":40}
-{"num":[69,45,5],"response":"(69 - 45 + 5) * 19","target":60}
-{"num":[27,76,31,62],"response":"","target":44}
-{"num":[60,73,30,78],"response":"(60 + (30 + (78 - 73)))","target":95}
-{"num":[37,89,54],"response":"(89 - 37) - 54","target":2}
-{"num":[73,52,69],"response":"(73-52)+(69/21)","target":56}
-{"num":[2,45,21,45],"response":"(45 - 21 + 45) + 2","target":71}
-{"num":[48,85,10,55],"response":"","target":68}
-{"num":[30,19,40,15],"response":"(30 + 19) + 15 + 2","target":66}
-{"num":[42,42,46],"response":"","target":38}
-{"num":[27,76,17],"response":"(76 - 17) + 27","target":86}
-{"num":[22,98,33,44],"response":"(22 + (98 - 44 - 33))","target":1}
-{"num":[9,79,31,52],"response":"(9 + 31) + (79 - 52)","target":67}
+{"num":[99,86,36],"response":"","target":49}
+{"num":[58,41,38,15],"response":"","target":40}
+{"num":[69,45,5],"response":"(29 * 19) - 9","target":60}
+{"num":[27,76,31,62],"response":"(76 - 62) - (27 + 31)","target":44}
+{"num":[60,73,30,78],"response":"","target":95}
+{"num":[37,89,54],"response":"(89 - 37) - (54 - 52)","target":2}
+{"num":[73,52,69],"response":"73 - 52 = 21","target":56}
+{"num":[2,45,21,45],"response":"","target":71}
+{"num":[48,85,10,55],"response":"(85 - 55) + (48 - 10)","target":68}
+{"num":[30,19,40,15],"response":"(40 - 19 + 15) + 30","target":66}
+{"num":[42,42,46],"response":"(42/42 + 46) - 29","target":38}
+{"num":[27,76,17],"response":"","target":86}
+{"num":[22,98,33,44],"response":"","target":1}
+{"num":[9,79,31,52],"response":"(79 - 52 + 31) + 9","target":67}
 {"num":[70,95,93],"response":"(70 + (95 - 93))","target":72}
-{"num":[45,31,1],"response":"(45 + 31) + 1","target":76}
-{"num":[79,14,27],"response":"","target":66}
+{"num":[45,31,1],"response":"(45 + 31) - (19 - 2)","target":76}
+{"num":[79,14,27],"response":"(79 - 14) + 1","target":66}
 {"num":[57,71,6,42],"response":"","target":22}
-{"num":[92,55,49,72],"response":"","target":14}
-{"num":[11,80,16,64],"response":"(80 / 16) + 64 - 5","target":70}
-{"num":[25,78,60],"response":"(78 - 60) - 25","target":7}
+{"num":[92,55,49,72],"response":"(29 * 19) - 92","target":14}
+{"num":[11,80,16,64],"response":"(80 - 64 + 11) + 16","target":70}
+{"num":[25,78,60],"response":"(78 - 25) + (60 - 53)","target":7}
 {"num":[36,96,85,35],"response":"","target":82}
-{"num":[99,84,8],"response":"","target":23}
-{"num":[91,41,15],"response":"(29 * 19) - 9","target":65}
+{"num":[99,84,8],"response":"((84 - 8) * 99) - 9","target":23}
+{"num":[91,41,15],"response":"(91 - 41) + 15","target":65}
 {"num":[13,0,2,75],"response":"","target":0}
-{"num":[79,55,28],"response":"","target":52}
-{"num":[3,12,55],"response":"(55 - 12) + 3","target":46}
-{"num":[50,19,27,49],"response":"(29 * 19) - 9","target":53}
-{"num":[75,24,47],"response":"(75 - (47 - 24))","target":52}
-{"num":[90,56,62],"response":"(90 - (62 - 56))","target":84}
+{"num":[79,55,28],"response":"(74 - 45) * 19) - 9","target":52}
+{"num":[3,12,55],"response":"","target":46}
+{"num":[50,19,27,49],"response":"","target":53}
+{"num":[75,24,47],"response":"","target":52}
+{"num":[90,56,62],"response":"","target":84}
 {"num":[45,11,4,0],"response":"","target":89}
-{"num":[36,9,30],"response":"","target":57}
-{"num":[60,27,19],"response":"60 + 27 - 19","target":68}
-{"num":[0,91,64,32],"response":"(64 - 32) - (32 - 2)","target":0}
-{"num":[10,29,48,0],"response":"(29 * 19) - 9","target":29}
-{"num":[2,50,55],"response":"(55-2)*5-19","target":7}
+{"num":[36,9,30],"response":"(36 + 30) - 9","target":57}
+{"num":[60,27,19],"response":"(87 - 19) - 60)","target":68}
+{"num":[0,91,64,32],"response":"","target":0}
+{"num":[10,29,48,0],"response":"","target":29}
+{"num":[2,50,55],"response":"","target":7}
 {"num":[7,21,20,22],"response":"","target":26}
-{"num":[44,64,94],"response":"(64/4) = 16, (94-44) = 50, (50/5) = 10, 10-4 = 6","target":14}
-{"num":[63,75,46],"response":"","target":92}
-{"num":[92,46,71],"response":"(92 - 71) + 46","target":67}
+{"num":[44,64,94],"response":"","target":14}
+{"num":[63,75,46],"response":"(((29 * 19) - 92))","target":92}
+{"num":[92,46,71],"response":"","target":67}
 {"num":[75,26,33,27],"response":"","target":95}
-{"num":[61,63,57],"response":"(63-61)+(-57)","target":55}
-{"num":[79,12,22],"response":"(79 - 22) + 12","target":69}
-{"num":[61,22,41],"response":"","target":80}
-{"num":[1,48,93],"response":"(93 - 48) + 1","target":46}
-{"num":[71,92,67],"response":"","target":46}
-{"num":[21,38,73],"response":"","target":56}
-{"num":[86,62,87,71],"response":"","target":40}
-{"num":[36,4,14],"response":"(36 - 14) - 4","target":18}
-{"num":[93,76,9],"response":"(29 * 19) - 93","target":26}
-{"num":[38,65,19],"response":"","target":84}
-{"num":[34,38,6],"response":"(38 - 34) - (6/2)","target":2}
-{"num":[47,95,72],"response":"","target":24}
-{"num":[8,43,51],"response":"","target":0}
-{"num":[58,35,57],"response":"(35 + (58 - 57))","target":36}
-{"num":[96,43,40,95],"response":"","target":4}
+{"num":[61,63,57],"response":"","target":55}
+{"num":[79,12,22],"response":"","target":69}
+{"num":[61,22,41],"response":"(61 - 22) + 41","target":80}
+{"num":[1,48,93],"response":"(48/1) + (93-48)","target":46}
+{"num":[71,92,67],"response":"(74 - 45) - 92","target":46}
+{"num":[21,38,73],"response":"(38 + 21) - (73 - 59)","target":56}
+{"num":[86,62,87,71],"response":"77 - 87","target":40}
+{"num":[36,4,14],"response":"(36 / 14 + 4) * 19","target":18}
+{"num":[93,76,9],"response":"","target":26}
+{"num":[38,65,19],"response":"(38 + 19) + (65 - 57)","target":84}
+{"num":[34,38,6],"response":"(38 - 34) * 6 - 2","target":2}
+{"num":[47,95,72],"response":"(95 - 47) - (72 - 48)","target":24}
+{"num":[8,43,51],"response":"(43 - 51) - 8","target":0}
+{"num":[58,35,57],"response":"","target":36}
+{"num":[96,43,40,95],"response":"(95-43)-4","target":4}
 {"num":[60,56,98,13],"response":"","target":5}
-{"num":[42,17,34,66],"response":"","target":91}
-{"num":[16,8,45],"response":"(45 + 8 - 16) + 4","target":47}
+{"num":[42,17,34,66],"response":"(42 - 34 + 17) + 66","target":91}
+{"num":[16,8,45],"response":"(45 + (48 - 2))","target":47}
 {"num":[95,57,64,62],"response":"","target":36}
-{"num":[12,14,38],"response":"","target":64}
+{"num":[12,14,38],"response":"(14 - 12) * 38","target":64}
 {"num":[7,11,82,91],"response":"","target":27}
 {"num":[30,20,48],"response":"","target":72}
-{"num":[97,0,50,28],"response":"","target":69}
-{"num":[78,49,51,42],"response":"(29 - 9) * 42","target":20}
+{"num":[97,0,50,28],"response":"(97 - 28) - 50)","target":69}
+{"num":[78,49,51,42],"response":"(49 * 19) - 51) - 42","target":20}
 {"num":[36,48,49,55],"response":"","target":92}
 {"num":[24,4,68,9],"response":"","target":19}
-{"num":[6,38,86],"response":"(29 * 19) - 9","target":54}
+{"num":[6,38,86],"response":"(86 - 38) + 6","target":54}
 {"num":[17,84,28,77],"response":"","target":91}
-{"num":[50,60,86],"response":"","target":76}
-{"num":[54,62,47],"response":"(54 - 47) + 62","target":69}
-{"num":[99,92,88],"response":"","target":95}
-{"num":[26,13,7],"response":"(26 + 7) + 13","target":46}
-{"num":[96,99,40],"response":"29 * 19 - 9","target":37}
-{"num":[57,26,13],"response":"(57 - (26 - 13))","target":44}
+{"num":[50,60,86],"response":"(86 - 60) + (50 + 26)","target":76}
+{"num":[54,62,47],"response":"","target":69}
+{"num":[99,92,88],"response":"(92 + 88) - 99) + 9","target":95}
+{"num":[26,13,7],"response":"","target":46}
+{"num":[96,99,40],"response":"(96 + 40) - 99","target":37}
+{"num":[57,26,13],"response":"","target":44}
 {"num":[74,13,52],"response":"(74 - 13) - 52","target":9}
-{"num":[52,27,14],"response":"(52 + 27) - 14","target":65}
-{"num":[9,75,91],"response":"","target":25}
-{"num":[97,6,63,1],"response":"(97 - 63 + 6) + 1","target":41}
+{"num":[52,27,14],"response":"(27 - 14) + (52 - 27)","target":65}
+{"num":[9,75,91],"response":"(75 - 9) - 91","target":25}
+{"num":[97,6,63,1],"response":"(29 * 19) - 9","target":41}
 {"num":[84,28,55,25],"response":"","target":32}
-{"num":[5,33,33],"response":"(33 - 33) + 5","target":5}
+{"num":[5,33,33],"response":"","target":5}
 {"num":[0,45,25],"response":"","target":0}
-{"num":[3,90,55],"response":"","target":38}
-{"num":[9,28,66],"response":"(28 - 9) - 66)","target":47}
+{"num":[3,90,55],"response":"(90 - 55 + 3) - 3","target":38}
+{"num":[9,28,66],"response":"(28 - 19) + 66","target":47}
 {"num":[23,23,69],"response":"","target":70}
-{"num":[84,3,25],"response":"(84 - 25) + 3","target":62}
-{"num":[18,24,61],"response":"(61 - 24) + 18","target":55}
-{"num":[91,9,5],"response":"(92 - 5) + 9","target":95}
-{"num":[81,93,80],"response":"(93 + (81 - 80))","target":94}
-{"num":[48,79,36],"response":"(79 + (48 - 36))","target":91}
-{"num":[78,5,12],"response":"78 - 5 * 12","target":61}
-{"num":[29,63,14],"response":"(63 - 14) + 29","target":78}
+{"num":[84,3,25],"response":"(84 - 25 + 3) - 1","target":62}
+{"num":[18,24,61],"response":"","target":55}
+{"num":[91,9,5],"response":"(91 + 9) - 5","target":95}
+{"num":[81,93,80],"response":"(81 - 80) + 93","target":94}
+{"num":[48,79,36],"response":"79 + 48 - 36","target":91}
+{"num":[78,5,12],"response":"(78 - 5) - 12","target":61}
+{"num":[29,63,14],"response":"(63 + 29) - 14","target":78}
 {"num":[53,7,87,43],"response":"","target":90}
 {"num":[43,28,67],"response":"","target":82}
-{"num":[22,80,44],"response":"(80 - 22) * (80 - 22)","target":58}
-{"num":[18,21,21],"response":"(21/21) * 18 / 18","target":18}
-{"num":[42,40,60],"response":"(60 + (42 - 40))","target":62}
-{"num":[20,32,41],"response":"","target":93}
-{"num":[64,43,9],"response":"","target":98}
-{"num":[76,89,98,25],"response":"(98 - 89) - (76 + 25)","target":92}
-{"num":[69,34,55,86],"response":"(69 - 34) - (86 - 55)","target":4}
+{"num":[22,80,44],"response":"(80 - 44) + 22","target":58}
+{"num":[18,21,21],"response":"(21 + 18) - 21","target":18}
+{"num":[42,40,60],"response":"(29 * 19) - 9","target":62}
+{"num":[20,32,41],"response":"(41 - 32) - 20) - 1","target":93}
+{"num":[64,43,9],"response":"(64 + 43) - 9","target":98}
+{"num":[76,89,98,25],"response":"76 + (25 * 3)","target":92}
+{"num":[69,34,55,86],"response":"","target":4}
 {"num":[0,42,19,68],"response":"","target":7}
-{"num":[35,3,32],"response":"(32/32)*(35 - 32)","target":64}
-{"num":[94,60,33],"response":"(94 - 60) + 33","target":67}
+{"num":[35,3,32],"response":"","target":64}
+{"num":[94,60,33],"response":"(94 - 60 + 33) - 67","target":67}
 {"num":[54,74,46],"response":"","target":82}
-{"num":[49,32,17],"response":"","target":98}
-{"num":[64,13,55,11],"response":"","target":72}
-{"num":[16,41,67],"response":"(67 - 41 + 16) / 16","target":42}
-{"num":[34,11,22],"response":"","target":17}
-{"num":[96,51,2],"response":"(96 - 51 + 2) + 27","target":47}
-{"num":[39,46,15],"response":"(39 + 46) - 15","target":70}
-{"num":[8,66,7],"response":"(66 / 7 * 8) + 3","target":81}
-{"num":[14,14,59],"response":"(14 * 19) - (29/29)","target":59}
-{"num":[45,26,60,68],"response":"(29 * 19) - 9","target":63}
-{"num":[45,76,57],"response":"","target":64}
+{"num":[49,32,17],"response":"(49 + 32) + 17","target":98}
+{"num":[64,13,55,11],"response":"72 - (29 * 19 - 13)","target":72}
+{"num":[16,41,67],"response":"(67 - 41) + 16","target":42}
+{"num":[34,11,22],"response":"29 * 19 - 9","target":17}
+{"num":[96,51,2],"response":"(29 * 19) - 9","target":47}
+{"num":[39,46,15],"response":"(46 + 39) - 15","target":70}
+{"num":[8,66,7],"response":"","target":81}
+{"num":[14,14,59],"response":"(14 - 14) + 59","target":59}
+{"num":[45,26,60,68],"response":"","target":63}
+{"num":[45,76,57],"response":"(57 - 45) * 19) - 76","target":64}
 {"num":[25,82,11],"response":"","target":96}
-{"num":[24,0,37,64],"response":"","target":24}
-{"num":[21,6,9,22],"response":"(22 + 21 + 9) + 6","target":58}
-{"num":[81,7,23,55],"response":"(23 * 19) - 74","target":56}
+{"num":[24,0,37,64],"response":"(29 * 19) - 9","target":24}
+{"num":[21,6,9,22],"response":"(28 + 9) + (22 - 1)","target":58}
+{"num":[81,7,23,55],"response":"(81 - 55 + 7) + 23","target":56}
 {"num":[20,38,63,65],"response":"","target":60}
 {"num":[70,76,90],"response":"","target":84}
-{"num":[31,29,63],"response":"(29 * 19) - 9","target":65}
-{"num":[38,12,41],"response":"29 * 19 - 9","target":9}
-{"num":[25,25,39],"response":"(25 + 25) + 39","target":89}
-{"num":[44,0,5],"response":"","target":44}
-{"num":[53,32,24],"response":"","target":45}
-{"num":[78,0,32,74],"response":"(74 - 32) - 78)","target":36}
-{"num":[91,61,91],"response":"(91 - 61) / 2 + 1","target":61}
+{"num":[31,29,63],"response":"","target":65}
+{"num":[38,12,41],"response":"","target":9}
+{"num":[25,25,39],"response":"(25 + 25) + 39 - 25","target":89}
+{"num":[44,0,5],"response":"(44 / 44) * 5","target":44}
+{"num":[53,32,24],"response":"(53 - 32) + 24","target":45}
+{"num":[78,0,32,74],"response":"","target":36}
+{"num":[91,61,91],"response":"","target":61}
 {"num":[82,82,22],"response":"","target":22}
-{"num":[82,55,0],"response":"(82 - 55) * 0","target":0}
-{"num":[93,67,57],"response":"(93 - (67 - 57))","target":83}
-{"num":[97,95,8,88],"response":"(97 + 8) - (95 - 88)","target":98}
+{"num":[82,55,0],"response":"","target":0}
+{"num":[93,67,57],"response":"","target":83}
+{"num":[97,95,8,88],"response":"","target":98}
 {"num":[63,70,40],"response":"","target":36}
-{"num":[36,61,1],"response":"(29 * 19) - 9","target":97}
+{"num":[36,61,1],"response":"(61 + 36) + (36 - 1)","target":97}
 {"num":[36,48,4],"response":"","target":3}
-{"num":[6,78,1],"response":"(78 + 6) - 1","target":84}
-{"num":[7,59,43,82],"response":"(82 - 59) + (43 - 7)","target":73}
-{"num":[85,23,42],"response":"(85 - 42) - 23","target":20}
+{"num":[6,78,1],"response":"(78 - 1) + 7","target":84}
+{"num":[7,59,43,82],"response":"(82 - (59 - 43)) + 7","target":73}
+{"num":[85,23,42],"response":"(42 * 23) - (85 - 23)","target":20}
 {"num":[97,36,26,39],"response":"","target":43}
-{"num":[35,29,80,88],"response":"","target":72}
+{"num":[35,29,80,88],"response":"(88 - 35) * 29 - 80","target":72}
