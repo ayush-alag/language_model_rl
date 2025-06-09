@@ -19,7 +19,7 @@ def get_batch_loss(model, batch, device):
 
     return loss
 
-def train(args, eval_dataset):
+def train(args, eval_dataset, tokenizer):
     wandb.init(
         project="rl-sft",
         name="wsd",
@@ -38,7 +38,7 @@ def train(args, eval_dataset):
         "Qwen/Qwen2.5-0.5B",
         trust_remote_code=True).to(device)
 
-    train_dataloader, test_dataloader = get_wsd_dataset(args.max_length, args.batch_size, args.synthetic_dataset)
+    train_dataloader, test_dataloader = get_wsd_dataset(tokenizer, args.max_length, args.batch_size, args.synthetic_dataset)
 
     optimizer = AdamW(model.parameters(), lr=args.learning_rate)
     num_training_steps = len(train_dataloader) * args.num_epochs // args.gradient_accumulation_steps
@@ -132,10 +132,16 @@ if __name__ == "__main__":
     parser.add_argument("--gradient_accumulation_steps", type=int, default=4)
     args = parser.parse_args()
 
+    tokenizer = AutoTokenizer.from_pretrained(
+        "Qwen/Qwen2.5-0.5B",
+        trust_remote_code=True,
+        use_fast=True,
+    )
+
     if args.synthetic_dataset:
         args.synthetic_dataset = "countdown_warmstart_cot_100.json"
 
-    _, eval_dataset = load_countdown_dataset(args.batch_size, args.max_length, from_json=True)
+    _, eval_dataset = load_countdown_dataset(tokenizer, args.batch_size, args.max_length, from_json=True)
 
     set_seed(args.seed)
-    train(args, eval_dataset)
+    train(args, eval_dataset, tokenizer)
