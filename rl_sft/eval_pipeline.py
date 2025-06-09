@@ -1,7 +1,7 @@
 from eval_countdown import compute_score, extract_solution
 from dataloader import get_wsd_dataset, load_countdown_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from train_sft import get_device
+from common import get_device
 import argparse
 import torch
 import json
@@ -21,11 +21,6 @@ def eval_wsd_model_path(model_path, batch_size, max_length):
         model_path,
         trust_remote_code=True)
     model.to(device).eval()
-    tokenizer = AutoTokenizer.from_pretrained(
-        "Qwen/Qwen2.5-0.5B",
-        trust_remote_code=True,
-        use_fast=True,
-    )
 
     # load the test dataset for wsd
     _, test_dataloader = get_wsd_dataset(max_length, batch_size)
@@ -97,5 +92,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     # eval_wsd_model_path(args.model_path, args.batch_size, args.max_length)
 
-    _, eval_dataset = load_countdown_dataset(args.batch_size, args.max_length, args.from_json)
+    tokenizer = AutoTokenizer.from_pretrained(
+        "Qwen/Qwen2.5-0.5B",
+        trust_remote_code=True,
+        use_fast=True,
+    )
+
+    _, eval_dataset = load_countdown_dataset(tokenizer, args.batch_size, args.max_length, args.from_json)
     eval_countdown_model_path(args.model_path, eval_dataset, args.max_length)

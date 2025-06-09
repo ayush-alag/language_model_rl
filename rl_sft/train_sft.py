@@ -4,10 +4,11 @@ import torch
 from torch.optim import AdamW
 from transformers import AutoModelForCausalLM, AutoTokenizer, get_cosine_schedule_with_warmup
 from tqdm import tqdm
-from dataloader import get_wsd_dataset, set_seed, load_synthetic_dataset, load_countdown_dataset
+from dataloader import get_wsd_dataset, load_synthetic_dataset, load_countdown_dataset
 from torch.amp import autocast, GradScaler
 import wandb
 from eval_pipeline import eval_countdown_vllm
+from common import get_device, set_seed
 
 def get_batch_loss(model, batch, device):
     with autocast(device_type=device.type, dtype=torch.float16):
@@ -17,17 +18,6 @@ def get_batch_loss(model, batch, device):
         loss = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels).loss
 
     return loss
-
-# run on bare metal if we can
-def get_device():
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-    elif torch.backends.mps.is_available():
-        device = torch.device("mps")
-    else:
-        device = torch.device("cpu")
-
-    return device
 
 def train(args, eval_dataset):
     wandb.init(

@@ -8,19 +8,15 @@ import torch
 from torch.utils.data import DataLoader
 from prompts import WSD_PROMPT_FORMAT
 
-# for repro
-def set_seed(seed):
-    random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
+""" WSD dataset """
 
 IGNORE_TOKEN_ID = -100
-def tokenize_text(text, tokenizer, max_length, task, query_column, completion_column):
-    if task == "warm_start_sft":
-        tokens = tokenizer(text[query_column], text[completion_column], truncation="only_second", padding="max_length", max_length=max_length)
+def tokenize_wsd_dataset(dataset, tokenizer, max_length):
+    def tokenize_text(text, tokenizer, max_length):
+        tokens = tokenizer(text["prompt"], text["completion"], truncation="only_second", padding="max_length", max_length=max_length)
 
         labels = []
-        for prompt, attention_mask, input_ids in zip(text[query_column], tokens["attention_mask"], tokens["input_ids"]):
+        for prompt, attention_mask, input_ids in zip(text["prompt"], tokens["attention_mask"], tokens["input_ids"]):
             prompt_len = len(tokenizer(prompt, add_special_tokens=True)["input_ids"])
             lab = input_ids.copy()
             lab[:prompt_len] = [IGNORE_TOKEN_ID] * prompt_len
@@ -28,9 +24,33 @@ def tokenize_text(text, tokenizer, max_length, task, query_column, completion_co
             labels.append(lab)
         tokens["labels"] = labels
         return tokens
-    elif task == "countdown":
+
+    tokenized_dataset = dataset.map(lambda x: tokenize_text(x, tokenizer, max_length), batched=True)
+    tokenized_dataset.set_format("torch", columns=["input_ids", "attention_mask", "labels"])
+    return tokenized_dataset
+
+def get_wsd_dataset(tokenizer, max_length=1024, batch_size=128, synthetic_dataset=None):
+    train_dataset, test_dataset = load_dataset("Asap7772/cog_behav_all_strategies", split=["train", "test"])
+
+    if synthetic_dataset is not None:
+        synthetic_dataset = load_synthetic_dataset(synthetic_dataset, max_length, "countdown")
+        train_dataset = concatenate_datasets([train_dataset, synthetic_dataset])
+
+    tokenized_train_dataset = tokenize_wsd_dataset(train_dataset, tokenizer, max_length)
+    tokenized_test_dataset = tokenize_wsd_dataset(test_dataset, tokenizer, max_length)
+
+    return DataLoader(tokenized_train_dataset, batch_size=batch_size, shuffle=True), DataLoader(tokenized_test_dataset, batch_size=batch_size, shuffle=True)
+
+""" Countdown dataset """
+
+def tokenize_countdown_dataset(dataset, tokenizer, max_length):
+    def tokenize_text(text, tokenizer, max_length):
         # no answer, just prompt
-        return tokenizer(text[query_column], truncation=True, padding="max_length", max_length=max_length)
+        return tokenizer(text["prompt"], truncation=True, padding="max_length", max_length=max_length)
+
+    tokenized_dataset = dataset.map(lambda x: tokenize_text(x, tokenizer, max_length), batched=True)
+    tokenized_dataset.set_format("torch", columns=["input_ids", "attention_mask", "idx"])
+    return tokenized_dataset
 
 def load_json_countdown(file_path):
     data = []
@@ -44,7 +64,7 @@ def load_json_countdown(file_path):
     return data
 
 # special because no test dataset
-def load_countdown_dataset(batch_size, max_length, from_json=False):
+def load_countdown_dataset(tokenizer, batch_size, max_length, from_json=False):
     SERIALIZED_PATH = "/data/c-aalag/countdown_dataset.pt"
     SERIALIZED_TOKENIZED_PATH = "/data/c-aalag/countdown_tokenized_dataset.pt"
 
@@ -73,22 +93,11 @@ def load_countdown_dataset(batch_size, max_length, from_json=False):
 
         torch.save(train_dataset, SERIALIZED_PATH)
 
-    tokenized_train_dataset = tokenize_dataset(train_dataset, max_length=max_length, task="countdown", query_column="prompt", completion_column=None)
-    tokenized_train_dataset.set_format("torch", columns=["input_ids", "attention_mask", "idx"])
+    tokenized_train_dataset = tokenize_countdown_dataset(train_dataset, tokenizer, max_length=max_length)
     if not from_json:
         torch.save(train_dataset, SERIALIZED_TOKENIZED_PATH)
 
     return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset
-
-def tokenize_dataset(dataset, max_length, task, query_column, completion_column):
-    # we want to use Qwen 2.5 for all datasets
-    tokenizer = AutoTokenizer.from_pretrained(
-        "Qwen/Qwen2.5-0.5B",
-        trust_remote_code=True,
-        use_fast=True,
-    )
-
-    return dataset.map(lambda x: tokenize_text(x, tokenizer, max_length, task, query_column, completion_column), batched=True)
 
 def load_synthetic_dataset(synthetic_dataset, max_length, task):
     synthetic_dataset = json.load(open(synthetic_dataset))
@@ -96,23 +105,6 @@ def load_synthetic_dataset(synthetic_dataset, max_length, task):
     synthetic_dataset = {"query": prompts, "completion": [example["chain_of_thought"] for example in synthetic_dataset]}
     synthetic_dataset = Dataset.from_dict(synthetic_dataset)
     return synthetic_dataset
-
-def get_wsd_dataset(max_length=1024, batch_size=128, synthetic_dataset=None):
-    train_dataset, test_dataset = load_dataset("Asap7772/cog_behav_all_strategies", split=["train", "test"])
-    query_column = "query"
-    completion_column = "completion"
-
-    if synthetic_dataset is not None:
-        synthetic_dataset = load_synthetic_dataset(synthetic_dataset, max_length, "countdown")
-        train_dataset = concatenate_datasets([train_dataset, synthetic_dataset])
-
-    tokenized_train_dataset = tokenize_dataset(train_dataset, max_length, "warm_start_sft", query_column, completion_column)
-    tokenized_test_dataset = tokenize_dataset(test_dataset, max_length, "warm_start_sft", query_column, completion_column)
-
-    tokenized_train_dataset.set_format("torch", ["input_ids", "attention_mask", "labels"])
-    tokenized_test_dataset.set_format("torch", ["input_ids", "attention_mask", "labels"])
-
-    return DataLoader(tokenized_train_dataset, batch_size=batch_size, shuffle=True), DataLoader(tokenized_test_dataset, batch_size=batch_size, shuffle=True)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -124,4 +116,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     set_seed(args.seed)
 
-    train_dataloader, test_dataloader = get_wsd_dataset(args.max_length, args.batch_size)
+    tokenizer = AutoTokenizer.from_pretrained(
+        "Qwen/Qwen2.5-0.5B",
+        trust_remote_code=True,
+        use_fast=True,
+    )
+
+    train_dataloader, test_dataloader = get_wsd_dataset(tokenizer, args.max_length, args.batch_size)
