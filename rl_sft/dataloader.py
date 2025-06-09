@@ -13,10 +13,10 @@ from prompts import WSD_PROMPT_FORMAT
 IGNORE_TOKEN_ID = -100
 def tokenize_wsd_dataset(dataset, tokenizer, max_length):
     def tokenize_text(text, tokenizer, max_length):
-        tokens = tokenizer(text["prompt"], text["completion"], truncation="only_second", padding="max_length", max_length=max_length)
+        tokens = tokenizer(text["query"], text["completion"], truncation="only_second", padding="max_length", max_length=max_length)
 
         labels = []
-        for prompt, attention_mask, input_ids in zip(text["prompt"], tokens["attention_mask"], tokens["input_ids"]):
+        for prompt, attention_mask, input_ids in zip(text["query"], tokens["attention_mask"], tokens["input_ids"]):
             prompt_len = len(tokenizer(prompt, add_special_tokens=True)["input_ids"])
             lab = input_ids.copy()
             lab[:prompt_len] = [IGNORE_TOKEN_ID] * prompt_len
@@ -30,10 +30,11 @@ def tokenize_wsd_dataset(dataset, tokenizer, max_length):
     return tokenized_dataset
 
 def get_wsd_dataset(tokenizer, max_length=1024, batch_size=128, synthetic_dataset=None):
+    print("Loading WSD dataset")
     train_dataset, test_dataset = load_dataset("Asap7772/cog_behav_all_strategies", split=["train", "test"])
 
-    if synthetic_dataset is not None:
-        synthetic_dataset = load_synthetic_dataset(synthetic_dataset, max_length, "countdown")
+    if synthetic_dataset:
+        synthetic_dataset = load_synthetic_dataset(synthetic_dataset, max_length)
         train_dataset = concatenate_datasets([train_dataset, synthetic_dataset])
 
     tokenized_train_dataset = tokenize_wsd_dataset(train_dataset, tokenizer, max_length)
@@ -99,7 +100,7 @@ def load_countdown_dataset(tokenizer, batch_size, max_length, from_json=False):
 
     return DataLoader(tokenized_train_dataset, batch_size=1, shuffle=False), train_dataset
 
-def load_synthetic_dataset(synthetic_dataset, max_length, task):
+def load_synthetic_dataset(synthetic_dataset, max_length):
     synthetic_dataset = json.load(open(synthetic_dataset))
     prompts = [WSD_PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]) for example in synthetic_dataset]
     synthetic_dataset = {"query": prompts, "completion": [example["chain_of_thought"] for example in synthetic_dataset]}

@@ -3,10 +3,11 @@ import argparse
 import torch
 from torch.optim import AdamW
 from transformers import AutoModelForCausalLM, AutoTokenizer, get_cosine_schedule_with_warmup
-from dataloader import load_countdown_dataset, set_seed
+from dataloader import load_countdown_dataset
 from eval_countdown import compute_score
 from torch.amp import GradScaler
-from train_sft import get_device, save_checkpoint
+from common import get_device, set_seed
+from train_sft import save_checkpoint
 from eval_pipeline import eval_countdown_vllm
 from tqdm import tqdm
 import torch.nn.functional as F
@@ -71,14 +72,7 @@ def rloo_loss(rewards, log_probabilities):
 def train(args):
     wandb.init(
         project="rl-sft",
-        name="rloo",
-        config={
-            "max_lr": args.lr,
-            "epochs": args.num_epochs,
-            "max_length": args.max_length,
-            "k": args.k,
-            "lr": args.lr,
-        }
+        name=args.experiment_name,
     )
 
     # this is all the same as SFT: load the model, dataset, tokenize
@@ -97,7 +91,7 @@ def train(args):
         gpu_memory_utilization=0.7,
     )
 
-    train_loader, dataset = load_countdown_dataset(1, args.max_length, False)
+    train_loader, dataset = load_countdown_dataset(tokenizer, 1, args.max_length, False)
 
     optimizer = AdamW(model.parameters(), lr=args.lr)
     num_training_steps = len(train_loader) * args.num_epochs // args.gradient_accumulation_steps
@@ -156,6 +150,7 @@ if __name__ == "__main__":
     p.add_argument("--max_length", type=int, default=512)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--task", type=str, default="countdown")
+    p.add_argument("--experiment_name", type=str, default="rloo")
     args = p.parse_args()
     set_seed(args.seed)
     train(args)

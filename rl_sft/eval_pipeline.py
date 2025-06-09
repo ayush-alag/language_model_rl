@@ -7,15 +7,7 @@ import torch
 import json
 from vllm import LLM, SamplingParams
 
-"""Args:
-    solution_str: the solution text
-    ground_truth: dictionary containing target number and available numbers
-    method: the method to extract the solution
-    format_score: the score for correct format but wrong answer
-    score: the score for the correct answer
-"""
-
-def eval_wsd_model_path(model_path, batch_size, max_length):
+def eval_wsd_model_path(model_path, eval_dataset, tokenizer, max_length):
     device = get_device()
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
@@ -23,10 +15,8 @@ def eval_wsd_model_path(model_path, batch_size, max_length):
     model.to(device).eval()
 
     # load the test dataset for wsd
-    _, test_dataloader = get_wsd_dataset(max_length, batch_size)
-
     scores = []
-    for example in test_dataloader:
+    for example in eval_dataset:
         input_ids = torch.tensor(example["input_ids"]).to(model.device)
         mask = torch.tensor(example["attention_mask"]).to(model.device)
         generated = model.generate(input_ids=input_ids, attention_mask=mask, max_new_tokens=128)
@@ -47,18 +37,8 @@ def eval_countdown_model_path(model_path, eval_dataset, max_length):
 
     return eval_countdown_vllm(model, eval_dataset, max_length)
 
-def eval_countdown_vllm(vllm_model, eval_dataset, max_length):
-    device = get_device()
-    sampling_params = SamplingParams(
-        max_tokens=max_length,
-        temperature=0.0,
-        top_p=1.0,
-    )
-
+def eval_countdown_vllm(vllm_model, eval_dataset, max_length, sampling_params):
     prompts = [example["prompt"] for example in eval_dataset]
-    print(prompts[0])
-    print(eval_dataset[0])
-
     outputs = vllm_model.generate(prompts, sampling_params=sampling_params)
     scores = []
     with open("countdown_outputs.json", "w") as f:
@@ -69,7 +49,6 @@ def eval_countdown_vllm(vllm_model, eval_dataset, max_length):
             if not response:
                 response = ""
 
-            print(f"target: {target}, nums: {nums}, response: {response}")
             f.write(json.dumps({
                 "num": nums,
                 "response": response,
@@ -90,7 +69,6 @@ if __name__ == "__main__":
     parser.add_argument("--max_length", type=int, default=1024)
     parser.add_argument("--from_json", action="store_true")
     args = parser.parse_args()
-    # eval_wsd_model_path(args.model_path, args.batch_size, args.max_length)
 
     tokenizer = AutoTokenizer.from_pretrained(
         "Qwen/Qwen2.5-0.5B",
@@ -99,4 +77,4 @@ if __name__ == "__main__":
     )
 
     _, eval_dataset = load_countdown_dataset(tokenizer, args.batch_size, args.max_length, args.from_json)
-    eval_countdown_model_path(args.model_path, eval_dataset, args.max_length)
+    eval_countdown_model_path(args.model_path, eval_dataset, tokenizer, args.max_length)
