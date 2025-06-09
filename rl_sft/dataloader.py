@@ -72,10 +72,16 @@ def load_countdown_dataset(tokenizer, batch_size, max_length, from_json=False):
     # this is taken from WSD dataset
     if from_json:
         train_dataset = load_json_countdown("countdown.json")
-        prompts = [WSD_PROMPT_FORMAT.format(target=example[0], numbers=example[1]) for example in train_dataset]
-        idx = [i for i in range(len(train_dataset))]
-        train_dataset = {"prompt": prompts, "idx": idx, "target": [example[0] for example in train_dataset], "numbers": [example[1] for example in train_dataset]}
-        train_dataset = Dataset.from_dict(train_dataset)
+        processed_train_dataset = []
+        for i, example in enumerate(train_dataset):
+            prompt = WSD_PROMPT_FORMAT.format(target=example[0], numbers=example[1])
+            processed_train_dataset.append({
+                "prompt": prompt,
+                "idx": i,
+                "target": example[0],
+                "numbers": example[1]})
+
+        train_dataset = Dataset.from_list(processed_train_dataset)
     elif os.path.exists(SERIALIZED_PATH) and os.path.exists(SERIALIZED_TOKENIZED_PATH):
         train_dataset = torch.load(SERIALIZED_PATH, weights_only=False)
         tokenized_train_dataset = torch.load(SERIALIZED_TOKENIZED_PATH, weights_only=False)
