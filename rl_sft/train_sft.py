@@ -24,7 +24,45 @@ def get_batch_loss(model, batch, device):
 
     return loss
 
-def train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, hard_eval_dataset, tokenizer, eval_vllm_model, eval_sampling_params):
+def train_step(model, batch, device, optimizer, scheduler, scaler, args, global_step,
+               test_dataloader, easy_eval_dataset, hard_eval_dataset, eval_vllm_model,
+               eval_sampling_params, step_num, total_loss, min_test_loss):
+    loss = get_batch_loss(model, batch, device)
+    loss = loss / args.gradient_accumulation_steps
+    scaler.scale(loss).backward()
+
+    if (step_num + 1) % args.gradient_accumulation_steps == 0:
+        scaler.step(optimizer)
+        scaler.update()
+        scheduler.step()
+        optimizer.zero_grad()
+        global_step += 1
+
+        wandb.log({
+            "train/loss": loss.item(),
+            "train/lr": scheduler.get_last_lr()[0],
+            "train/step": global_step,
+        })
+
+        if global_step % args.eval_steps == 0:
+            eval_loss = evaluate_test_loss(model, test_dataloader, device, global_step)
+            load_policy_into_vllm_instance(model, eval_vllm_model)
+            countdown_score = eval_countdown_vllm(eval_vllm_model, easy_eval_dataset, args.max_length, eval_sampling_params, "countdown_outputs.json")
+            countdown_score_hard = eval_countdown_vllm(eval_vllm_model, hard_eval_dataset, args.max_length, eval_sampling_params, "countdown_outputs_hard.json")
+            wandb.log({
+                "test/loss": eval_loss,
+                "test/countdown_score_easy": countdown_score,
+                "test/countdown_score_hard": countdown_score_hard,
+                "test/step": global_step,
+            })
+
+            if eval_loss < min_test_loss:
+                min_test_loss = eval_loss
+                save_checkpoint(model, args.output_dir, f"best_model")
+            print(f"Step {global_step}, Eval Loss: {eval_loss:.4f}")
+    return global_step
+
+def train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, hard_eval_dataset, tokenizer, eval_vllm_model, eval_sampling_params, hard_train_dataloader=None):
     print("Initializing wandb")
     wandb.init(
         project="rl-sft",
@@ -57,45 +95,21 @@ def train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, ha
 
         progress_bar = tqdm(train_dataloader, desc=f"Epoch {epoch + 1}")
         for step, batch in enumerate(progress_bar):
-            loss = get_batch_loss(model, batch, device)
-            loss = loss / args.gradient_accumulation_steps
-            scaler.scale(loss).backward()
+            if step == 0:
+                print("Easy batch: ", batch)
+            global_step = train_step(model, batch, device, optimizer, scheduler, scaler, args,
+                                     global_step, test_dataloader, easy_eval_dataset, hard_eval_dataset,
+                                     eval_vllm_model, eval_sampling_params, step, total_loss, min_test_loss)
 
-            if (step + 1) % args.gradient_accumulation_steps == 0:
-                scaler.step(optimizer)
-                scaler.update()
-                scheduler.step()
-                optimizer.zero_grad()
-                global_step += 1
-
-                wandb.log({
-                    "train/loss": loss.item(),
-                    "train/lr": scheduler.get_last_lr()[0],
-                    "train/step": global_step,
-                })
-
-                if global_step % args.eval_steps == 0:
-                    eval_loss = evaluate_test_loss(model, test_dataloader, device, global_step)
-                    load_policy_into_vllm_instance(model, eval_vllm_model)
-                    countdown_score = eval_countdown_vllm(eval_vllm_model, easy_eval_dataset, args.max_length, eval_sampling_params, "countdown_outputs.json")
-                    countdown_score_hard = eval_countdown_vllm(eval_vllm_model, hard_eval_dataset, args.max_length, eval_sampling_params, "countdown_outputs_hard.json")
-                    wandb.log({
-                        "test/loss": eval_loss,
-                        "test/countdown_score_easy": countdown_score,
-                        "test/countdown_score_hard": countdown_score_hard,
-                        "test/step": global_step,
-                    })
-
-                    if eval_loss < min_test_loss:
-                        min_test_loss = eval_loss
-                        save_checkpoint(model, args.output_dir, f"best_model")
-                    print(f"Step {global_step}, Eval Loss: {eval_loss:.4f}")
-
-                # if global_step % args.save_steps == 0:
-                #     save_checkpoint(model, args.output_dir, f"checkpoint-{global_step}")
-
-            total_loss += loss.item() * args.gradient_accumulation_steps
-            progress_bar.set_postfix(loss=loss.item())
+        if hard_train_dataloader:
+            print("Training on hard dataset")
+            progress_bar = tqdm(hard_train_dataloader, desc=f"Epoch {epoch + 1}")
+            for step, batch in enumerate(progress_bar):
+                if step == 0:
+                    print("Hard batch: ", batch)
+                global_step = train_step(model, batch, device, optimizer, scheduler, scaler, args,
+                                         global_step, test_dataloader, easy_eval_dataset, hard_eval_dataset,
+                                         eval_vllm_model, eval_sampling_params, step, total_loss, min_test_loss)
 
         print(f"Epoch {epoch + 1} completed. avg loss: {total_loss / len(train_dataloader):.4f}")
 
@@ -121,7 +135,7 @@ def save_checkpoint(model, output_dir, checkpoint_name):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--synthetic_dataset", action="store_true")
-    parser.add_argument("--output_dir", type=str, default="/data/c-aalag/checkpoints_sft_large_lr")
+    parser.add_argument("--output_dir", type=str, default="/data/c-aalag/checkpoints_sft_synth_improved")
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--max_length", type=int, default=512)
     parser.add_argument("--learning_rate", type=float, default=1e-4)
@@ -131,6 +145,7 @@ if __name__ == "__main__":
     parser.add_argument("--eval_steps", type=int, default=10)
     parser.add_argument("--gradient_accumulation_steps", type=int, default=4)
     parser.add_argument("--experiment_name", type=str, default="wsd")
+    parser.add_argument("--curriculum", action="store_true")
     args = parser.parse_args()
 
     tokenizer = AutoTokenizer.from_pretrained(
@@ -139,7 +154,7 @@ if __name__ == "__main__":
         use_fast=True,
     )
 
-    args.synthetic_dataset = "countdown_warmstart_cot_100.json" if args.synthetic_dataset else None
+    args.synthetic_dataset = "countdown_warmstart_cot_100_improved.json" if args.synthetic_dataset else None
 
     easy_json_path = "countdown.json"
     hard_json_path = "countdown_heldout_prompts.json"
@@ -160,5 +175,10 @@ if __name__ == "__main__":
         top_k=20
     )
 
-    train_dataloader, test_dataloader = get_wsd_dataset(tokenizer, args.max_length, args.batch_size, args.synthetic_dataset)
-    train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, hard_eval_dataset, tokenizer, eval_vllm_model, eval_sampling_params)
+    if args.curriculum:
+        train_dataloader, test_dataloader = get_wsd_dataset(tokenizer, args.max_length, args.batch_size, args.synthetic_dataset, num_elements=3)
+        hard_train_dataloader, _ = get_wsd_dataset(tokenizer, args.max_length, args.batch_size, args.synthetic_dataset, num_elements=4)
+        train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, hard_eval_dataset, tokenizer, eval_vllm_model, eval_sampling_params, hard_train_dataloader)
+    else:
+        train_dataloader, test_dataloader = get_wsd_dataset(tokenizer, args.max_length, args.batch_size, args.synthetic_dataset)
+        train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, hard_eval_dataset, tokenizer, eval_vllm_model, eval_sampling_params)

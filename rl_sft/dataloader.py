@@ -3,6 +3,7 @@ import json
 import random
 import argparse
 from datasets import load_dataset, Dataset, concatenate_datasets
+from curriculum import CurriculumDataset
 from transformers import AutoTokenizer
 import torch
 from torch.utils.data import DataLoader
@@ -29,7 +30,7 @@ def tokenize_wsd_dataset(dataset, tokenizer, max_length):
     tokenized_dataset.set_format("torch", columns=["input_ids", "attention_mask", "labels"])
     return tokenized_dataset
 
-def get_wsd_dataset(tokenizer, max_length=1024, batch_size=128, synthetic_dataset=None):
+def get_wsd_dataset(tokenizer, max_length=1024, batch_size=128, synthetic_dataset=None, num_elements=None):
     print("Loading WSD dataset")
     train_dataset, test_dataset = load_dataset("Asap7772/cog_behav_all_strategies", split=["train", "test"])
     print(train_dataset[0])
@@ -37,6 +38,10 @@ def get_wsd_dataset(tokenizer, max_length=1024, batch_size=128, synthetic_datase
     if synthetic_dataset:
         synthetic_dataset = load_synthetic_dataset(synthetic_dataset, max_length)
         train_dataset = concatenate_datasets([train_dataset, synthetic_dataset])
+
+    if num_elements:
+        train_dataset = CurriculumDataset(train_dataset)
+        train_dataset = train_dataset.get_examples(num_elements)
 
     tokenized_train_dataset = tokenize_wsd_dataset(train_dataset, tokenizer, max_length)
     tokenized_test_dataset = tokenize_wsd_dataset(test_dataset, tokenizer, max_length)
@@ -111,10 +116,12 @@ def load_countdown_dataset(tokenizer, batch_size, max_length, json_path=None):
     return DataLoader(tokenized_train_dataset, batch_size=batch_size, shuffle=False), train_dataset
 
 def load_synthetic_dataset(synthetic_dataset, max_length):
+    print("Loading synthetic dataset")
     synthetic_dataset = json.load(open(synthetic_dataset))
     prompts = [WSD_PROMPT_FORMAT.format(target=example["target"], numbers=example["nums"]) for example in synthetic_dataset]
     synthetic_dataset = {"query": prompts, "completion": [example["chain_of_thought"] for example in synthetic_dataset]}
     synthetic_dataset = Dataset.from_dict(synthetic_dataset)
+    print(synthetic_dataset[0])
     return synthetic_dataset
 
 if __name__ == "__main__":

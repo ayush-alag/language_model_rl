@@ -20,8 +20,8 @@ def log_probs(model, input_ids, num_generated_tokens):
     log_softmax = F.log_softmax(out, dim=-1)
     log_probabilities_y = log_softmax.gather(-1, labels.unsqueeze(-1)).squeeze(-1)
     log_probabilities_response = log_probabilities_y[:, -num_generated_tokens:]
-    return log_probabilities_response.mean(dim=-1)
-    # return log_probabilities_response.sum(dim=-1)
+    # return log_probabilities_response.mean(dim=-1)
+    return log_probabilities_response.sum(dim=-1)
 
 def sample_k(model, vllm_model, tokenizer, prompt_ids, k, max_new):
     prompt_texts = tokenizer.batch_decode(prompt_ids, skip_special_tokens=True)
@@ -53,7 +53,7 @@ def sample_k(model, vllm_model, tokenizer, prompt_ids, k, max_new):
             log_probabilities.append(logp)
     return texts, torch.stack(log_probabilities)
 
-def get_batch_loss(model, vllm_model, batch, device, tokenizer, dataset):
+def get_batch_loss(model, vllm_model, batch, device, tokenizer, dataset, k):
     idx = batch["idx"]
     prompt_ids = batch["input_ids"].to(device)
     texts, log_probabilities = sample_k(model, vllm_model, tokenizer, prompt_ids, args.k, args.max_new)
@@ -66,17 +66,41 @@ def get_batch_loss(model, vllm_model, batch, device, tokenizer, dataset):
         # print(t, nums, target)
         rewards.append(compute_score(t, {"target": [target], "numbers": [nums]}))
     rewards = torch.tensor(rewards, dtype=torch.float32, device=device)
-    return rloo_loss(rewards, log_probabilities)
+    return rloo_loss(rewards, log_probabilities, k)
 
-def rloo_loss(rewards, log_probabilities):
-    k = rewards.size(0)
-    rewards = rewards.view(-1, k)
-    log_probabilities = log_probabilities.view(-1, k)
-    baseline = (rewards.sum(1, keepdim=True) - rewards) / (k - 1)
-    adv = rewards - baseline
+# def rloo_loss(rewards, log_probabilities):
+#     k = rewards.size(0)
+#     rewards = rewards.view(-1, k)
+#     log_probabilities = log_probabilities.view(-1, k)
+#     baseline = (rewards.sum(1, keepdim=True) - rewards) / (k - 1)
+#     adv = rewards - baseline
 
-    # we dont pass gradients to the rewards (they are fixed)
-    loss = -(adv.detach() * log_probabilities).mean()
+#     # we dont pass gradients to the rewards (they are fixed)
+#     loss = -(adv.detach() * log_probabilities).mean()
+#     return loss
+
+def rloo_loss(rewards, log_probabilities, k):
+    """RLOO loss computation with proper k-sample grouping"""
+    batch_size = rewards.size(0) // k
+
+    # Reshape to [batch_size, k]
+    rewards = rewards.view(batch_size, k)
+    log_probabilities = log_probabilities.view(batch_size, k)
+
+    # RLOO baseline: average of other k-1 samples
+    baseline = (rewards.sum(dim=1, keepdim=True) - rewards) / (k - 1)
+    advantages = rewards - baseline
+
+    # Policy gradient loss
+    loss = -(advantages.detach() * log_probabilities).mean()
+
+    # Add debugging info
+    if torch.rand(1).item() < 0.01:  # Log 1% of the time
+        print(f"RLOO Debug - Batch: {batch_size}, K: {k}")
+        print(f"Rewards shape: {rewards.shape}, range: [{rewards.min():.3f}, {rewards.max():.3f}]")
+        print(f"Advantages mean: {advantages.mean():.3f}, std: {advantages.std():.3f}")
+        print(f"Loss: {loss.item():.6f}")
+
     return loss
 
 def train(args, device, model, tokenizer, vllm_model, train_loader, dataset, easy_eval_dataset, hard_eval_dataset, max_steps):
@@ -99,10 +123,10 @@ def train(args, device, model, tokenizer, vllm_model, train_loader, dataset, eas
     best_countdown_score_hard = 0
     for epoch in range(args.num_epochs):
         model.train()
-        optimizer.zero_grad()
 
         for batch in tqdm(train_loader, desc=f"Epoch {epoch+1}"):
-            loss = get_batch_loss(model, vllm_model, batch, device, tokenizer, dataset)
+            load_policy_into_vllm_instance(model, vllm_model)
+            loss = get_batch_loss(model, vllm_model, batch, device, tokenizer, dataset, args.k)
             loss = loss / args.gradient_accumulation_steps
             scaler.scale(loss).backward()
             if (global_step + 1) % args.gradient_accumulation_steps == 0:
@@ -153,7 +177,7 @@ if __name__ == "__main__":
     p.add_argument("--k", type=int, default=8)
     p.add_argument("--max_new", type=int, default=1024)
     p.add_argument("--lr", type=float, default=1e-6)
-    p.add_argument("--gradient_accumulation_steps", type=int, default=4)
+    p.add_argument("--gradient_accumulation_steps", type=int, default=1)
     p.add_argument("--eval_steps", type=int, default=20)
     p.add_argument("--max_length", type=int, default=512)
     p.add_argument("--seed", type=int, default=42)
