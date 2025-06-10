@@ -101,8 +101,15 @@ def train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, ha
                                      global_step, test_dataloader, easy_eval_dataset, hard_eval_dataset,
                                      eval_vllm_model, eval_sampling_params, step, total_loss, min_test_loss)
 
-        if hard_train_dataloader:
-            print("Training on hard dataset")
+
+    if hard_train_dataloader:
+        print("Training on hard dataset")
+        for epoch in range(args.num_epochs):
+            print(f"Starting hard epoch {epoch + 1}")
+            model.train()
+            total_loss = 0
+            optimizer.zero_grad()
+
             progress_bar = tqdm(hard_train_dataloader, desc=f"Epoch {epoch + 1}")
             for step, batch in enumerate(progress_bar):
                 if step == 0:
@@ -111,7 +118,7 @@ def train(args, device, train_dataloader, test_dataloader, easy_eval_dataset, ha
                                          global_step, test_dataloader, easy_eval_dataset, hard_eval_dataset,
                                          eval_vllm_model, eval_sampling_params, step, total_loss, min_test_loss)
 
-        print(f"Epoch {epoch + 1} completed. avg loss: {total_loss / len(train_dataloader):.4f}")
+        print(f"Hard epoch {epoch + 1} completed. avg loss: {total_loss / len(hard_train_dataloader):.4f}")
 
     wandb.finish()
 
@@ -138,7 +145,7 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", type=str, default="/data/c-aalag/checkpoints_sft_synth_improved")
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--max_length", type=int, default=512)
-    parser.add_argument("--learning_rate", type=float, default=1e-4)
+    parser.add_argument("--learning_rate", type=float, default=2e-5)
     parser.add_argument("--num_epochs", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--save_steps", type=int, default=5)

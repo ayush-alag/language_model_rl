@@ -171,7 +171,7 @@ def train(args, device, model, tokenizer, vllm_model, train_loader, dataset, eas
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--sft_checkpoint", type=str, default="/data/c-aalag/checkpoints_sft_large_lr/best_model")
+    p.add_argument("--sft_checkpoint", type=str, default="/data/c-aalag/checkpoints_sft_synth_improved/best_model")
     p.add_argument("--out_dir", type=str, default="/data/c-aalag/checkpoints_rl/best_rloo_model")
     p.add_argument("--num_epochs", type=int, default=1)
     p.add_argument("--k", type=int, default=8)
