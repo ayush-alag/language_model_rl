@@ -1,0 +1,902 @@
+[
+  {
+    "nums": [
+      27,
+      51
+    ],
+    "target": 78,
+    "chain_of_thought": "<think>We need 78. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 27 + 51 = 78. Other single\u2011step operations either overshoot (27 \u00d7 51 = 1377) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>27 + 51</answer>"
+  },
+  {
+    "nums": [
+      89,
+      84
+    ],
+    "target": 173,
+    "chain_of_thought": "<think>We need 173. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 89 + 84 = 173. Other single\u2011step operations either overshoot (89 \u00d7 84 = 7476) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>89 + 84</answer>"
+  },
+  {
+    "nums": [
+      32,
+      78
+    ],
+    "target": -46,
+    "chain_of_thought": "<think>Because -46 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 32 - 78 = -46. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>32 - 78</answer>"
+  },
+  {
+    "nums": [
+      77,
+      58
+    ],
+    "target": 19,
+    "chain_of_thought": "<think>Because 19 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 77 - 58 = 19. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>77 - 58</answer>"
+  },
+  {
+    "nums": [
+      5,
+      1
+    ],
+    "target": 5.0,
+    "chain_of_thought": "<think>Notice that the target 5.0 is far larger than either addend and precisely equals their product: 5 \u00d7 1 = 5.0. Sums or differences give 6/4/-4, divisions fractions. Multiplication is the only operation that lands on 5.0.</think>",
+    "answer": "<answer>5 * 1</answer>"
+  },
+  {
+    "nums": [
+      14,
+      72
+    ],
+    "target": -58,
+    "chain_of_thought": "<think>Because -58 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 14 - 72 = -58. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>14 - 72</answer>"
+  },
+  {
+    "nums": [
+      99,
+      45
+    ],
+    "target": 144,
+    "chain_of_thought": "<think>We need 144. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 99 + 45 = 144. Other single\u2011step operations either overshoot (99 \u00d7 45 = 4455) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>99 + 45</answer>"
+  },
+  {
+    "nums": [
+      14,
+      78
+    ],
+    "target": -64,
+    "chain_of_thought": "<think>Because -64 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 14 - 78 = -64. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>14 - 78</answer>"
+  },
+  {
+    "nums": [
+      72,
+      95
+    ],
+    "target": -23,
+    "chain_of_thought": "<think>Because -23 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 72 - 95 = -23. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>72 - 95</answer>"
+  },
+  {
+    "nums": [
+      59,
+      12
+    ],
+    "target": 47,
+    "chain_of_thought": "<think>Because 47 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 59 - 12 = 47. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>59 - 12</answer>"
+  },
+  {
+    "nums": [
+      20,
+      18
+    ],
+    "target": 2,
+    "chain_of_thought": "<think>Because 2 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 20 - 18 = 2. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>20 - 18</answer>"
+  },
+  {
+    "nums": [
+      26,
+      35
+    ],
+    "target": 61,
+    "chain_of_thought": "<think>We need 61. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 26 + 35 = 61. Other single\u2011step operations either overshoot (26 \u00d7 35 = 910) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>26 + 35</answer>"
+  },
+  {
+    "nums": [
+      95,
+      2
+    ],
+    "target": 97,
+    "chain_of_thought": "<think>We need 97. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 95 + 2 = 97. Other single\u2011step operations either overshoot (95 \u00d7 2 = 190) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>95 + 2</answer>"
+  },
+  {
+    "nums": [
+      35,
+      39
+    ],
+    "target": 74,
+    "chain_of_thought": "<think>We need 74. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 35 + 39 = 74. Other single\u2011step operations either overshoot (35 \u00d7 39 = 1365) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>35 + 39</answer>"
+  },
+  {
+    "nums": [
+      11,
+      34
+    ],
+    "target": 45,
+    "chain_of_thought": "<think>We need 45. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 11 + 34 = 45. Other single\u2011step operations either overshoot (11 \u00d7 34 = 374) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>11 + 34</answer>"
+  },
+  {
+    "nums": [
+      17,
+      79
+    ],
+    "target": 96,
+    "chain_of_thought": "<think>We need 96. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 17 + 79 = 96. Other single\u2011step operations either overshoot (17 \u00d7 79 = 1343) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>17 + 79</answer>"
+  },
+  {
+    "nums": [
+      49,
+      1
+    ],
+    "target": 50,
+    "chain_of_thought": "<think>We need 50. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 49 + 1 = 50. Other single\u2011step operations either overshoot (49 \u00d7 1 = 49) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>49 + 1</answer>"
+  },
+  {
+    "nums": [
+      70,
+      89
+    ],
+    "target": 159,
+    "chain_of_thought": "<think>We need 159. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 70 + 89 = 159. Other single\u2011step operations either overshoot (70 \u00d7 89 = 6230) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>70 + 89</answer>"
+  },
+  {
+    "nums": [
+      62,
+      26
+    ],
+    "target": 88,
+    "chain_of_thought": "<think>We need 88. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 62 + 26 = 88. Other single\u2011step operations either overshoot (62 \u00d7 26 = 1612) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>62 + 26</answer>"
+  },
+  {
+    "nums": [
+      64,
+      63
+    ],
+    "target": 1,
+    "chain_of_thought": "<think>Because 1 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 64 - 63 = 1. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>64 - 63</answer>"
+  },
+  {
+    "nums": [
+      37,
+      69
+    ],
+    "target": -32,
+    "chain_of_thought": "<think>Because -32 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 37 - 69 = -32. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>37 - 69</answer>"
+  },
+  {
+    "nums": [
+      44,
+      91
+    ],
+    "target": 135,
+    "chain_of_thought": "<think>We need 135. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 44 + 91 = 135. Other single\u2011step operations either overshoot (44 \u00d7 91 = 4004) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>44 + 91</answer>"
+  },
+  {
+    "nums": [
+      98,
+      31
+    ],
+    "target": 129,
+    "chain_of_thought": "<think>We need 129. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 98 + 31 = 129. Other single\u2011step operations either overshoot (98 \u00d7 31 = 3038) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>98 + 31</answer>"
+  },
+  {
+    "nums": [
+      9,
+      42
+    ],
+    "target": 51,
+    "chain_of_thought": "<think>We need 51. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 9 + 42 = 51. Other single\u2011step operations either overshoot (9 \u00d7 42 = 378) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>9 + 42</answer>"
+  },
+  {
+    "nums": [
+      24,
+      48
+    ],
+    "target": 72,
+    "chain_of_thought": "<think>We need 72. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 24 + 48 = 72. Other single\u2011step operations either overshoot (24 \u00d7 48 = 1152) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>24 + 48</answer>"
+  },
+  {
+    "nums": [
+      33,
+      51
+    ],
+    "target": -18,
+    "chain_of_thought": "<think>Because -18 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 33 - 51 = -18. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>33 - 51</answer>"
+  },
+  {
+    "nums": [
+      12,
+      25
+    ],
+    "target": -13,
+    "chain_of_thought": "<think>Because -13 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 12 - 25 = -13. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>12 - 25</answer>"
+  },
+  {
+    "nums": [
+      98,
+      5
+    ],
+    "target": 103,
+    "chain_of_thought": "<think>We need 103. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 98 + 5 = 103. Other single\u2011step operations either overshoot (98 \u00d7 5 = 490) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>98 + 5</answer>"
+  },
+  {
+    "nums": [
+      85,
+      20
+    ],
+    "target": 65,
+    "chain_of_thought": "<think>Because 65 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 85 - 20 = 65. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>85 - 20</answer>"
+  },
+  {
+    "nums": [
+      11,
+      77
+    ],
+    "target": -66,
+    "chain_of_thought": "<think>Because -66 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 11 - 77 = -66. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>11 - 77</answer>"
+  },
+  {
+    "nums": [
+      6,
+      36
+    ],
+    "target": 42,
+    "chain_of_thought": "<think>We need 42. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 6 + 36 = 42. Other single\u2011step operations either overshoot (6 \u00d7 36 = 216) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>6 + 36</answer>"
+  },
+  {
+    "nums": [
+      48,
+      65
+    ],
+    "target": 113,
+    "chain_of_thought": "<think>We need 113. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 48 + 65 = 113. Other single\u2011step operations either overshoot (48 \u00d7 65 = 3120) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>48 + 65</answer>"
+  },
+  {
+    "nums": [
+      23,
+      41
+    ],
+    "target": -18,
+    "chain_of_thought": "<think>Because -18 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 23 - 41 = -18. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>23 - 41</answer>"
+  },
+  {
+    "nums": [
+      30,
+      9
+    ],
+    "target": 21,
+    "chain_of_thought": "<think>Because 21 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 30 - 9 = 21. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>30 - 9</answer>"
+  },
+  {
+    "nums": [
+      67,
+      2
+    ],
+    "target": 134,
+    "chain_of_thought": "<think>Notice that the target 134 is far larger than either addend and precisely equals their product: 67 \u00d7 2 = 134. Sums or differences give 69/65/-65, divisions fractions. Multiplication is the only operation that lands on 134.</think>",
+    "answer": "<answer>67 * 2</answer>"
+  },
+  {
+    "nums": [
+      67,
+      73
+    ],
+    "target": -6,
+    "chain_of_thought": "<think>Because -6 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 67 - 73 = -6. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>67 - 73</answer>"
+  },
+  {
+    "nums": [
+      6,
+      87
+    ],
+    "target": 93,
+    "chain_of_thought": "<think>We need 93. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 6 + 87 = 93. Other single\u2011step operations either overshoot (6 \u00d7 87 = 522) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>6 + 87</answer>"
+  },
+  {
+    "nums": [
+      71,
+      18
+    ],
+    "target": 53,
+    "chain_of_thought": "<think>Because 53 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 71 - 18 = 53. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>71 - 18</answer>"
+  },
+  {
+    "nums": [
+      49,
+      14
+    ],
+    "target": 35,
+    "chain_of_thought": "<think>Because 35 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 49 - 14 = 35. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>49 - 14</answer>"
+  },
+  {
+    "nums": [
+      17,
+      91
+    ],
+    "target": 108,
+    "chain_of_thought": "<think>We need 108. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 17 + 91 = 108. Other single\u2011step operations either overshoot (17 \u00d7 91 = 1547) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>17 + 91</answer>"
+  },
+  {
+    "nums": [
+      84,
+      3
+    ],
+    "target": 28.0,
+    "chain_of_thought": "<think>28.0 is smaller than 84 but larger than 1. Dividing gives 84 \u00f7 3 = 28.0. Addition (87) or subtraction (81/-81) miss, product overshoots. Division provides the exact value.</think>",
+    "answer": "<answer>84 / 3</answer>"
+  },
+  {
+    "nums": [
+      64,
+      29
+    ],
+    "target": 93,
+    "chain_of_thought": "<think>We need 93. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 64 + 29 = 93. Other single\u2011step operations either overshoot (64 \u00d7 29 = 1856) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>64 + 29</answer>"
+  },
+  {
+    "nums": [
+      39,
+      30
+    ],
+    "target": 69,
+    "chain_of_thought": "<think>We need 69. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 39 + 30 = 69. Other single\u2011step operations either overshoot (39 \u00d7 30 = 1170) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>39 + 30</answer>"
+  },
+  {
+    "nums": [
+      24,
+      72
+    ],
+    "target": -48,
+    "chain_of_thought": "<think>Because -48 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 24 - 72 = -48. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>24 - 72</answer>"
+  },
+  {
+    "nums": [
+      73,
+      16
+    ],
+    "target": 89,
+    "chain_of_thought": "<think>We need 89. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 73 + 16 = 89. Other single\u2011step operations either overshoot (73 \u00d7 16 = 1168) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>73 + 16</answer>"
+  },
+  {
+    "nums": [
+      94,
+      67
+    ],
+    "target": 161,
+    "chain_of_thought": "<think>We need 161. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 94 + 67 = 161. Other single\u2011step operations either overshoot (94 \u00d7 67 = 6298) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>94 + 67</answer>"
+  },
+  {
+    "nums": [
+      49,
+      30
+    ],
+    "target": 19,
+    "chain_of_thought": "<think>Because 19 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 49 - 30 = 19. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>49 - 30</answer>"
+  },
+  {
+    "nums": [
+      85,
+      93
+    ],
+    "target": -8,
+    "chain_of_thought": "<think>Because -8 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 85 - 93 = -8. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>85 - 93</answer>"
+  },
+  {
+    "nums": [
+      55,
+      33
+    ],
+    "target": 88,
+    "chain_of_thought": "<think>We need 88. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 55 + 33 = 88. Other single\u2011step operations either overshoot (55 \u00d7 33 = 1815) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>55 + 33</answer>"
+  },
+  {
+    "nums": [
+      74,
+      80
+    ],
+    "target": 154,
+    "chain_of_thought": "<think>We need 154. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 74 + 80 = 154. Other single\u2011step operations either overshoot (74 \u00d7 80 = 5920) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>74 + 80</answer>"
+  },
+  {
+    "nums": [
+      99,
+      99
+    ],
+    "target": 1.0,
+    "chain_of_thought": "<think>1.0 is smaller than 99 but larger than 1. Dividing gives 99 \u00f7 99 = 1.0. Addition (198) or subtraction (0/0) miss, product overshoots. Division provides the exact value.</think>",
+    "answer": "<answer>99 / 99</answer>"
+  },
+  {
+    "nums": [
+      78,
+      85
+    ],
+    "target": 163,
+    "chain_of_thought": "<think>We need 163. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 78 + 85 = 163. Other single\u2011step operations either overshoot (78 \u00d7 85 = 6630) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>78 + 85</answer>"
+  },
+  {
+    "nums": [
+      77,
+      29
+    ],
+    "target": 48,
+    "chain_of_thought": "<think>Because 48 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 77 - 29 = 48. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>77 - 29</answer>"
+  },
+  {
+    "nums": [
+      32,
+      55
+    ],
+    "target": -23,
+    "chain_of_thought": "<think>Because -23 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 32 - 55 = -23. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>32 - 55</answer>"
+  },
+  {
+    "nums": [
+      64,
+      72
+    ],
+    "target": -8,
+    "chain_of_thought": "<think>Because -8 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 64 - 72 = -8. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>64 - 72</answer>"
+  },
+  {
+    "nums": [
+      43,
+      52
+    ],
+    "target": -9,
+    "chain_of_thought": "<think>Because -9 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 43 - 52 = -9. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>43 - 52</answer>"
+  },
+  {
+    "nums": [
+      90,
+      81
+    ],
+    "target": 171,
+    "chain_of_thought": "<think>We need 171. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 90 + 81 = 171. Other single\u2011step operations either overshoot (90 \u00d7 81 = 7290) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>90 + 81</answer>"
+  },
+  {
+    "nums": [
+      59,
+      64
+    ],
+    "target": -5,
+    "chain_of_thought": "<think>Because -5 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 59 - 64 = -5. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>59 - 64</answer>"
+  },
+  {
+    "nums": [
+      9,
+      52
+    ],
+    "target": -43,
+    "chain_of_thought": "<think>Because -43 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 9 - 52 = -43. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>9 - 52</answer>"
+  },
+  {
+    "nums": [
+      67,
+      31
+    ],
+    "target": 36,
+    "chain_of_thought": "<think>Because 36 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 67 - 31 = 36. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>67 - 31</answer>"
+  },
+  {
+    "nums": [
+      5,
+      62
+    ],
+    "target": -57,
+    "chain_of_thought": "<think>Because -57 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 5 - 62 = -57. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>5 - 62</answer>"
+  },
+  {
+    "nums": [
+      17,
+      61
+    ],
+    "target": -44,
+    "chain_of_thought": "<think>Because -44 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 17 - 61 = -44. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>17 - 61</answer>"
+  },
+  {
+    "nums": [
+      40,
+      55
+    ],
+    "target": 95,
+    "chain_of_thought": "<think>We need 95. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 40 + 55 = 95. Other single\u2011step operations either overshoot (40 \u00d7 55 = 2200) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>40 + 55</answer>"
+  },
+  {
+    "nums": [
+      34,
+      47
+    ],
+    "target": -13,
+    "chain_of_thought": "<think>Because -13 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 34 - 47 = -13. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>34 - 47</answer>"
+  },
+  {
+    "nums": [
+      100,
+      86
+    ],
+    "target": 186,
+    "chain_of_thought": "<think>We need 186. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 100 + 86 = 186. Other single\u2011step operations either overshoot (100 \u00d7 86 = 8600) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>100 + 86</answer>"
+  },
+  {
+    "nums": [
+      56,
+      80
+    ],
+    "target": -24,
+    "chain_of_thought": "<think>Because -24 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 56 - 80 = -24. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>56 - 80</answer>"
+  },
+  {
+    "nums": [
+      1,
+      91
+    ],
+    "target": 92,
+    "chain_of_thought": "<think>We need 92. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 1 + 91 = 92. Other single\u2011step operations either overshoot (1 \u00d7 91 = 91) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>1 + 91</answer>"
+  },
+  {
+    "nums": [
+      52,
+      50
+    ],
+    "target": 102,
+    "chain_of_thought": "<think>We need 102. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 52 + 50 = 102. Other single\u2011step operations either overshoot (52 \u00d7 50 = 2600) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>52 + 50</answer>"
+  },
+  {
+    "nums": [
+      86,
+      36
+    ],
+    "target": 122,
+    "chain_of_thought": "<think>We need 122. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 86 + 36 = 122. Other single\u2011step operations either overshoot (86 \u00d7 36 = 3096) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>86 + 36</answer>"
+  },
+  {
+    "nums": [
+      56,
+      98
+    ],
+    "target": -42,
+    "chain_of_thought": "<think>Because -42 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 56 - 98 = -42. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>56 - 98</answer>"
+  },
+  {
+    "nums": [
+      14,
+      46
+    ],
+    "target": -32,
+    "chain_of_thought": "<think>Because -32 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 14 - 46 = -32. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>14 - 46</answer>"
+  },
+  {
+    "nums": [
+      72,
+      22
+    ],
+    "target": 50,
+    "chain_of_thought": "<think>Because 50 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 72 - 22 = 50. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>72 - 22</answer>"
+  },
+  {
+    "nums": [
+      66,
+      46
+    ],
+    "target": 20,
+    "chain_of_thought": "<think>Because 20 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 66 - 46 = 20. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>66 - 46</answer>"
+  },
+  {
+    "nums": [
+      44,
+      52
+    ],
+    "target": -8,
+    "chain_of_thought": "<think>Because -8 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 44 - 52 = -8. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>44 - 52</answer>"
+  },
+  {
+    "nums": [
+      30,
+      71
+    ],
+    "target": -41,
+    "chain_of_thought": "<think>Because -41 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 30 - 71 = -41. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>30 - 71</answer>"
+  },
+  {
+    "nums": [
+      74,
+      84
+    ],
+    "target": -10,
+    "chain_of_thought": "<think>Because -10 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 74 - 84 = -10. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>74 - 84</answer>"
+  },
+  {
+    "nums": [
+      91,
+      7
+    ],
+    "target": 98,
+    "chain_of_thought": "<think>We need 98. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 91 + 7 = 98. Other single\u2011step operations either overshoot (91 \u00d7 7 = 637) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>91 + 7</answer>"
+  },
+  {
+    "nums": [
+      6,
+      83
+    ],
+    "target": 89,
+    "chain_of_thought": "<think>We need 89. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 6 + 83 = 89. Other single\u2011step operations either overshoot (6 \u00d7 83 = 498) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>6 + 83</answer>"
+  },
+  {
+    "nums": [
+      5,
+      94
+    ],
+    "target": -89,
+    "chain_of_thought": "<think>Because -89 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 5 - 94 = -89. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>5 - 94</answer>"
+  },
+  {
+    "nums": [
+      85,
+      36
+    ],
+    "target": 49,
+    "chain_of_thought": "<think>Because 49 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 85 - 36 = 49. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>85 - 36</answer>"
+  },
+  {
+    "nums": [
+      66,
+      36
+    ],
+    "target": 30,
+    "chain_of_thought": "<think>Because 30 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 66 - 36 = 30. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>66 - 36</answer>"
+  },
+  {
+    "nums": [
+      33,
+      33
+    ],
+    "target": 0,
+    "chain_of_thought": "<think>Because 0 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 33 - 33 = 0. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>33 - 33</answer>"
+  },
+  {
+    "nums": [
+      37,
+      33
+    ],
+    "target": 4,
+    "chain_of_thought": "<think>Because 4 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 37 - 33 = 4. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>37 - 33</answer>"
+  },
+  {
+    "nums": [
+      65,
+      25
+    ],
+    "target": 90,
+    "chain_of_thought": "<think>We need 90. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 65 + 25 = 90. Other single\u2011step operations either overshoot (65 \u00d7 25 = 1625) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>65 + 25</answer>"
+  },
+  {
+    "nums": [
+      26,
+      16
+    ],
+    "target": 10,
+    "chain_of_thought": "<think>Because 10 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 26 - 16 = 10. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>26 - 16</answer>"
+  },
+  {
+    "nums": [
+      93,
+      80
+    ],
+    "target": 173,
+    "chain_of_thought": "<think>We need 173. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 93 + 80 = 173. Other single\u2011step operations either overshoot (93 \u00d7 80 = 7440) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>93 + 80</answer>"
+  },
+  {
+    "nums": [
+      57,
+      5
+    ],
+    "target": 52,
+    "chain_of_thought": "<think>Because 52 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 57 - 5 = 52. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>57 - 5</answer>"
+  },
+  {
+    "nums": [
+      58,
+      55
+    ],
+    "target": 113,
+    "chain_of_thought": "<think>We need 113. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 58 + 55 = 113. Other single\u2011step operations either overshoot (58 \u00d7 55 = 3190) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>58 + 55</answer>"
+  },
+  {
+    "nums": [
+      31,
+      57
+    ],
+    "target": -26,
+    "chain_of_thought": "<think>Because -26 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 31 - 57 = -26. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>31 - 57</answer>"
+  },
+  {
+    "nums": [
+      30,
+      56
+    ],
+    "target": 86,
+    "chain_of_thought": "<think>We need 86. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 30 + 56 = 86. Other single\u2011step operations either overshoot (30 \u00d7 56 = 1680) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>30 + 56</answer>"
+  },
+  {
+    "nums": [
+      50,
+      40
+    ],
+    "target": 90,
+    "chain_of_thought": "<think>We need 90. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 50 + 40 = 90. Other single\u2011step operations either overshoot (50 \u00d7 40 = 2000) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>50 + 40</answer>"
+  },
+  {
+    "nums": [
+      81,
+      74
+    ],
+    "target": 7,
+    "chain_of_thought": "<think>Because 7 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 81 - 74 = 7. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>81 - 74</answer>"
+  },
+  {
+    "nums": [
+      13,
+      59
+    ],
+    "target": -46,
+    "chain_of_thought": "<think>Because -46 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 13 - 59 = -46. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>13 - 59</answer>"
+  },
+  {
+    "nums": [
+      22,
+      89
+    ],
+    "target": -67,
+    "chain_of_thought": "<think>Because -67 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 22 - 89 = -67. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>22 - 89</answer>"
+  },
+  {
+    "nums": [
+      44,
+      27
+    ],
+    "target": 71,
+    "chain_of_thought": "<think>We need 71. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 44 + 27 = 71. Other single\u2011step operations either overshoot (44 \u00d7 27 = 1188) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>44 + 27</answer>"
+  },
+  {
+    "nums": [
+      59,
+      92
+    ],
+    "target": -33,
+    "chain_of_thought": "<think>Because -33 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 59 - 92 = -33. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>59 - 92</answer>"
+  },
+  {
+    "nums": [
+      77,
+      73
+    ],
+    "target": 150,
+    "chain_of_thought": "<think>We need 150. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 77 + 73 = 150. Other single\u2011step operations either overshoot (77 \u00d7 73 = 5621) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>77 + 73</answer>"
+  },
+  {
+    "nums": [
+      67,
+      3
+    ],
+    "target": 70,
+    "chain_of_thought": "<think>We need 70. The quickest check is whether a simple addition of the two inputs matches the goal. Indeed, 67 + 3 = 70. Other single\u2011step operations either overshoot (67 \u00d7 3 = 201) or give a value too small or fractional. Therefore addition is the direct solution. Verified.</think>",
+    "answer": "<answer>67 + 3</answer>"
+  },
+  {
+    "nums": [
+      97,
+      3
+    ],
+    "target": 94,
+    "chain_of_thought": "<think>Because 94 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 97 - 3 = 94. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>97 - 3</answer>"
+  },
+  {
+    "nums": [
+      45,
+      2
+    ],
+    "target": 43,
+    "chain_of_thought": "<think>Because 43 is positive and smaller than the larger number, consider a difference. Subtracting the smaller value from the larger yields 45 - 2 = 43. Reverse subtraction, multiplication, or division do not hit the target. So this difference is the unique one\u2011step match.</think>",
+    "answer": "<answer>45 - 2</answer>"
+  }
+]
